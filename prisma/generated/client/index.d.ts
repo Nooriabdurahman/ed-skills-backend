@@ -6481,7 +6481,7 @@ export namespace Prisma {
     text?: string | null
     url?: string | null
     createdAt?: Date | string
-    course: CourseCreateNestedOneWithoutLessonsInput | undefined
+    course: CourseCreateNestedOneWithoutLessonsInput
   }
 
   export type CourseLessonUncheckedCreateInput = {
@@ -6490,7 +6490,7 @@ export namespace Prisma {
     content?: string | null
     text?: string | null
     url?: string | null
-    courseId: number | undefined
+    courseId: number
     createdAt?: Date | string
   }
 
