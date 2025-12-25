@@ -9,24 +9,59 @@ datasource db {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  email     String   @unique
-  username  String   @unique
-  password  String
-  age       Int?
-  interests String[] // array of strings to store multiple interests
-  createdAt DateTime @default(now())
-  profile   Profile?
+  id             Int      @id @default(autoincrement())
+  email          String   @unique
+  username       String   @unique
+  password       String
+  age            Int?
+  profilePicture String?  // لینک عکس ذخیره شده در MinIO
+  bio            String?  // اطلاعات پایه / بیوگرافی
+  interests      String[] // array of strings to store multiple interests
+  createdAt      DateTime @default(now())
 }
 
-model Profile {
-  id              Int      @id @default(autoincrement())
-  user            User     @relation(fields: [userId], references: [id])
-  userId          Int      @unique
-  profilePicture  String?  // لینک عکس ذخیره شده در MinIO
-  certifications  String[] @default([]) // لیست مدارک کاربر
-  badges          String[] @default([]) // لیست نشان‌ها
-  bio             String?  // اطلاعات پایه / بیوگرافی
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+model Course {
+  id                  Int             @id @default(autoincrement())
+  name                String
+  description         String
+  subject             String
+  icon                String?  // URL or file path
+  picture             String?  // URL or file path
+  materialType        String   // "course", "pages", "learning path", "quiz"
+  materialCount       String?  // e.g., "12 chapters"
+  firstRecommendation String?
+  secondRecommendation String?
+  quizTotalScore      Int?
+  quizPassingScore    Int?
+  status              String   // "inProgress", "notStarted"
+  materialStatusType  String   // "StartedQuiz", "StartedCourse", "NotStartedCourse"
+  isCertified         Boolean  @default(false)
+  typeImage           String?  // URL or file path
+  progress            Float?   // 0 to 100
+  duration            String?  // e.g., "5h 30m"
+  lessons             CourseLesson[]  // ← فیلد رابطه‌ای معکوس
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+}
+
+model CourseLesson {
+  id        String   @id @default(uuid())
+  name      String
+  content   String?
+  text      String?
+  url       String?
+  courseId  Int
+  course    Course   @relation(fields: [courseId], references: [id])
+  createdAt DateTime @default(now())
+}
+
+model CourseProgress {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  lessonId  Int
+  completed Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, lessonId])
 }

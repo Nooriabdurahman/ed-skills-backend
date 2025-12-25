@@ -1,0 +1,1 @@
+{"version":3,"file":"progress-controller.d.ts","sourceRoot":"","sources":["../../../src/module/course-progress/progress-controller.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,OAAO,EAAE,QAAQ,EAAE,MAAM,SAAS,CAAC;AAG5C,qBAAa,wBAAwB;WAEtB,aAAa,CAAC,GAAG,EAAE,OAAO,EAAE,GAAG,EAAE,QAAQ;WAmBzC,eAAe,CAAC,GAAG,EAAE,OAAO,EAAE,GAAG,EAAE,QAAQ;CAczD"}

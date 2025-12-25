@@ -126,17 +126,50 @@ exports.Prisma.UserScalarFieldEnum = {
   username: 'username',
   password: 'password',
   age: 'age',
+  profilePicture: 'profilePicture',
+  bio: 'bio',
   interests: 'interests',
   createdAt: 'createdAt'
 };
 
-exports.Prisma.ProfileScalarFieldEnum = {
+exports.Prisma.CourseScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  subject: 'subject',
+  icon: 'icon',
+  picture: 'picture',
+  materialType: 'materialType',
+  materialCount: 'materialCount',
+  firstRecommendation: 'firstRecommendation',
+  secondRecommendation: 'secondRecommendation',
+  quizTotalScore: 'quizTotalScore',
+  quizPassingScore: 'quizPassingScore',
+  status: 'status',
+  materialStatusType: 'materialStatusType',
+  isCertified: 'isCertified',
+  typeImage: 'typeImage',
+  progress: 'progress',
+  duration: 'duration',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.CourseLessonScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  content: 'content',
+  text: 'text',
+  url: 'url',
+  courseId: 'courseId',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.CourseProgressScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
-  profilePicture: 'profilePicture',
-  certifications: 'certifications',
-  badges: 'badges',
-  bio: 'bio',
+  lessonId: 'lessonId',
+  completed: 'completed',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -159,7 +192,9 @@ exports.Prisma.NullsOrder = {
 
 exports.Prisma.ModelName = {
   User: 'User',
-  Profile: 'Profile'
+  Course: 'Course',
+  CourseLesson: 'CourseLesson',
+  CourseProgress: 'CourseProgress'
 };
 
 /**

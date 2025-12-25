@@ -1,0 +1,1 @@
+{"version":3,"file":"generateToken.d.ts","sourceRoot":"","sources":["../../../src/common/utils/generateToken.ts"],"names":[],"mappings":"AAEA,UAAU,OAAO;IACf,EAAE,EAAE,MAAM,CAAC;IACX,KAAK,EAAE,MAAM,CAAC;CACf;AAED,QAAA,MAAM,aAAa,GAAI,MAAM,OAAO,KAAG,MAMtC,CAAC;AAEF,eAAe,aAAa,CAAC"}

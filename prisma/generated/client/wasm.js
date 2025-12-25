@@ -98,17 +98,50 @@ exports.Prisma.UserScalarFieldEnum = {
   username: 'username',
   password: 'password',
   age: 'age',
+  profilePicture: 'profilePicture',
+  bio: 'bio',
   interests: 'interests',
   createdAt: 'createdAt'
 };
 
-exports.Prisma.ProfileScalarFieldEnum = {
+exports.Prisma.CourseScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  subject: 'subject',
+  icon: 'icon',
+  picture: 'picture',
+  materialType: 'materialType',
+  materialCount: 'materialCount',
+  firstRecommendation: 'firstRecommendation',
+  secondRecommendation: 'secondRecommendation',
+  quizTotalScore: 'quizTotalScore',
+  quizPassingScore: 'quizPassingScore',
+  status: 'status',
+  materialStatusType: 'materialStatusType',
+  isCertified: 'isCertified',
+  typeImage: 'typeImage',
+  progress: 'progress',
+  duration: 'duration',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.CourseLessonScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  content: 'content',
+  text: 'text',
+  url: 'url',
+  courseId: 'courseId',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.CourseProgressScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
-  profilePicture: 'profilePicture',
-  certifications: 'certifications',
-  badges: 'badges',
-  bio: 'bio',
+  lessonId: 'lessonId',
+  completed: 'completed',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -131,7 +164,9 @@ exports.Prisma.NullsOrder = {
 
 exports.Prisma.ModelName = {
   User: 'User',
-  Profile: 'Profile'
+  Course: 'Course',
+  CourseLesson: 'CourseLesson',
+  CourseProgress: 'CourseProgress'
 };
 /**
  * Create the Client
@@ -180,13 +215,13 @@ const config = {
       }
     }
   },
-  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"./generated/client\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel User {\n  id        Int      @id @default(autoincrement())\n  email     String   @unique\n  username  String   @unique\n  password  String\n  age       Int?\n  interests String[] // array of strings to store multiple interests\n  createdAt DateTime @default(now())\n  profile   Profile?\n}\n\nmodel Profile {\n  id             Int      @id @default(autoincrement())\n  user           User     @relation(fields: [userId], references: [id])\n  userId         Int      @unique\n  profilePicture String? // لینک عکس ذخیره شده در MinIO\n  certifications String[] @default([]) // لیست مدارک کاربر\n  badges         String[] @default([]) // لیست نشان‌ها\n  bio            String? // اطلاعات پایه / بیوگرافی\n  createdAt      DateTime @default(now())\n  updatedAt      DateTime @updatedAt\n}\n",
-  "inlineSchemaHash": "39028a5fe076e908c48f30620f282ad707cf8133fd8ef8f0dc519dad36633149",
+  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"./generated/client\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel User {\n  id             Int      @id @default(autoincrement())\n  email          String   @unique\n  username       String   @unique\n  password       String\n  age            Int?\n  profilePicture String? // لینک عکس ذخیره شده در MinIO\n  bio            String? // اطلاعات پایه / بیوگرافی\n  interests      String[] // array of strings to store multiple interests\n  createdAt      DateTime @default(now())\n}\n\nmodel Course {\n  id                   Int            @id @default(autoincrement())\n  name                 String\n  description          String\n  subject              String\n  icon                 String? // URL or file path\n  picture              String? // URL or file path\n  materialType         String // \"course\", \"pages\", \"learning path\", \"quiz\"\n  materialCount        String? // e.g., \"12 chapters\"\n  firstRecommendation  String?\n  secondRecommendation String?\n  quizTotalScore       Int?\n  quizPassingScore     Int?\n  status               String // \"inProgress\", \"notStarted\"\n  materialStatusType   String // \"StartedQuiz\", \"StartedCourse\", \"NotStartedCourse\"\n  isCertified          Boolean        @default(false)\n  typeImage            String? // URL or file path\n  progress             Float? // 0 to 100\n  duration             String? // e.g., \"5h 30m\"\n  lessons              CourseLesson[] // ← فیلد رابطه‌ای معکوس\n  createdAt            DateTime       @default(now())\n  updatedAt            DateTime       @updatedAt\n}\n\nmodel CourseLesson {\n  id        String   @id @default(uuid())\n  name      String\n  content   String?\n  text      String?\n  url       String?\n  courseId  Int\n  course    Course   @relation(fields: [courseId], references: [id])\n  createdAt DateTime @default(now())\n}\n\nmodel CourseProgress {\n  id        Int      @id @default(autoincrement())\n  userId    Int\n  lessonId  Int\n  completed Boolean  @default(false)\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  @@unique([userId, lessonId])\n}\n",
+  "inlineSchemaHash": "7654a30c4adeebd0eb355f485b0b05bf742ae9432ede1c6a0ab96d4ca424a78b",
   "copyEngine": true
 }
 config.dirname = '/'
 
-config.runtimeDataModel = JSON.parse("{\"models\":{\"User\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"username\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"password\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"age\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"interests\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"profile\",\"kind\":\"object\",\"type\":\"Profile\",\"relationName\":\"ProfileToUser\"}],\"dbName\":null},\"Profile\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"ProfileToUser\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"profilePicture\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"certifications\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"badges\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"bio\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
+config.runtimeDataModel = JSON.parse("{\"models\":{\"User\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"username\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"password\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"age\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"profilePicture\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"bio\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"interests\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"Course\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"subject\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"icon\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"picture\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"materialType\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"materialCount\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"firstRecommendation\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"secondRecommendation\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"quizTotalScore\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"quizPassingScore\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"status\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"materialStatusType\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"isCertified\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"typeImage\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"progress\",\"kind\":\"scalar\",\"type\":\"Float\"},{\"name\":\"duration\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"lessons\",\"kind\":\"object\",\"type\":\"CourseLesson\",\"relationName\":\"CourseToCourseLesson\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"CourseLesson\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"content\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"text\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"url\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"courseId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"course\",\"kind\":\"object\",\"type\":\"Course\",\"relationName\":\"CourseToCourseLesson\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"CourseProgress\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"lessonId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"completed\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
 defineDmmfProperty(exports.Prisma, config.runtimeDataModel)
 config.engineWasm = {
   getRuntime: async () => require('./query_engine_bg.js'),

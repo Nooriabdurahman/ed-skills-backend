@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>API Test Panel</title>
+
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #f4f6fc;
+    margin: 0;
+    padding: 20px;
+  }
+
+  h1 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #333;
+  }
+
+  .panel {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 14px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    margin-bottom: 30px;
+  }
+
+  h2 {
+    margin-top: 0;
+    color: #444;
+  }
+
+  input, textarea, select {
+    width: 100%;
+    padding: 10px;
+    margin: 7px 0 15px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+  }
+
+  button {
+    background: #4a6cf7;
+    color: white;
+    border: none;
+    padding: 12px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: 0.3s ease;
+  }
+  button:hover {
+    background: #2f52e0;
+  }
+
+  pre {
+    background: #1e1e1e;
+    color: #aee6ff;
+    padding: 12px;
+    border-radius: 8px;
+    overflow-x: auto;
+    font-size: 13px;
+  }
+</style>
+</head>
+<body>
+
+<h1>Backend API Tester</h1>
+
+<script>
+  const API_URL = "http://localhost:2040";
+</script>
+
+<!-- ─────────────────── USER CREATE ─────────────────── -->
+<div class="panel">
+  <h2>Create User</h2>
+  <input id="username" placeholder="Username" />
+  <input id="email" placeholder="Email" />
+  <input id="password" type="password" placeholder="Password" />
+  <input id="age" type="number" placeholder="Age" />
+  <input id="interests" placeholder="Interests (comma separated)" />
+
+  <button onclick="createUser()">Create User</button>
+  <pre id="createUserResult"></pre>
+</div>
+
+<!-- ─────────────────── LOGIN ─────────────────── -->
+<div class="panel">
+  <h2>Login User</h2>
+  <input id="loginEmail" placeholder="Email" />
+  <input id="loginPassword" type="password" placeholder="Password" />
+  <button onclick="loginUser()">Login</button>
+  <pre id="loginResult"></pre>
+</div>
+
+<!-- ─────────────────── GET USERS ─────────────────── -->
+<div class="panel">
+  <h2>Get All Users</h2>
+  <button onclick="getUsers()">Get Users</button>
+  <pre id="usersResult"></pre>
+</div>
+
+<!-- ─────────────────── GET PROFILE ─────────────────── -->
+<div class="panel">
+  <h2>Get Profile by User ID</h2>
+  <input id="profileUserId" placeholder="User ID" />
+  <button onclick="getProfile()">Get Profile</button>
+  <pre id="profileResult"></pre>
+</div>
+
+<!-- ─────────────────── UPDATE PROFILE ─────────────────── -->
+<div class="panel">
+  <h2>Update Profile</h2>
+  <input id="updateUserId" placeholder="User ID" />
+  <textarea id="bio" placeholder="Bio"></textarea>
+  <textarea id="badges" placeholder="Badges (comma separated)"></textarea>
+  <textarea id="certifications" placeholder="Certifications (comma separated)"></textarea>
+  <button onclick="updateProfile()">Update Profile</button>
+  <pre id="updateProfileResult"></pre>
+</div>
+
+<!-- ─────────────────── UPLOAD PROFILE PICTURE ─────────────────── -->
+<div class="panel">
+  <h2>Upload Profile Picture</h2>
+  <input id="uploadUserId" placeholder="User ID" />
+  <input id="profileFile" type="file" />
+  <button onclick="uploadPicture()">Upload Picture</button>
+  <pre id="uploadResult"></pre>
+</div>
+
+<!-- ───────────────────  COURSE CREATE  ─────────────────── -->
+<div class="panel">
+  <h2>Create Course</h2>
+
+  <input id="cName" placeholder="Course Name" />
+  <textarea id="cDescription" placeholder="Description"></textarea>
+  <input id="cSubject" placeholder="Subject" />
+  <input id="cMaterialType" placeholder="Material Type" />
+  <input id="cMaterialCount" placeholder="Material Count" />
+  <input id="cFirst" placeholder="First Recommendation" />
+  <input id="cSecond" placeholder="Second Recommendation" />
+  <input id="cTotalScore" placeholder="Total Score" type="number" />
+  <input id="cPassingScore" placeholder="Passing Score" type="number" />
+  <input id="cStatus" placeholder="Status" />
+  <input id="cMaterialStatus" placeholder="Material Status" />
+  <input id="cIsCertified" placeholder="Is Certified? (true/false)" />
+  <input id="cType" placeholder="Type" />
+  <input id="cProgress" placeholder="Progress" type="number" />
+  <input id="cDuration" placeholder="Duration" />
+
+  <label>Upload Course File</label>
+  <input id="cFile" type="file" />
+
+  <button onclick="createCourse()">Create Course</button>
+
+  <pre id="courseCreateResult"></pre>
+</div>
+
+<!-- ─────────────────── GET ALL COURSES ─────────────────── -->
+<div class="panel">
+  <h2>Get All Courses</h2>
+  <button onclick="getCourses()">Fetch Courses</button>
+  <pre id="allCoursesResult"></pre>
+</div>
+
+<script>
+  async function createUser() {
+    const res = await fetch(`${API_URL}/users`, {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({
+        username: username.value,
+        email: email.value,
+        password: password.value,
+        age: Number(age.value),
+        interests: interests.value.split(",").map(i=>i.trim())
+      })
+    });
+    createUserResult.textContent = JSON.stringify(await res.json(), null, 2);
+  }
+
+  async function loginUser() {
+    const res = await fetch(`${API_URL}/login`, {
+      method: "POST",
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({
+        email: loginEmail.value,
+        password: loginPassword.value
+      })
+    });
+    loginResult.textContent = JSON.stringify(await res.json(), null, 2);
+  }
+
+  async function getUsers() {
+    const res = await fetch(`${API_URL}/users`);
+    usersResult.textContent = JSON.stringify(await res.json(), null, 2);
+  }
+
+  async function getProfile() {
+    const res = await fetch(`${API_URL}/profile/${profileUserId.value}`);
+    profileResult.textContent = JSON.stringify(await res.json(), null, 2);
+  }
+
+  async function updateProfile() {
+    const res = await fetch(`${API_URL}/profile/update`, {
+      method: 'PUT',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({
+        userId: updateUserId.value,
+        bio: bio.value,
+        badges: badges.value.split(',').map(i=>i.trim()),
+        certifications: certifications.value.split(',').map(i=>i.trim())
+      })
+    });
+    updateProfileResult.textContent = JSON.stringify(await res.json(), null, 2);
+  }
+
+  async function uploadPicture() {
+    let fd = new FormData();
+    fd.append("userId", uploadUserId.value);
+    fd.append("file", profileFile.files[0]);
+
+    const res = await fetch(`${API_URL}/profile/upload-picture`, {
+      method: "POST",
+      body: fd
+    });
+    uploadResult.textContent = JSON.stringify(await res.json(), null, 2);
+  }
+
+  // ───────────────────────────── COURSE CREATE ─────────────────────────────
+  async function createCourse() {
+    const fd = new FormData();
+    fd.append("name", cName.value);
+    fd.append("description", cDescription.value);
+    fd.append("subject", cSubject.value);
+    fd.append("materialType", cMaterialType.value);
+    fd.append("materialCount", cMaterialCount.value);
+    fd.append("firstRecommendation", cFirst.value);
+    fd.append("secondRecommendation", cSecond.value);
+    fd.append("totalScore", cTotalScore.value);
+    fd.append("passingScore", cPassingScore.value);
+    fd.append("status", cStatus.value);
+    fd.append("materialStatus", cMaterialStatus.value);
+    fd.append("isCertified", cIsCertified.value);
+    fd.append("type", cType.value);
+    fd.append("progress", cProgress.value);
+    fd.append("duration", cDuration.value);
+    if (cFile.files.length > 0) fd.append("file", cFile.files[0]);
+
+    const res = await fetch(`${API_URL}/courses/courses`, {
+      method: "POST",
+      body: fd
+    });
+
+    courseCreateResult.textContent = JSON.stringify(await res.json(), null, 2);
+  }
+
+  async function getCourses() {
+    const res = await fetch(`${API_URL}/courses/courses`);
+    allCoursesResult.textContent = JSON.stringify(await res.json(), null, 2);
+  }
+</script>
+
+</body>
+</html>
