@@ -1193,6 +1193,7 @@ export namespace Prisma {
     age: number | null
     profilePicture: string | null
     bio: string | null
+    skills: string | null
     createdAt: Date | null
   }
 
@@ -1204,6 +1205,7 @@ export namespace Prisma {
     age: number | null
     profilePicture: string | null
     bio: string | null
+    skills: string | null
     createdAt: Date | null
   }
 
@@ -1216,6 +1218,7 @@ export namespace Prisma {
     profilePicture: number
     bio: number
     interests: number
+    skills: number
     createdAt: number
     _all: number
   }
@@ -1239,6 +1242,7 @@ export namespace Prisma {
     age?: true
     profilePicture?: true
     bio?: true
+    skills?: true
     createdAt?: true
   }
 
@@ -1250,6 +1254,7 @@ export namespace Prisma {
     age?: true
     profilePicture?: true
     bio?: true
+    skills?: true
     createdAt?: true
   }
 
@@ -1262,6 +1267,7 @@ export namespace Prisma {
     profilePicture?: true
     bio?: true
     interests?: true
+    skills?: true
     createdAt?: true
     _all?: true
   }
@@ -1361,6 +1367,7 @@ export namespace Prisma {
     profilePicture: string | null
     bio: string | null
     interests: string[]
+    skills: string | null
     createdAt: Date
     _count: UserCountAggregateOutputType | null
     _avg: UserAvgAggregateOutputType | null
@@ -1392,6 +1399,7 @@ export namespace Prisma {
     profilePicture?: boolean
     bio?: boolean
     interests?: boolean
+    skills?: boolean
     createdAt?: boolean
   }, ExtArgs["result"]["user"]>
 
@@ -1404,6 +1412,7 @@ export namespace Prisma {
     profilePicture?: boolean
     bio?: boolean
     interests?: boolean
+    skills?: boolean
     createdAt?: boolean
   }, ExtArgs["result"]["user"]>
 
@@ -1416,6 +1425,7 @@ export namespace Prisma {
     profilePicture?: boolean
     bio?: boolean
     interests?: boolean
+    skills?: boolean
     createdAt?: boolean
   }, ExtArgs["result"]["user"]>
 
@@ -1428,10 +1438,11 @@ export namespace Prisma {
     profilePicture?: boolean
     bio?: boolean
     interests?: boolean
+    skills?: boolean
     createdAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "username" | "password" | "age" | "profilePicture" | "bio" | "interests" | "createdAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "username" | "password" | "age" | "profilePicture" | "bio" | "interests" | "skills" | "createdAt", ExtArgs["result"]["user"]>
 
   export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "User"
@@ -1445,6 +1456,7 @@ export namespace Prisma {
       profilePicture: string | null
       bio: string | null
       interests: string[]
+      skills: string | null
       createdAt: Date
     }, ExtArgs["result"]["user"]>
     composites: {}
@@ -1877,6 +1889,7 @@ export namespace Prisma {
     readonly profilePicture: FieldRef<"User", 'String'>
     readonly bio: FieldRef<"User", 'String'>
     readonly interests: FieldRef<"User", 'String[]'>
+    readonly skills: FieldRef<"User", 'String'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
   }
     
@@ -5746,6 +5759,7 @@ export namespace Prisma {
     profilePicture: 'profilePicture',
     bio: 'bio',
     interests: 'interests',
+    skills: 'skills',
     createdAt: 'createdAt'
   };
 
@@ -5910,6 +5924,7 @@ export namespace Prisma {
     profilePicture?: StringNullableFilter<"User"> | string | null
     bio?: StringNullableFilter<"User"> | string | null
     interests?: StringNullableListFilter<"User">
+    skills?: StringNullableFilter<"User"> | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
   }
 
@@ -5922,6 +5937,7 @@ export namespace Prisma {
     profilePicture?: SortOrderInput | SortOrder
     bio?: SortOrderInput | SortOrder
     interests?: SortOrder
+    skills?: SortOrderInput | SortOrder
     createdAt?: SortOrder
   }
 
@@ -5937,6 +5953,7 @@ export namespace Prisma {
     profilePicture?: StringNullableFilter<"User"> | string | null
     bio?: StringNullableFilter<"User"> | string | null
     interests?: StringNullableListFilter<"User">
+    skills?: StringNullableFilter<"User"> | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
   }, "id" | "email" | "username">
 
@@ -5949,6 +5966,7 @@ export namespace Prisma {
     profilePicture?: SortOrderInput | SortOrder
     bio?: SortOrderInput | SortOrder
     interests?: SortOrder
+    skills?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     _count?: UserCountOrderByAggregateInput
     _avg?: UserAvgOrderByAggregateInput
@@ -5969,6 +5987,7 @@ export namespace Prisma {
     profilePicture?: StringNullableWithAggregatesFilter<"User"> | string | null
     bio?: StringNullableWithAggregatesFilter<"User"> | string | null
     interests?: StringNullableListFilter<"User">
+    skills?: StringNullableWithAggregatesFilter<"User"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
   }
 
@@ -6239,6 +6258,7 @@ export namespace Prisma {
     profilePicture?: string | null
     bio?: string | null
     interests?: UserCreateinterestsInput | string[]
+    skills?: string | null
     createdAt?: Date | string
   }
 
@@ -6251,6 +6271,7 @@ export namespace Prisma {
     profilePicture?: string | null
     bio?: string | null
     interests?: UserCreateinterestsInput | string[]
+    skills?: string | null
     createdAt?: Date | string
   }
 
@@ -6262,6 +6283,7 @@ export namespace Prisma {
     profilePicture?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     interests?: UserUpdateinterestsInput | string[]
+    skills?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -6274,6 +6296,7 @@ export namespace Prisma {
     profilePicture?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     interests?: UserUpdateinterestsInput | string[]
+    skills?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -6286,6 +6309,7 @@ export namespace Prisma {
     profilePicture?: string | null
     bio?: string | null
     interests?: UserCreateinterestsInput | string[]
+    skills?: string | null
     createdAt?: Date | string
   }
 
@@ -6297,6 +6321,7 @@ export namespace Prisma {
     profilePicture?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     interests?: UserUpdateinterestsInput | string[]
+    skills?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -6309,6 +6334,7 @@ export namespace Prisma {
     profilePicture?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     interests?: UserUpdateinterestsInput | string[]
+    skills?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -6688,6 +6714,7 @@ export namespace Prisma {
     profilePicture?: SortOrder
     bio?: SortOrder
     interests?: SortOrder
+    skills?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -6704,6 +6731,7 @@ export namespace Prisma {
     age?: SortOrder
     profilePicture?: SortOrder
     bio?: SortOrder
+    skills?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -6715,6 +6743,7 @@ export namespace Prisma {
     age?: SortOrder
     profilePicture?: SortOrder
     bio?: SortOrder
+    skills?: SortOrder
     createdAt?: SortOrder
   }
 

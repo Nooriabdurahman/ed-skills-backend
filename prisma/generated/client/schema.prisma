@@ -14,9 +14,10 @@ model User {
   username       String   @unique
   password       String
   age            Int?
-  profilePicture String? // لینک عکس ذخیره شده در MinIO
-  bio            String? // اطلاعات پایه / بیوگرافی
-  interests      String[] // array of strings to store multiple interests
+  profilePicture String?
+  bio            String?
+  interests      String[]
+  skills         String? // اضافه کن skills
   createdAt      DateTime @default(now())
 }
 

@@ -37,7 +37,7 @@ export const getUserById = async (req: Request, res: Response): Promise<void> =>
 };
 
 export const createUser = async (req: Request, res: Response): Promise<void> => {
-  const { email, username, password, age, interests } = req.body;
+  const { email, username, password, age, interests, skills } = req.body;
 
   try {
     const existingUser = await prisma.user.findUnique({ where: { email } });
@@ -48,7 +48,7 @@ export const createUser = async (req: Request, res: Response): Promise<void> => 
 
     const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = await prisma.user.create({
-      data: { email, username, password: hashedPassword, age, interests },
+      data: { email, username, password: hashedPassword, age, interests, skills },
     });
 
     const token = generateToken(newUser);
@@ -86,7 +86,7 @@ export const loginUser = async (req: Request, res: Response): Promise<void> => {
 
 export const updateUser = async (req: Request, res: Response): Promise<void> => {
   const { id } = req.params;
-  const { email, username, password, age, interests } = req.body;
+  const { email, username, password, age, interests, skills } = req.body;
 
   try {
     const user = await prisma.user.findUnique({ where: { id: Number(id) } });
@@ -101,6 +101,7 @@ export const updateUser = async (req: Request, res: Response): Promise<void> => 
     if (password) updatedData.password = await bcrypt.hash(password, 10);
     if (age !== undefined) updatedData.age = age;
     if (interests !== undefined) updatedData.interests = interests;
+    if (skills !== undefined) updatedData.skills = skills;
 
     const updatedUser = await prisma.user.update({
       where: { id: Number(id) },
