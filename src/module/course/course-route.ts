@@ -4,7 +4,7 @@ import crypto from 'crypto';
 import path from 'path';
 import fs from 'fs';
 import prisma from '../../common/config/database/prisma';
-import minioClient from '../../common/config/miniio';
+import { put } from '@vercel/blob';
 
 const router = express.Router();
 const upload = multer({ dest: 'tmp/' }); // Temporary storage for multer
@@ -69,10 +69,13 @@ router.post('/courses', upload.single('file'), async (req, res) => {
     let fileUrl = null;
 
     if (req.file) {
-      // Upload file to MinIO
+      // Upload file to Vercel Blob
       const fileName = crypto.randomBytes(16).toString('hex') + path.extname(req.file.originalname);
-      await minioClient.putObject('course-materials', fileName, fs.readFileSync(req.file.path));
-      fileUrl = `${process.env.MINIO_ENDPOINT || 'http://127.0.0.1:9000'}/course-materials/${fileName}`;
+      const result = await put(fileName, fs.readFileSync(req.file.path), {
+        access: 'public',
+        addRandomSuffix: true
+      });
+      fileUrl = result.url; // URL فایل آپلود شده
       fs.unlinkSync(req.file.path); // Remove temp file
     }
 
@@ -85,19 +88,14 @@ router.post('/courses', upload.single('file'), async (req, res) => {
         materialCount,
         firstRecommendation,
         secondRecommendation,
-        // schema fields use quizTotalScore / quizPassingScore
         quizTotalScore: totalScore ? Number(totalScore) : null,
         quizPassingScore: passingScore ? Number(passingScore) : null,
         status,
-        // schema field name is materialStatusType
         materialStatusType: materialStatus,
         isCertified: isCertified === 'true',
-        // store uploaded file URL in picture (optional string)
         picture: fileUrl,
-        // typeImage is the closest match for incoming `type`
         typeImage: type,
         progress: progress ? Number(progress) : 0,
-        // store duration as text to match prisma schema (String?)
         duration: duration ?? null
       }
     });
