@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getProfileByUser = exports.updateProfile = exports.uploadProfilePicture = void 0;
+exports.uploadProfilePicture = void 0;
 const prisma_1 = __importDefault(require("../../common/config/database/prisma"));
 const blob_1 = require("@vercel/blob");
 const crypto_1 = __importDefault(require("crypto"));
@@ -36,50 +36,4 @@ const uploadProfilePicture = async (req, res) => {
     }
 };
 exports.uploadProfilePicture = uploadProfilePicture;
-// به‌روزرسانی اطلاعات پایه، بیو و علایق
-const updateProfile = async (req, res) => {
-    const { userId, bio, interests } = req.body;
-    try {
-        const user = await prisma_1.default.user.update({
-            where: { id: Number(userId) },
-            data: {
-                bio: bio || undefined,
-                interests: interests || undefined
-            },
-        });
-        res.json({ user });
-    }
-    catch (err) {
-        console.error(err);
-        res.status(500).json({ error: 'به‌روزرسانی پروفایل موفق نبود' });
-    }
-};
-exports.updateProfile = updateProfile;
-// گرفتن پروفایل یک کاربر
-const getProfileByUser = async (req, res) => {
-    const { userId } = req.params;
-    try {
-        const user = await prisma_1.default.user.findUnique({
-            where: { id: Number(userId) },
-            select: {
-                id: true,
-                email: true,
-                username: true,
-                age: true,
-                profilePicture: true,
-                bio: true,
-                interests: true,
-                createdAt: true
-            }
-        });
-        if (!user)
-            return res.status(404).json({ error: 'پروفایل یافت نشد' });
-        return res.json({ user });
-    }
-    catch (err) {
-        console.error(err);
-        return res.status(500).json({ error: 'خطا در گرفتن پروفایل' });
-    }
-};
-exports.getProfileByUser = getProfileByUser;
-//# sourceMappingURL=profile-services.js.map
+//# sourceMappingURL=bloob.js.map

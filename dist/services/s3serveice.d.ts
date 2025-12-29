@@ -11,6 +11,7 @@ export declare function uploadProfilePicture(buffer: Buffer, originalName: strin
         profilePicture: string | null;
         bio: string | null;
         interests: string[];
+        skills: string | null;
         createdAt: Date;
     };
 }>;

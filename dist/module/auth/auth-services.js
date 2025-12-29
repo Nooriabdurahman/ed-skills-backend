@@ -40,7 +40,7 @@ const getUserById = async (req, res) => {
 };
 exports.getUserById = getUserById;
 const createUser = async (req, res) => {
-    const { email, username, password, age, interests } = req.body;
+    const { email, username, password, age, interests, skills } = req.body;
     try {
         const existingUser = await prisma_1.default.user.findUnique({ where: { email } });
         if (existingUser) {
@@ -49,7 +49,7 @@ const createUser = async (req, res) => {
         }
         const hashedPassword = await bcryptjs_1.default.hash(password, 10);
         const newUser = await prisma_1.default.user.create({
-            data: { email, username, password: hashedPassword, age, interests },
+            data: { email, username, password: hashedPassword, age, interests, skills },
         });
         const token = (0, generateToken_1.default)(newUser);
         res.status(201).json({ user: newUser, token });
@@ -85,7 +85,7 @@ const loginUser = async (req, res) => {
 exports.loginUser = loginUser;
 const updateUser = async (req, res) => {
     const { id } = req.params;
-    const { email, username, password, age, interests } = req.body;
+    const { email, username, password, age, interests, skills } = req.body;
     try {
         const user = await prisma_1.default.user.findUnique({ where: { id: Number(id) } });
         if (!user) {
@@ -103,6 +103,8 @@ const updateUser = async (req, res) => {
             updatedData.age = age;
         if (interests !== undefined)
             updatedData.interests = interests;
+        if (skills !== undefined)
+            updatedData.skills = skills;
         const updatedUser = await prisma_1.default.user.update({
             where: { id: Number(id) },
             data: updatedData,
