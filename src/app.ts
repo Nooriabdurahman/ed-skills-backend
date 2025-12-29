@@ -5,6 +5,7 @@ import userRoutes from "./module/auth/auth-route";
 import profileRoutes from './module/profile/profile-route';
 import courseRoutes from './module/course/course-route';
 import uploadRoute from './routes/uploadRoute';
+import uploadTestRoute from './routes/upload-test-route';
 
 const app = express();
 app.use(cors());
@@ -21,6 +22,7 @@ app.use('/courses', courseRoutes);
 app.use('/files', uploadRoute);
 
 
+app.use('/test', uploadTestRoute);
 
 
 export default app;
