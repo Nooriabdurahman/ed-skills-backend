@@ -3,6 +3,9 @@ import multer from 'multer';
 import { put } from '@vercel/blob';
 import crypto from 'crypto';
 import fs from 'fs';
+import dotenv from 'dotenv';
+
+dotenv.config(); // حتماً dotenv برای خواندن .env
 
 const router = express.Router();
 const upload = multer({ dest: 'tmp/' });
@@ -13,9 +16,12 @@ router.post('/upload', upload.single('file'), async (req, res) => {
 
   try {
     const fileName = crypto.randomBytes(16).toString('hex') + '.' + req.file.originalname.split('.').pop();
+
+    // استفاده از توکن از .env
     const result = await put(fileName, fs.readFileSync(req.file.path), {
       access: 'public',
-      addRandomSuffix: true
+      addRandomSuffix: true,
+      token: process.env.BLOB_READ_WRITE_TOKEN || ''
     });
 
     fs.unlinkSync(req.file.path);
@@ -26,7 +32,10 @@ router.post('/upload', upload.single('file'), async (req, res) => {
     });
   } catch (err) {
     console.error(err);
-    return res.status(500).json({ error: 'آپلود موفق نبود', details: err instanceof Error ? err.message : String(err) });
+    return res.status(500).json({
+      error: 'آپلود موفق نبود',
+      details: err instanceof Error ? err.message : String(err)
+    });
   }
 });
 

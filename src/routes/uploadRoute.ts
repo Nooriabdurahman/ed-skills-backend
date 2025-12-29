@@ -1,6 +1,10 @@
 import { Router } from 'express';
 import multer from 'multer';
-import { uploadProfilePicture } from '../services/s3serveice';
+import { put } from '@vercel/blob';
+import crypto from 'crypto';
+import dotenv from 'dotenv';
+
+dotenv.config(); // حتماً dotenv برای خواندن .env
 
 const router = Router();
 const upload = multer({ storage: multer.memoryStorage() });
@@ -9,20 +13,32 @@ const upload = multer({ storage: multer.memoryStorage() });
 router.post('/:userId/upload', upload.single('file'), async (req, res) => {
   const { userId } = req.params;
   const file = req.file;
-  if (!file) return res.status(400).json({ error: 'No file uploaded' });
+  if (!file) return res.status(400).json({ error: 'فایلی آپلود نشده' });
 
   const id = Number(userId);
-  if (!id || Number.isNaN(id)) return res.status(400).json({ error: 'Invalid user id' });
+  if (!id || Number.isNaN(id)) return res.status(400).json({ error: 'شناسه کاربر نامعتبر است' });
 
   try {
-    const result = await uploadProfilePicture(file.buffer, file.originalname, id);
-    return res.json({ message: 'uploaded', url: result.directUrl, presigned: result.presignedUrl });
+    const fileName = crypto.randomBytes(16).toString('hex') + '.' + file.originalname.split('.').pop();
+
+    const result = await put(fileName, file.buffer, {
+      access: 'public',
+      addRandomSuffix: true,
+      token: process.env.BLOB_READ_WRITE_TOKEN || ''
+
+    });
+
+    return res.json({
+      message: 'آپلود پروفایل موفق بود',
+      url: result.url
+    });
   } catch (err) {
     console.error(err);
-    const errorDetails = err instanceof Error ? err.message : String(err);
-    return res.status(500).json({ error: 'Upload failed', details: errorDetails });
+    return res.status(500).json({
+      error: 'آپلود موفق نبود',
+      details: err instanceof Error ? err.message : String(err)
+    });
   }
 });
 
-// مهم: حتماً export default داشته باش
 export default router;
