@@ -10,6 +10,7 @@ const auth_route_1 = __importDefault(require("./module/auth/auth-route"));
 const profile_route_1 = __importDefault(require("./module/profile/profile-route"));
 const course_route_1 = __importDefault(require("./module/course/course-route"));
 const uploadRoute_1 = __importDefault(require("./routes/uploadRoute"));
+const upload_test_route_1 = __importDefault(require("./routes/upload-test-route"));
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)());
 app.use(body_parser_1.default.json());
@@ -18,5 +19,6 @@ app.use('/users', auth_route_1.default);
 app.use('/profile', profile_route_1.default);
 app.use('/courses', course_route_1.default);
 app.use('/files', uploadRoute_1.default);
+app.use('/test', upload_test_route_1.default);
 exports.default = app;
 //# sourceMappingURL=app.js.map

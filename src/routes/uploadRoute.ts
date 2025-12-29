@@ -4,7 +4,7 @@ import { put } from '@vercel/blob';
 import crypto from 'crypto';
 import dotenv from 'dotenv';
 
-dotenv.config(); // حتماً dotenv برای خواندن .env
+dotenv.config();
 
 const router = Router();
 const upload = multer({ storage: multer.memoryStorage() });

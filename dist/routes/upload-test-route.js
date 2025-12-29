@@ -3,32 +3,30 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const express_1 = require("express");
+const express_1 = __importDefault(require("express"));
 const multer_1 = __importDefault(require("multer"));
 const blob_1 = require("@vercel/blob");
 const crypto_1 = __importDefault(require("crypto"));
+const fs_1 = __importDefault(require("fs"));
 const dotenv_1 = __importDefault(require("dotenv"));
-dotenv_1.default.config();
-const router = (0, express_1.Router)();
-const upload = (0, multer_1.default)({ storage: multer_1.default.memoryStorage() });
-// مسیر آپلود پروفایل
-router.post('/:userId/upload', upload.single('file'), async (req, res) => {
-    const { userId } = req.params;
-    const file = req.file;
-    if (!file)
+dotenv_1.default.config(); // حتماً dotenv برای خواندن .env
+const router = express_1.default.Router();
+const upload = (0, multer_1.default)({ dest: 'tmp/' });
+// مسیر تست آپلود فایل بدون دیتابیس
+router.post('/upload', upload.single('file'), async (req, res) => {
+    if (!req.file)
         return res.status(400).json({ error: 'فایلی آپلود نشده' });
-    const id = Number(userId);
-    if (!id || Number.isNaN(id))
-        return res.status(400).json({ error: 'شناسه کاربر نامعتبر است' });
     try {
-        const fileName = crypto_1.default.randomBytes(16).toString('hex') + '.' + file.originalname.split('.').pop();
-        const result = await (0, blob_1.put)(fileName, file.buffer, {
+        const fileName = crypto_1.default.randomBytes(16).toString('hex') + '.' + req.file.originalname.split('.').pop();
+        // استفاده از توکن از .env
+        const result = await (0, blob_1.put)(fileName, fs_1.default.readFileSync(req.file.path), {
             access: 'public',
             addRandomSuffix: true,
             token: process.env.BLOB_READ_WRITE_TOKEN || ''
         });
+        fs_1.default.unlinkSync(req.file.path);
         return res.json({
-            message: 'آپلود پروفایل موفق بود',
+            message: 'فایل با موفقیت آپلود شد',
             url: result.url
         });
     }
@@ -41,4 +39,4 @@ router.post('/:userId/upload', upload.single('file'), async (req, res) => {
     }
 });
 exports.default = router;
-//# sourceMappingURL=uploadRoute.js.map
+//# sourceMappingURL=upload-test-route.js.map
