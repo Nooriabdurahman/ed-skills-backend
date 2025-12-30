@@ -5944,10 +5944,10 @@ export namespace Prisma {
   export type UserWhereUniqueInput = Prisma.AtLeast<{
     id?: number
     email?: string
-    username?: string
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
+    username?: StringFilter<"User"> | string
     password?: StringFilter<"User"> | string
     age?: IntNullableFilter<"User"> | number | null
     profilePicture?: StringNullableFilter<"User"> | string | null
@@ -5955,7 +5955,7 @@ export namespace Prisma {
     interests?: StringNullableListFilter<"User">
     skills?: StringNullableFilter<"User"> | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
-  }, "id" | "email" | "username">
+  }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
     id?: SortOrder
