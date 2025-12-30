@@ -4,64 +4,97 @@ import { put } from '@vercel/blob';
 import crypto from 'crypto';
 import path from 'path';
 import fs from 'fs';
+import jwt from 'jsonwebtoken';
 
-// آپلود عکس پروفایل به Vercel Blob
-export const uploadProfilePicture = async (req: Request, res: Response): Promise<Response | void> => {
-  const { userId } = req.body;
-  if (!req.file) return res.status(400).json({ error: 'فایلی آپلود نشده' });
+const JWT_SECRET = process.env.JWT_SECRET || 'secret';
 
-  const fileName = crypto.randomBytes(16).toString('hex') + path.extname(req.file.originalname);
+/* ===============================
+   Helper: get userId from token
+================================ */
+function getUserIdFromToken(req: Request): number | null {
+  const authHeader = req.headers.authorization;
+  if (!authHeader) return null;
+
+  const token = authHeader.split(' ')[1];
+  if (!token) return null;
 
   try {
-    // آپلود فایل در Vercel Blob
+    const decoded = jwt.verify(token, JWT_SECRET) as { id: number };
+    return decoded.id;
+  } catch {
+    return null;
+  }
+}
+
+/* ===============================
+   Upload profile picture (TOKEN)
+================================ */
+export const uploadProfilePicture = async (req: Request, res: Response) => {
+  const userId = getUserIdFromToken(req);
+  if (!userId) return res.status(401).json({ error: 'Unauthorized' });
+
+  if (!req.file) {
+    return res.status(400).json({ error: 'No file uploaded' });
+  }
+
+  const fileName =
+    crypto.randomBytes(16).toString('hex') +
+    path.extname(req.file.originalname);
+
+  try {
     const result = await put(fileName, fs.readFileSync(req.file.path), {
-      access: 'public',        // می‌تواند 'private' هم باشد
-      addRandomSuffix: true
+      access: 'public',
+      addRandomSuffix: true,
     });
 
-    const url = result.url; // URL فایل آپلود شده
-
-    // به‌روزرسانی عکس پروفایل در جدول User
     const user = await prisma.user.update({
-      where: { id: Number(userId) },
-      data: { profilePicture: url },
+      where: { id: userId },
+      data: { profilePicture: result.url },
     });
 
-    fs.unlinkSync(req.file.path); // حذف فایل موقت
-    return res.json({ user, url });
+    fs.unlinkSync(req.file.path);
+    return res.json({ user, url: result.url });
   } catch (err) {
     console.error(err);
-    return res.status(500).json({ error: 'آپلود موفق نبود' });
+    return res.status(500).json({ error: 'Upload failed' });
   }
 };
 
-// به‌روزرسانی اطلاعات پایه، بیو و علایق
+/* ===============================
+   Update profile (TOKEN)
+================================ */
 export const updateProfile = async (req: Request, res: Response) => {
-  const { userId, bio, interests } = req.body;
+  const userId = getUserIdFromToken(req);
+  if (!userId) return res.status(401).json({ error: 'Unauthorized' });
+
+  const { bio, interests } = req.body;
 
   try {
     const user = await prisma.user.update({
-      where: { id: Number(userId) },
-      data: { 
+      where: { id: userId },
+      data: {
         bio: bio || undefined,
-        interests: interests || undefined
+        interests: interests || undefined,
       },
     });
 
-    res.json({ user });
+    return res.json({ user });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: 'به‌روزرسانی پروفایل موفق نبود' });
+    return res.status(500).json({ error: 'Update failed' });
   }
 };
 
-// گرفتن پروفایل یک کاربر
-export const getProfileByUser = async (req: Request, res: Response): Promise<Response | void> => {
-  const { userId } = req.params;
+/* ===============================
+   Get my profile (TOKEN)
+================================ */
+export const getProfileByUser = async (req: Request, res: Response) => {
+  const userId = getUserIdFromToken(req);
+  if (!userId) return res.status(401).json({ error: 'Unauthorized' });
 
   try {
     const user = await prisma.user.findUnique({
-      where: { id: Number(userId) },
+      where: { id: userId },
       select: {
         id: true,
         email: true,
@@ -70,15 +103,17 @@ export const getProfileByUser = async (req: Request, res: Response): Promise<Res
         profilePicture: true,
         bio: true,
         interests: true,
-        createdAt: true
-      }
+        createdAt: true,
+      },
     });
 
-    if (!user) return res.status(404).json({ error: 'پروفایل یافت نشد' });
+    if (!user) {
+      return res.status(404).json({ error: 'Profile not found' });
+    }
 
     return res.json({ user });
   } catch (err) {
     console.error(err);
-    return res.status(500).json({ error: 'خطا در گرفتن پروفایل' });
+    return res.status(500).json({ error: 'Fetch failed' });
   }
 };
