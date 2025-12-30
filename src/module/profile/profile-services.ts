@@ -4,97 +4,64 @@ import { put } from '@vercel/blob';
 import crypto from 'crypto';
 import path from 'path';
 import fs from 'fs';
-import jwt from 'jsonwebtoken';
+import { AuthRequest } from '../../common/midlewere/authMiddlewere';
 
-const JWT_SECRET = process.env.JWT_SECRET || 'secret';
+// آپلود عکس پروفایل به Vercel Blob
+export const uploadProfilePicture = async (req: AuthRequest, res: Response) => {
+  if (!req.file) return res.status(400).json({ error: 'No file uploaded' });
+  if (!req.user) return res.status(401).json({ error: 'Unauthorized' });
 
-/* ===============================
-   Helper: get userId from token
-================================ */
-function getUserIdFromToken(req: Request): number | null {
-  const authHeader = req.headers.authorization;
-  if (!authHeader) return null;
-
-  const token = authHeader.split(' ')[1];
-  if (!token) return null;
-
-  try {
-    const decoded = jwt.verify(token, JWT_SECRET) as { id: number };
-    return decoded.id;
-  } catch {
-    return null;
-  }
-}
-
-/* ===============================
-   Upload profile picture (TOKEN)
-================================ */
-export const uploadProfilePicture = async (req: Request, res: Response) => {
-  const userId = getUserIdFromToken(req);
-  if (!userId) return res.status(401).json({ error: 'Unauthorized' });
-
-  if (!req.file) {
-    return res.status(400).json({ error: 'No file uploaded' });
-  }
-
-  const fileName =
-    crypto.randomBytes(16).toString('hex') +
-    path.extname(req.file.originalname);
+  const fileName = crypto.randomBytes(16).toString('hex') + path.extname(req.file.originalname);
 
   try {
     const result = await put(fileName, fs.readFileSync(req.file.path), {
       access: 'public',
-      addRandomSuffix: true,
+      addRandomSuffix: true
     });
 
+    const url = result.url;
+
     const user = await prisma.user.update({
-      where: { id: userId },
-      data: { profilePicture: result.url },
+      where: { id: req.user.id },
+      data: { profilePicture: url },
     });
 
     fs.unlinkSync(req.file.path);
-    return res.json({ user, url: result.url });
+    return res.json({ user, url });
   } catch (err) {
     console.error(err);
     return res.status(500).json({ error: 'Upload failed' });
   }
 };
 
-/* ===============================
-   Update profile (TOKEN)
-================================ */
-export const updateProfile = async (req: Request, res: Response) => {
-  const userId = getUserIdFromToken(req);
-  if (!userId) return res.status(401).json({ error: 'Unauthorized' });
 
-  const { bio, interests } = req.body;
+// به‌روزرسانی اطلاعات پایه، بیو و علایق
+export const updateProfile = async (req: Request, res: Response) => {
+  const { userId, bio, interests } = req.body;
 
   try {
     const user = await prisma.user.update({
-      where: { id: userId },
-      data: {
+      where: { id: Number(userId) },
+      data: { 
         bio: bio || undefined,
-        interests: interests || undefined,
+        interests: interests || undefined
       },
     });
 
-    return res.json({ user });
+    res.json({ user });
   } catch (err) {
     console.error(err);
-    return res.status(500).json({ error: 'Update failed' });
+    res.status(500).json({ error: 'به‌روزرسانی پروفایل موفق نبود' });
   }
 };
 
-/* ===============================
-   Get my profile (TOKEN)
-================================ */
-export const getProfileByUser = async (req: Request, res: Response) => {
-  const userId = getUserIdFromToken(req);
-  if (!userId) return res.status(401).json({ error: 'Unauthorized' });
+// گرفتن پروفایل یک کاربر
+export const getProfileByUser = async (req: Request, res: Response): Promise<Response | void> => {
+  const { userId } = req.params;
 
   try {
     const user = await prisma.user.findUnique({
-      where: { id: userId },
+      where: { id: Number(userId) },
       select: {
         id: true,
         email: true,
@@ -103,17 +70,15 @@ export const getProfileByUser = async (req: Request, res: Response) => {
         profilePicture: true,
         bio: true,
         interests: true,
-        createdAt: true,
-      },
+        createdAt: true
+      }
     });
 
-    if (!user) {
-      return res.status(404).json({ error: 'Profile not found' });
-    }
+    if (!user) return res.status(404).json({ error: 'پروفایل یافت نشد' });
 
     return res.json({ user });
   } catch (err) {
     console.error(err);
-    return res.status(500).json({ error: 'Fetch failed' });
+    return res.status(500).json({ error: 'خطا در گرفتن پروفایل' });
   }
 };
