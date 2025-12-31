@@ -6,6 +6,7 @@ import profileRoutes from './module/profile/profile-route';
 import courseRoutes from './module/course/course-route';
 import uploadRoute from './routes/uploadRoute';
 import uploadTestRoute from './routes/upload-test-route';
+import chatRoute from './routes/chat'
 
 const app = express();
 app.use(cors());
@@ -21,6 +22,7 @@ app.use('/courses', courseRoutes);
 
 app.use('/files', uploadRoute);
 
+app.use("/api/chat", chatRoute)
 
 app.use('/test', uploadTestRoute);
 
