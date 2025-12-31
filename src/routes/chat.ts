@@ -1,9 +1,10 @@
-import express from "express";
+import { Router } from "express";
 import fetch from "node-fetch";
 
-const router = express.Router();
+const router = Router();
 
-router.post("/", async (req, res) => {
+// POST /chat
+router.post("/chat", async (req, res) => {
   const { message } = req.body;
 
   if (!message) {
@@ -11,28 +12,48 @@ router.post("/", async (req, res) => {
   }
 
   try {
-    const hfResponse = await fetch(
-      "https://api-inference.huggingface.co/models/google/flan-t5-large",
-      {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${process.env.HF_API_KEY}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          inputs: message,
-        }),
-      }
-    );
+    // Hugging Face Router API for chat completions
+    const hfResponse = await fetch("https://router.huggingface.co/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${process.env.HF_API_KEY}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        model: "meta-llama/Llama-3.1-8B-Instruct:novita",
+        messages: [
+          { role: "user", content: message }
+        ],
+        stream: false
+      }),
+    });
 
-    const data = await hfResponse.json();
+    const text = await hfResponse.text();
 
-    return res.json(data);
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({ error: "AI service error" });
+    if (!hfResponse.ok) {
+      return res.status(hfResponse.status).json({
+        error: "Hugging Face API Error",
+        details: text,
+      });
+    }
+
+    let data;
+    try {
+      data = JSON.parse(text);
+    } catch {
+      return res.status(500).json({ error: "Invalid JSON from Hugging Face" });
+    }
+
+    // Extract the bot response
+    const botResponse =
+      data?.choices?.[0]?.message?.content ||
+      "I don't have an answer 😒";
+
+    return res.json({ message: botResponse });
+  } catch (err) {
+    console.error("Hugging Face API Error:", err);
+    return res.status(500).json({ error: "Server error" });
   }
 });
 
 export default router;
-

@@ -1,6 +1,7 @@
 import swaggerUi from 'swagger-ui-express';
 import app from './app';
 import swaggerSpec from './common/utils/swagger';
+import fetch from "node-fetch"; 
 import os from 'os';
 
 const PORT = Number(process.env.PORT) || 2040;
