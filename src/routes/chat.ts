@@ -27,10 +27,10 @@ router.post("/", async (req, res) => {
 
     const data = await hfResponse.json();
 
-    res.json(data);
+    return res.json(data);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "AI service error" });
+    return res.status(500).json({ error: "AI service error" });
   }
 });
 
