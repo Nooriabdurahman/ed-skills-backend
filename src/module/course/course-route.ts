@@ -9,43 +9,7 @@ import { put } from '@vercel/blob';
 const router = express.Router();
 const upload = multer({ dest: 'tmp/' }); // Temporary storage for multer
 
-/**
- * @swagger
- * tags:
- *   name: Courses
- *   description: Course management
- */
-
-/**
- * @swagger
- * /courses:
- *   post:
- *     summary: Create a new course with optional media file
- *     tags: [Courses]
- *     requestBody:
- *       required: true
- *       content:
- *         multipart/form-data:
- *           schema:
- *             type: object
- *             properties:
- *               name:
- *                 type: string
- *               description:
- *                 type: string
- *               subject:
- *                 type: string
- *               materialType:
- *                 type: string
- *               materialCount:
- *                 type: string
- *               file:
- *                 type: string
- *                 format: binary
- *     responses:
- *       201:
- *         description: Course created successfully
- */
+// ==================== Create Course ====================
 router.post('/courses', upload.single('file'), async (req, res) => {
   try {
     const {
@@ -59,24 +23,29 @@ router.post('/courses', upload.single('file'), async (req, res) => {
       totalScore,
       passingScore,
       status,
-      materialStatus,
+      materialStatusType, // ← اینجا نام دقیق
       isCertified,
       type,
       progress,
       duration
     } = req.body;
 
-    let fileUrl = null;
+    // بررسی فیلدهای ضروری
+    if (!name || !description || !materialStatusType) {
+      return res.status(400).json({ error: 'فیلدهای ضروری پر نشده‌اند' });
+    }
+
+    let fileUrl: string | null = null;
 
     if (req.file) {
-      // Upload file to Vercel Blob
-      const fileName = crypto.randomBytes(16).toString('hex') + path.extname(req.file.originalname);
+      const fileName =
+        crypto.randomBytes(16).toString('hex') + path.extname(req.file.originalname);
       const result = await put(fileName, fs.readFileSync(req.file.path), {
         access: 'public',
         addRandomSuffix: true
       });
       fileUrl = result.url; // URL فایل آپلود شده
-      fs.unlinkSync(req.file.path); // Remove temp file
+      fs.unlinkSync(req.file.path); // پاک کردن فایل موقت
     }
 
     const course = await prisma.course.create({
@@ -90,40 +59,31 @@ router.post('/courses', upload.single('file'), async (req, res) => {
         secondRecommendation,
         quizTotalScore: totalScore ? Number(totalScore) : null,
         quizPassingScore: passingScore ? Number(passingScore) : null,
-        status,
-        materialStatusType: materialStatus,
+        status: status || 'notStarted',
+        materialStatusType: materialStatusType || 'NotStartedCourse', // ← مقدار پیشفرض
         isCertified: isCertified === 'true',
         picture: fileUrl,
-        typeImage: type,
+        typeImage: type || null,
         progress: progress ? Number(progress) : 0,
-        duration: duration ?? null
+        duration: duration || null
       }
     });
 
-    res.status(201).json({ course });
+    return res.status(201).json({ course });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Error creating course' });
+    return res.status(500).json({ error: 'خطا در ایجاد دوره' });
   }
 });
 
-/**
- * @swagger
- * /courses:
- *   get:
- *     summary: Get all courses
- *     tags: [Courses]
- *     responses:
- *       200:
- *         description: List of all courses
- */
+// ==================== Get All Courses ====================
 router.get('/courses', async (req, res) => {
   try {
     const courses = await prisma.course.findMany();
-    res.json(courses);
+    return res.json(courses);
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: 'Error fetching courses' });
+    return res.status(500).json({ error: 'خطا در دریافت دوره‌ها' });
   }
 });
 
