@@ -17,7 +17,7 @@ model User {
   profilePicture String?
   bio            String?
   interests      String[]
-  skills         String? // اضافه کن skills
+  skills         String? // اضافه ک
   createdAt      DateTime @default(now())
 }
 
@@ -46,14 +46,28 @@ model Course {
 }
 
 model CourseLesson {
-  id        String   @id @default(uuid())
+  id        String           @id @default(uuid())
   name      String
   content   String?
   text      String?
   url       String?
   courseId  Int
-  course    Course   @relation(fields: [courseId], references: [id])
-  createdAt DateTime @default(now())
+  course    Course           @relation(fields: [courseId], references: [id])
+  resources LessonResource[]
+  createdAt DateTime         @default(now())
+}
+
+model LessonResource {
+  id          String       @id @default(uuid())
+  name        String
+  description String?
+  fileUrl     String // URL from Vercel Blob
+  fileType    String? // e.g., "pdf", "doc", "video"
+  fileSize    Int? // File size in bytes
+  lessonId    String
+  lesson      CourseLesson @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
 }
 
 model CourseProgress {

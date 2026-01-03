@@ -166,6 +166,18 @@ exports.Prisma.CourseLessonScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.LessonResourceScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  fileUrl: 'fileUrl',
+  fileType: 'fileType',
+  fileSize: 'fileSize',
+  lessonId: 'lessonId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.CourseProgressScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -195,6 +207,7 @@ exports.Prisma.ModelName = {
   User: 'User',
   Course: 'Course',
   CourseLesson: 'CourseLesson',
+  LessonResource: 'LessonResource',
   CourseProgress: 'CourseProgress'
 };
 
