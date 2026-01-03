@@ -6,7 +6,8 @@ import profileRoutes from './module/profile/profile-route';
 import courseRoutes from './module/course/course-route';
 import uploadRoute from './routes/uploadRoute';
 import uploadTestRoute from './routes/upload-test-route';
-import chatRoute from './routes/chat'
+import chatRoute from './routes/chat';
+import courseLessonsRoutes from './module/course-lesson/course-lessons-routes';
 
 const app = express();
 app.use(cors());
@@ -25,6 +26,8 @@ app.use('/files', uploadRoute);
 app.use("/api/chat", chatRoute)
 
 app.use('/test', uploadTestRoute);
+
+app.use('/course-lessons', courseLessonsRoutes);
 
 
 export default app;

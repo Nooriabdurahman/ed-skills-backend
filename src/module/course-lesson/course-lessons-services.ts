@@ -2,7 +2,7 @@ import prisma from "../../common/config/database/prisma";
 import { CreateCourseLessonDto } from "./validator/create-course-lesson";
 
 export class CourseLessonService {
-  static async create(data: CreateCourseLessonDto) {
+  static async create(data: CreateCourseLessonDto & { fileUrl?: string | null }) {
     return prisma.courseLesson.create({
       data: {
         ...data,
@@ -14,6 +14,7 @@ export class CourseLessonService {
   static async getByCourse(courseId: number) {
     return prisma.courseLesson.findMany({
       where: { courseId },
+      orderBy: [{ createdAt: "asc" }],
     });
   }
 }

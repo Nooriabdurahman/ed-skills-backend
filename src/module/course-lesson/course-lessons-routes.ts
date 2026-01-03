@@ -3,7 +3,7 @@ import { CourseLessonController } from "./course-lessons-controllers";
 
 const router = Router();
 
-router.post("/", CourseLessonController.create);
-router.get("/", CourseLessonController.getByCourse);
+router.post("/new", CourseLessonController.create);
+router.get("/new", CourseLessonController.getByCourse);
 
 export default router;

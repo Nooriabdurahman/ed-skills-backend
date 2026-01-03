@@ -4,7 +4,7 @@ import crypto from 'crypto';
 import path from 'path';
 import fs from 'fs';
 import { put } from '@vercel/blob';
-import { createCourse } from './course-services';
+import { createCourse, getAllCourses } from './course-services';
 import { validateCourse } from './validate/course-validate'; // <--- use validation here
 
 const router = express.Router();
@@ -42,6 +42,16 @@ router.post('/courses', upload.single('file'), async (req, res) => {
   } catch (err) {
     console.error(err);
     return res.status(500).json({ error: 'Error creating course' });
+  }
+});
+
+router.get('/courses', async (req, res) => {
+  try {
+    const courses = await getAllCourses();
+    return res.status(200).json({ courses });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: 'Error fetching courses' });
   }
 });
 
