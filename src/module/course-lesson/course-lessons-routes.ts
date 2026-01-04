@@ -50,6 +50,10 @@ const upload = multer({ dest: "tmp/" });
  *                 type: string
  *                 format: binary
  *                 description: Lesson video file (optional)
+ *               file:
+ *                 type: string
+ *                 format: binary
+ *                 description: Additional lesson file (PDF, ZIP, etc.)
  *     responses:
  *       201:
  *         description: Lesson created successfully
@@ -58,7 +62,14 @@ const upload = multer({ dest: "tmp/" });
  *       500:
  *         description: Server error
  */
-router.post("/", upload.single("video"), CourseLessonController.create);
+router.post(
+  "/",
+  upload.fields([
+    { name: "video", maxCount: 1 },
+    { name: "file", maxCount: 1 },
+  ]),
+  CourseLessonController.create
+);
 
 /**
  * @swagger

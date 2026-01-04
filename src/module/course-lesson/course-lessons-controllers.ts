@@ -10,82 +10,62 @@ export class CourseLessonController {
     try {
       const { courseId } = req.params;
       if (!courseId) {
-        return res.status(400).json({
-          success: false,
-          message: "courseId is required",
-        });
+        return res.status(400).json({ success: false, message: "courseId is required" });
       }
 
       let video: string | null = null;
+      let file: string | null = null;
 
-      // Video upload is optional - only upload if file is provided
-      if (req.file) {
+      const files = req.files as { [fieldname: string]: Express.Multer.File[] } | undefined;
+
+      if (files?.video?.[0]) {
         const fileName =
-          crypto.randomBytes(16).toString("hex") +
-          path.extname(req.file.originalname);
-
-        const result = await put(
-          fileName,
-          fs.readFileSync(req.file.path),
-          {
-            access: "public",
-            addRandomSuffix: true,
-          }
-        );
-
+          crypto.randomBytes(16).toString("hex") + path.extname(files.video[0].originalname);
+        const result = await put(fileName, fs.readFileSync(files.video[0].path), {
+          access: "public",
+          addRandomSuffix: true,
+        });
         video = result.url;
-        fs.unlinkSync(req.file.path);
+        fs.unlinkSync(files.video[0].path);
+      }
+
+      if (files?.file?.[0]) {
+        const fileName =
+          crypto.randomBytes(16).toString("hex") + path.extname(files.file[0].originalname);
+        const result = await put(fileName, fs.readFileSync(files.file[0].path), {
+          access: "public",
+          addRandomSuffix: true,
+        });
+        file = result.url;
+        fs.unlinkSync(files.file[0].path);
       }
 
       const lesson = await CourseLessonService.create({
         ...req.body,
         courseId,
         video,
+        url: file, // ذخیره فایل اضافی در فیلد url
       });
 
-      return res.status(201).json({
-        success: true,
-        data: lesson,
-      });
+      return res.status(201).json({ success: true, data: lesson });
     } catch (error) {
       console.error(error);
-      return res.status(400).json({
-        success: false,
-        message: "Could not create lesson",
-      });
+      return res.status(400).json({ success: false, message: "Could not create lesson" });
     }
   }
 
   static async getByCourse(req: Request, res: Response) {
     try {
       const { courseId } = req.params;
-      if (!courseId) {
-        return res.status(400).json({
-          success: false,
-          message: "courseId is required",
-        });
-      }
+      if (!courseId) return res.status(400).json({ success: false, message: "courseId is required" });
 
       const numericCourseId = Number(courseId);
-      if (isNaN(numericCourseId)) {
-        return res.status(400).json({
-          success: false,
-          message: "courseId must be a number",
-        });
-      }
+      if (isNaN(numericCourseId)) return res.status(400).json({ success: false, message: "courseId must be a number" });
 
-      const lessons =
-        await CourseLessonService.getByCourse(numericCourseId);
-
-      return res.json({
-        success: true,
-        data: lessons,
-      });
+      const lessons = await CourseLessonService.getByCourse(numericCourseId);
+      return res.json({ success: true, data: lessons });
     } catch (error) {
-      return res.status(500).json({
-        success: false,
-        message: "Server error",
-      });
+      return res.status(500).json({ success: false, message: "Server error" });
     }
   }
 }
