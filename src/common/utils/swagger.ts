@@ -9,17 +9,22 @@ const options: swaggerJsDoc.Options = {
   definition: {
     openapi: '3.0.0',
     info: {
-      title: 'Login-Signup API',
+      title: 'Ed-Skills Backend API',
       version: '1.0.0',
-      description: 'API documentation for login, signup, and events',
+      description: 'Complete API documentation for Ed-Skills backend including courses, lessons, resources, users, and more',
     },
     servers: [
       {
+        url: 'https://ed-skills-backend-1.onrender.com',
+        description: 'Production server',
+      },
+      {
         url: 'http://localhost:2040',
+        description: 'Local development server',
       },
     ],
   },
-  apis: [routesPathTs, routesPathJs],
+  apis: [routesPathTs, routesPathJs, join(__dirname, '../../routes/**/*.ts'), join(__dirname, '../../routes/**/*.js')],
 };
 
 const swaggerSpec = swaggerJsDoc(options);

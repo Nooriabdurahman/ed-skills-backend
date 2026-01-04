@@ -29,7 +29,7 @@ const upload = multer({ dest: 'tmp/' });
  *       - in: path
  *         name: userId
  *         schema:
- *           type: string
+ *           type: integer
  *         required: true
  *         description: ID of the user
  *     responses:

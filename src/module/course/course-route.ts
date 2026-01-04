@@ -5,16 +5,62 @@ import path from 'path';
 import fs from 'fs';
 import { put } from '@vercel/blob';
 import { createCourse, getAllCourses } from './course-services';
-import { validateCourse } from './validate/course-validate'; // <--- use validation here
+import { validateCourse } from './validate/course-validate'; 
 import courseLessonsRoutes from '../course-lesson/course-lessons-routes';
 
 const router = express.Router();
 const upload = multer({ dest: 'tmp/' });
 
-// ==================== Create Course ====================
+/**
+ * @swagger
+ * tags:
+ *   name: Courses
+ *   description: Manage courses
+ */
+
+/**
+ * @swagger
+ * /courses/courses:
+ *   post:
+ *     summary: Create a new course
+ *     tags: [Courses]
+ *     consumes:
+ *       - multipart/form-data
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - name
+ *             properties:
+ *               name:
+ *                 type: string
+ *                 description: Course name
+ *               description:
+ *                 type: string
+ *                 description: Course description
+ *               subject:
+ *                 type: string
+ *                 description: Course subject
+ *               materialType:
+ *                 type: string
+ *                 description: Material type (course, pages, learning path, quiz)
+ *               file:
+ *                 type: string
+ *                 format: binary
+ *                 description: Course image file
+ *     responses:
+ *       201:
+ *         description: Course created successfully
+ *       400:
+ *         description: Bad request
+ *       500:
+ *         description: Server error
+ */
 router.post('/courses', upload.single('file'), async (req, res) => {
   try {
-    // Validate input using Joi
     const validated = validateCourse(req.body);
     if (validated?.error) {
       return res.status(400).json({ error: validated.error.details?.[0]?.message || "Invalid input" });
@@ -46,6 +92,27 @@ router.post('/courses', upload.single('file'), async (req, res) => {
   }
 });
 
+/**
+ * @swagger
+ * /courses/courses:
+ *   get:
+ *     summary: Get all courses
+ *     tags: [Courses]
+ *     responses:
+ *       200:
+ *         description: List of courses
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 courses:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *       500:
+ *         description: Server error
+ */
 router.get('/courses', async (req, res) => {
   try {
     const courses = await getAllCourses();

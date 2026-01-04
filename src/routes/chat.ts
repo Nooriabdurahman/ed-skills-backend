@@ -3,7 +3,48 @@ import fetch from "node-fetch";
 
 const router = Router();
 
-// POST /chat
+/**
+ * @swagger
+ * tags:
+ *   name: Chat
+ *   description: AI chat operations
+ */
+
+/**
+ * @swagger
+ * /api/chat/chat:
+ *   post:
+ *     summary: Send a message to AI chat
+ *     tags: [Chat]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - message
+ *             properties:
+ *               message:
+ *                 type: string
+ *                 description: The message to send to the AI
+ *                 example: "What is machine learning?"
+ *     responses:
+ *       200:
+ *         description: AI response received successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   description: The AI's response
+ *       400:
+ *         description: Bad request - Message is required
+ *       500:
+ *         description: Server error or AI service error
+ */
 router.post("/chat", async (req, res) => {
   const { message } = req.body;
 

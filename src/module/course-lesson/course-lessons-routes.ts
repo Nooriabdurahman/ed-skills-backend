@@ -6,8 +6,90 @@ import lessonResourceRoutes from "../lesson-resource/lesson-resource-routes";
 const router = Router({ mergeParams: true });
 const upload = multer({ dest: "tmp/" });
 
-// Course lessons routes
+/**
+ * @swagger
+ * tags:
+ *   name: Course Lessons
+ *   description: Manage lessons for courses
+ */
+
+/**
+ * @swagger
+ * /courses/courses/{courseId}/lessons:
+ *   post:
+ *     summary: Create a new lesson for a course
+ *     tags: [Course Lessons]
+ *     consumes:
+ *       - multipart/form-data
+ *     parameters:
+ *       - in: path
+ *         name: courseId
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: The ID of the course
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - name
+ *             properties:
+ *               name:
+ *                 type: string
+ *                 description: Lesson name
+ *               content:
+ *                 type: string
+ *                 description: HTML or text content of the lesson
+ *               text:
+ *                 type: string
+ *                 description: Short description
+ *               video:
+ *                 type: string
+ *                 format: binary
+ *                 description: Lesson video file (optional)
+ *     responses:
+ *       201:
+ *         description: Lesson created successfully
+ *       400:
+ *         description: Bad request
+ *       500:
+ *         description: Server error
+ */
 router.post("/", upload.single("video"), CourseLessonController.create);
+
+/**
+ * @swagger
+ * /courses/courses/{courseId}/lessons:
+ *   get:
+ *     summary: Get all lessons for a course
+ *     tags: [Course Lessons]
+ *     parameters:
+ *       - in: path
+ *         name: courseId
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: The ID of the course
+ *     responses:
+ *       200:
+ *         description: List of lessons
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *       500:
+ *         description: Server error
+ */
 router.get("/", CourseLessonController.getByCourse);
 
 // Nested lesson resources routes

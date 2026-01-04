@@ -9,7 +9,58 @@ dotenv.config();
 const router = Router();
 const upload = multer({ storage: multer.memoryStorage() });
 
-// مسیر آپلود پروفایل
+/**
+ * @swagger
+ * tags:
+ *   name: File Upload
+ *   description: File upload operations
+ */
+
+/**
+ * @swagger
+ * /files/{userId}/upload:
+ *   post:
+ *     summary: Upload a file for a user
+ *     tags: [File Upload]
+ *     consumes:
+ *       - multipart/form-data
+ *     parameters:
+ *       - in: path
+ *         name: userId
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: The ID of the user
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - file
+ *             properties:
+ *               file:
+ *                 type: string
+ *                 format: binary
+ *                 description: File to upload
+ *     responses:
+ *       200:
+ *         description: File uploaded successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                 url:
+ *                   type: string
+ *       400:
+ *         description: Bad request - No file uploaded or invalid user ID
+ *       500:
+ *         description: Server error
+ */
 router.post('/:userId/upload', upload.single('file'), async (req, res) => {
   const { userId } = req.params;
   const file = req.file;

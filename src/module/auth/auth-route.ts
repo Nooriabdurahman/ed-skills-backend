@@ -36,19 +36,25 @@ const validateRequest = (schema: any) => {
 
 /**
  * @swagger
- * /users:
+ * /users/users:
  *   get:
  *     summary: Get all users
  *     tags: [Users]
  *     responses:
  *       200:
  *         description: List of all users
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
  */
 router.get('/users', getUsers);
 
 /**
  * @swagger
- * /users/{id}:
+ * /users/users/{id}:
  *   get:
  *     summary: Get a single user by ID
  *     tags: [Users]
@@ -69,9 +75,9 @@ router.get('/users/:id', getUserById);
 
 /**
  * @swagger
- * /users:
+ * /users/users:
  *   post:
- *     summary: Create a new user
+ *     summary: Create a new user (Register)
  *     tags: [Users]
  *     requestBody:
  *       required: true
@@ -79,6 +85,10 @@ router.get('/users/:id', getUserById);
  *         application/json:
  *           schema:
  *             type: object
+ *             required:
+ *               - username
+ *               - email
+ *               - password
  *             properties:
  *               username:
  *                 type: string
@@ -95,6 +105,8 @@ router.get('/users/:id', getUserById);
  *     responses:
  *       201:
  *         description: User created successfully
+ *       400:
+ *         description: Validation error
  */
 router.post('/users', validateRequest(registerSchema), createUser);
 
@@ -123,7 +135,7 @@ router.post('/login', loginUser);
 
 /**
  * @swagger
- * /users/{id}:
+ * /users/users/{id}:
  *   put:
  *     summary: Update a user
  *     tags: [Users]
@@ -163,7 +175,7 @@ router.put('/users/:id', updateUser);
 
 /**
  * @swagger
- * /users/{id}:
+ * /users/users/{id}:
  *   delete:
  *     summary: Delete a user by ID
  *     tags: [Users]
