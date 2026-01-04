@@ -4,16 +4,16 @@ export declare class CourseProgressService {
         createdAt: Date;
         userId: number;
         updatedAt: Date;
-        lessonId: number;
         completed: boolean;
+        lessonId: number;
     }>;
     static getUserProgress(userId: number): Promise<{
         id: number;
         createdAt: Date;
         userId: number;
         updatedAt: Date;
-        lessonId: number;
         completed: boolean;
+        lessonId: number;
     }[]>;
 }
 //# sourceMappingURL=progress-services.d.ts.map

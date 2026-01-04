@@ -52,6 +52,7 @@ model CourseLesson {
   content   String?
   text      String?
   url       String?
+  video     String?          // Video file stored in Vercel Blob (optional)
   courseId  Int
   course    Course           @relation(fields: [courseId], references: [id])
   resources LessonResource[]

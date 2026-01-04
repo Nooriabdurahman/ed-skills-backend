@@ -162,6 +162,7 @@ exports.Prisma.CourseLessonScalarFieldEnum = {
   content: 'content',
   text: 'text',
   url: 'url',
+  video: 'video',
   courseId: 'courseId',
   createdAt: 'createdAt'
 };

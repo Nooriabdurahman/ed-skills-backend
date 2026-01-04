@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const multer_1 = __importDefault(require("multer"));
 const profile_services_1 = require("./profile-services");
+const authMiddlewere_1 = require("../../common/midlewere/authMiddlewere");
 const router = express_1.default.Router();
 // multer برای آپلود فایل
 const upload = (0, multer_1.default)({ dest: 'tmp/' });
@@ -89,6 +90,6 @@ router.put('/update', profile_services_1.updateProfile);
  *       400:
  *         description: File upload error
  */
-router.post('/upload-picture', upload.single('file'), profile_services_1.uploadProfilePicture);
+router.post('/upload-picture', authMiddlewere_1.authMiddleware, upload.single('file'), profile_services_1.uploadProfilePicture);
 exports.default = router;
 //# sourceMappingURL=profile-route.js.map

@@ -2,7 +2,7 @@ import { Router } from "express";
 import multer from "multer";
 import { LessonResourceController } from "./lesson-resource-controllers";
 
-const router = Router();
+const router = Router({ mergeParams: true });
 const upload = multer({ dest: "tmp/" });
 
 // Create lesson resource (with file upload)

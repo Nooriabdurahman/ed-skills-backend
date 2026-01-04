@@ -6,6 +6,7 @@ import fs from 'fs';
 import { put } from '@vercel/blob';
 import { createCourse, getAllCourses } from './course-services';
 import { validateCourse } from './validate/course-validate'; // <--- use validation here
+import courseLessonsRoutes from '../course-lesson/course-lessons-routes';
 
 const router = express.Router();
 const upload = multer({ dest: 'tmp/' });
@@ -54,5 +55,8 @@ router.get('/courses', async (req, res) => {
     return res.status(500).json({ error: 'Error fetching courses' });
   }
 });
+
+// Nested course lessons routes
+router.use('/courses/:courseId/lessons', courseLessonsRoutes);
 
 export default router;

@@ -17,6 +17,7 @@ class CourseLessonService {
     static async getByCourse(courseId) {
         return prisma_1.default.courseLesson.findMany({
             where: { courseId },
+            orderBy: [{ createdAt: "asc" }],
         });
     }
 }

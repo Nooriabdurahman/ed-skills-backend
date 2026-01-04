@@ -25,6 +25,15 @@ function getLocalIP() {
     }
     return 'localhost';
 }
+// Error handling to prevent process from exiting
+process.on('uncaughtException', (error) => {
+    console.error('Uncaught Exception:', error);
+    // Don't exit - keep server running
+});
+process.on('unhandledRejection', (reason, promise) => {
+    console.error('Unhandled Rejection at:', promise, 'reason:', reason);
+    // Don't exit - keep server running
+});
 // Start server
 app_1.default.listen(PORT, () => {
     const IP = getLocalIP();

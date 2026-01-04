@@ -8,8 +8,17 @@ import fs from "fs";
 export class CourseLessonController {
   static async create(req: Request, res: Response) {
     try {
-      let fileUrl: string | null = null;
+      const { courseId } = req.params;
+      if (!courseId) {
+        return res.status(400).json({
+          success: false,
+          message: "courseId is required",
+        });
+      }
 
+      let video: string | null = null;
+
+      // Video upload is optional - only upload if file is provided
       if (req.file) {
         const fileName =
           crypto.randomBytes(16).toString("hex") +
@@ -24,13 +33,14 @@ export class CourseLessonController {
           }
         );
 
-        fileUrl = result.url;
+        video = result.url;
         fs.unlinkSync(req.file.path);
       }
 
       const lesson = await CourseLessonService.create({
         ...req.body,
-        fileUrl,
+        courseId,
+        video,
       });
 
       return res.status(201).json({
@@ -48,9 +58,10 @@ export class CourseLessonController {
 
   static async getByCourse(req: Request, res: Response) {
     try {
-      const courseId = req.query.courseId as string;
+      const { courseId } = req.params;
       if (!courseId) {
         return res.status(400).json({
+          success: false,
           message: "courseId is required",
         });
       }
@@ -58,6 +69,7 @@ export class CourseLessonController {
       const numericCourseId = Number(courseId);
       if (isNaN(numericCourseId)) {
         return res.status(400).json({
+          success: false,
           message: "courseId must be a number",
         });
       }

@@ -11,28 +11,27 @@ const path_1 = __importDefault(require("path"));
 const fs_1 = __importDefault(require("fs"));
 // آپلود عکس پروفایل به Vercel Blob
 const uploadProfilePicture = async (req, res) => {
-    const { userId } = req.body;
     if (!req.file)
-        return res.status(400).json({ error: 'فایلی آپلود نشده' });
+        return res.status(400).json({ error: 'No file uploaded' });
+    if (!req.user)
+        return res.status(401).json({ error: 'Unauthorized' });
     const fileName = crypto_1.default.randomBytes(16).toString('hex') + path_1.default.extname(req.file.originalname);
     try {
-        // آپلود فایل در Vercel Blob
         const result = await (0, blob_1.put)(fileName, fs_1.default.readFileSync(req.file.path), {
-            access: 'public', // می‌تواند 'private' هم باشد
+            access: 'public',
             addRandomSuffix: true
         });
-        const url = result.url; // URL فایل آپلود شده
-        // به‌روزرسانی عکس پروفایل در جدول User
+        const url = result.url;
         const user = await prisma_1.default.user.update({
-            where: { id: Number(userId) },
+            where: { id: req.user.id },
             data: { profilePicture: url },
         });
-        fs_1.default.unlinkSync(req.file.path); // حذف فایل موقت
+        fs_1.default.unlinkSync(req.file.path);
         return res.json({ user, url });
     }
     catch (err) {
         console.error(err);
-        return res.status(500).json({ error: 'آپلود موفق نبود' });
+        return res.status(500).json({ error: 'Upload failed' });
     }
 };
 exports.uploadProfilePicture = uploadProfilePicture;

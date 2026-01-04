@@ -1,21 +1,25 @@
 import { CreateCourseLessonDto } from "./validator/create-course-lesson";
 export declare class CourseLessonService {
-    static create(data: CreateCourseLessonDto): Promise<{
+    static create(data: CreateCourseLessonDto & {
+        video?: string | null;
+    }): Promise<{
         id: string;
         createdAt: Date;
         name: string;
-        url: string | null;
         content: string | null;
         text: string | null;
+        url: string | null;
+        video: string | null;
         courseId: number;
     }>;
     static getByCourse(courseId: number): Promise<{
         id: string;
         createdAt: Date;
         name: string;
-        url: string | null;
         content: string | null;
         text: string | null;
+        url: string | null;
+        video: string | null;
         courseId: number;
     }[]>;
 }

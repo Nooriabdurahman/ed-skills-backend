@@ -2,7 +2,7 @@ import prisma from "../../common/config/database/prisma";
 import { CreateCourseLessonDto } from "./validator/create-course-lesson";
 
 export class CourseLessonService {
-  static async create(data: CreateCourseLessonDto & { fileUrl?: string | null }) {
+  static async create(data: CreateCourseLessonDto & { video?: string | null }) {
     return prisma.courseLesson.create({
       data: {
         ...data,

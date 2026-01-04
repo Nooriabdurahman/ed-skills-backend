@@ -8,6 +8,14 @@ import fs from "fs";
 export class LessonResourceController {
   static async create(req: Request, res: Response) {
     try {
+      const { lessonId } = req.params;
+      if (!lessonId) {
+        return res.status(400).json({
+          success: false,
+          message: "lessonId is required",
+        });
+      }
+
       if (!req.file) {
         return res.status(400).json({
           success: false,
@@ -35,7 +43,7 @@ export class LessonResourceController {
       const resource = await LessonResourceService.create({
         name: req.body.name || req.file.originalname,
         description: req.body.description,
-        lessonId: req.body.lessonId,
+        lessonId,
         fileUrl,
         fileType,
         fileSize: req.file.size,
@@ -57,7 +65,7 @@ export class LessonResourceController {
 
   static async getByLesson(req: Request, res: Response) {
     try {
-      const lessonId = req.query.lessonId as string;
+      const { lessonId } = req.params;
       if (!lessonId) {
         return res.status(400).json({
           success: false,

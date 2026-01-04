@@ -8,106 +8,53 @@ const multer_1 = __importDefault(require("multer"));
 const crypto_1 = __importDefault(require("crypto"));
 const path_1 = __importDefault(require("path"));
 const fs_1 = __importDefault(require("fs"));
-const prisma_1 = __importDefault(require("../../common/config/database/prisma"));
 const blob_1 = require("@vercel/blob");
+const course_services_1 = require("./course-services");
+const course_validate_1 = require("./validate/course-validate"); // <--- use validation here
+const course_lessons_routes_1 = __importDefault(require("../course-lesson/course-lessons-routes"));
 const router = express_1.default.Router();
-const upload = (0, multer_1.default)({ dest: 'tmp/' }); // Temporary storage for multer
-/**
- * @swagger
- * tags:
- *   name: Courses
- *   description: Course management
- */
-/**
- * @swagger
- * /courses:
- *   post:
- *     summary: Create a new course with optional media file
- *     tags: [Courses]
- *     requestBody:
- *       required: true
- *       content:
- *         multipart/form-data:
- *           schema:
- *             type: object
- *             properties:
- *               name:
- *                 type: string
- *               description:
- *                 type: string
- *               subject:
- *                 type: string
- *               materialType:
- *                 type: string
- *               materialCount:
- *                 type: string
- *               file:
- *                 type: string
- *                 format: binary
- *     responses:
- *       201:
- *         description: Course created successfully
- */
+const upload = (0, multer_1.default)({ dest: 'tmp/' });
+// ==================== Create Course ====================
 router.post('/courses', upload.single('file'), async (req, res) => {
     try {
-        const { name, description, subject, materialType, materialCount, firstRecommendation, secondRecommendation, totalScore, passingScore, status, materialStatus, isCertified, type, progress, duration } = req.body;
+        // Validate input using Joi
+        const validated = (0, course_validate_1.validateCourse)(req.body);
+        if (validated?.error) {
+            return res.status(400).json({ error: validated.error.details?.[0]?.message || "Invalid input" });
+        }
+        const value = validated?.value;
         let fileUrl = null;
         if (req.file) {
-            // Upload file to Vercel Blob
             const fileName = crypto_1.default.randomBytes(16).toString('hex') + path_1.default.extname(req.file.originalname);
             const result = await (0, blob_1.put)(fileName, fs_1.default.readFileSync(req.file.path), {
                 access: 'public',
                 addRandomSuffix: true
             });
-            fileUrl = result.url; // URL فایل آپلود شده
-            fs_1.default.unlinkSync(req.file.path); // Remove temp file
+            fileUrl = result.url;
+            fs_1.default.unlinkSync(req.file.path);
         }
-        const course = await prisma_1.default.course.create({
-            data: {
-                name,
-                description,
-                subject,
-                materialType,
-                materialCount,
-                firstRecommendation,
-                secondRecommendation,
-                quizTotalScore: totalScore ? Number(totalScore) : null,
-                quizPassingScore: passingScore ? Number(passingScore) : null,
-                status,
-                materialStatusType: materialStatus,
-                isCertified: isCertified === 'true',
-                picture: fileUrl,
-                typeImage: type,
-                progress: progress ? Number(progress) : 0,
-                duration: duration ?? null
-            }
+        const course = await (0, course_services_1.createCourse)({
+            ...value,
+            picture: fileUrl
         });
-        res.status(201).json({ course });
-    }
-    catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Error creating course' });
-    }
-});
-/**
- * @swagger
- * /courses:
- *   get:
- *     summary: Get all courses
- *     tags: [Courses]
- *     responses:
- *       200:
- *         description: List of all courses
- */
-router.get('/courses', async (req, res) => {
-    try {
-        const courses = await prisma_1.default.course.findMany();
-        res.json(courses);
+        return res.status(201).json({ course });
     }
     catch (err) {
         console.error(err);
-        res.status(500).json({ error: 'Error fetching courses' });
+        return res.status(500).json({ error: 'Error creating course' });
     }
 });
+router.get('/courses', async (req, res) => {
+    try {
+        const courses = await (0, course_services_1.getAllCourses)();
+        return res.status(200).json({ courses });
+    }
+    catch (err) {
+        console.error(err);
+        return res.status(500).json({ error: 'Error fetching courses' });
+    }
+});
+// Nested course lessons routes
+router.use('/courses/:courseId/lessons', course_lessons_routes_1.default);
 exports.default = router;
 //# sourceMappingURL=course-route.js.map
