@@ -9,8 +9,8 @@ datasource db {
 }
 
 model User {
-  id             Int      @id @default(autoincrement())
-  email          String   @unique
+  id             Int             @id @default(autoincrement())
+  email          String          @unique
   username       String   
   password       String
   age            Int?
@@ -18,6 +18,7 @@ model User {
   bio            String?  
   interests      String[] 
   skills         String?   // اضافه ک
+  courseHistory  CourseHistory[]
   createdAt      DateTime @default(now())
 }
 
@@ -42,6 +43,7 @@ model Course {
   progress            Float?   // 0 to 100
   duration            String?  // e.g., "5h 30m"
   lessons             CourseLesson[]  // ← فیلد رابطه‌ای معکوس
+  courseHistory       CourseHistory[]
   createdAt           DateTime @default(now())
   updatedAt           DateTime @updatedAt
 }
@@ -56,6 +58,7 @@ model CourseLesson {
   courseId  Int
   course    Course           @relation(fields: [courseId], references: [id])
   resources LessonResource[]
+  progress  CourseProgress[]
   createdAt DateTime         @default(now())
 }
 
@@ -75,10 +78,27 @@ model LessonResource {
 model CourseProgress {
   id        Int      @id @default(autoincrement())
   userId    Int
-  lessonId  Int
+  lessonId  String
   completed Boolean  @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   @@unique([userId, lessonId])
+
+  lesson CourseLesson @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+}
+
+model CourseHistory {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  courseId  Int
+  viewedAt  DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  course    Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, courseId])
+  @@index([userId])
+  @@index([courseId])
 }

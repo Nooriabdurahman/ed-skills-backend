@@ -188,6 +188,15 @@ exports.Prisma.CourseProgressScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.CourseHistoryScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  courseId: 'courseId',
+  viewedAt: 'viewedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -209,7 +218,8 @@ exports.Prisma.ModelName = {
   Course: 'Course',
   CourseLesson: 'CourseLesson',
   LessonResource: 'LessonResource',
-  CourseProgress: 'CourseProgress'
+  CourseProgress: 'CourseProgress',
+  CourseHistory: 'CourseHistory'
 };
 
 /**

@@ -4,6 +4,7 @@ import cors from 'cors';
 import userRoutes from "./module/auth/auth-route";
 import profileRoutes from './module/profile/profile-route';
 import courseRoutes from './module/course/course-route';
+import courseHistoryRoutes from './module/course-history/course-history-routes';
 import uploadRoute from './routes/uploadRoute';
 import uploadTestRoute from './routes/upload-test-route';
 import chatRoute from './routes/chat';
@@ -19,6 +20,8 @@ app.use('/users', userRoutes);
 app.use('/profile', profileRoutes);
 
 app.use('/courses', courseRoutes);
+
+app.use('/course-history', courseHistoryRoutes);
 
 app.use('/files', uploadRoute);
 

@@ -38,6 +38,11 @@ export type LessonResource = $Result.DefaultSelection<Prisma.$LessonResourcePayl
  * 
  */
 export type CourseProgress = $Result.DefaultSelection<Prisma.$CourseProgressPayload>
+/**
+ * Model CourseHistory
+ * 
+ */
+export type CourseHistory = $Result.DefaultSelection<Prisma.$CourseHistoryPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -206,6 +211,16 @@ export class PrismaClient<
     * ```
     */
   get courseProgress(): Prisma.CourseProgressDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.courseHistory`: Exposes CRUD operations for the **CourseHistory** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more CourseHistories
+    * const courseHistories = await prisma.courseHistory.findMany()
+    * ```
+    */
+  get courseHistory(): Prisma.CourseHistoryDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -650,7 +665,8 @@ export namespace Prisma {
     Course: 'Course',
     CourseLesson: 'CourseLesson',
     LessonResource: 'LessonResource',
-    CourseProgress: 'CourseProgress'
+    CourseProgress: 'CourseProgress',
+    CourseHistory: 'CourseHistory'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -669,7 +685,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "course" | "courseLesson" | "lessonResource" | "courseProgress"
+      modelProps: "user" | "course" | "courseLesson" | "lessonResource" | "courseProgress" | "courseHistory"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1043,6 +1059,80 @@ export namespace Prisma {
           }
         }
       }
+      CourseHistory: {
+        payload: Prisma.$CourseHistoryPayload<ExtArgs>
+        fields: Prisma.CourseHistoryFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.CourseHistoryFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CourseHistoryPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.CourseHistoryFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CourseHistoryPayload>
+          }
+          findFirst: {
+            args: Prisma.CourseHistoryFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CourseHistoryPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.CourseHistoryFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CourseHistoryPayload>
+          }
+          findMany: {
+            args: Prisma.CourseHistoryFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CourseHistoryPayload>[]
+          }
+          create: {
+            args: Prisma.CourseHistoryCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CourseHistoryPayload>
+          }
+          createMany: {
+            args: Prisma.CourseHistoryCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.CourseHistoryCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CourseHistoryPayload>[]
+          }
+          delete: {
+            args: Prisma.CourseHistoryDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CourseHistoryPayload>
+          }
+          update: {
+            args: Prisma.CourseHistoryUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CourseHistoryPayload>
+          }
+          deleteMany: {
+            args: Prisma.CourseHistoryDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.CourseHistoryUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.CourseHistoryUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CourseHistoryPayload>[]
+          }
+          upsert: {
+            args: Prisma.CourseHistoryUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CourseHistoryPayload>
+          }
+          aggregate: {
+            args: Prisma.CourseHistoryAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCourseHistory>
+          }
+          groupBy: {
+            args: Prisma.CourseHistoryGroupByArgs<ExtArgs>
+            result: $Utils.Optional<CourseHistoryGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.CourseHistoryCountArgs<ExtArgs>
+            result: $Utils.Optional<CourseHistoryCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1144,6 +1234,7 @@ export namespace Prisma {
     courseLesson?: CourseLessonOmit
     lessonResource?: LessonResourceOmit
     courseProgress?: CourseProgressOmit
+    courseHistory?: CourseHistoryOmit
   }
 
   /* Types for Logging */
@@ -1220,15 +1311,48 @@ export namespace Prisma {
 
 
   /**
+   * Count Type UserCountOutputType
+   */
+
+  export type UserCountOutputType = {
+    courseHistory: number
+  }
+
+  export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    courseHistory?: boolean | UserCountOutputTypeCountCourseHistoryArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserCountOutputType
+     */
+    select?: UserCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountCourseHistoryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CourseHistoryWhereInput
+  }
+
+
+  /**
    * Count Type CourseCountOutputType
    */
 
   export type CourseCountOutputType = {
     lessons: number
+    courseHistory: number
   }
 
   export type CourseCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     lessons?: boolean | CourseCountOutputTypeCountLessonsArgs
+    courseHistory?: boolean | CourseCountOutputTypeCountCourseHistoryArgs
   }
 
   // Custom InputTypes
@@ -1247,6 +1371,13 @@ export namespace Prisma {
    */
   export type CourseCountOutputTypeCountLessonsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: CourseLessonWhereInput
+  }
+
+  /**
+   * CourseCountOutputType without action
+   */
+  export type CourseCountOutputTypeCountCourseHistoryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CourseHistoryWhereInput
   }
 
 
@@ -1523,6 +1654,8 @@ export namespace Prisma {
     interests?: boolean
     skills?: boolean
     createdAt?: boolean
+    courseHistory?: boolean | User$courseHistoryArgs<ExtArgs>
+    _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -1565,10 +1698,18 @@ export namespace Prisma {
   }
 
   export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "username" | "password" | "age" | "profilePicture" | "bio" | "interests" | "skills" | "createdAt", ExtArgs["result"]["user"]>
+  export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    courseHistory?: boolean | User$courseHistoryArgs<ExtArgs>
+    _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type UserIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
 
   export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "User"
-    objects: {}
+    objects: {
+      courseHistory: Prisma.$CourseHistoryPayload<ExtArgs>[]
+    }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       email: string
@@ -1974,6 +2115,7 @@ export namespace Prisma {
    */
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    courseHistory<T extends User$courseHistoryArgs<ExtArgs> = {}>(args?: Subset<T, User$courseHistoryArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CourseHistoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2030,6 +2172,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * Filter, which User to fetch.
      */
     where: UserWhereUniqueInput
@@ -2048,6 +2194,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * Filter, which User to fetch.
      */
     where: UserWhereUniqueInput
@@ -2065,6 +2215,10 @@ export namespace Prisma {
      * Omit specific fields from the User
      */
     omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
     /**
      * Filter, which User to fetch.
      */
@@ -2114,6 +2268,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * Filter, which User to fetch.
      */
     where?: UserWhereInput
@@ -2162,6 +2320,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * Filter, which Users to fetch.
      */
     where?: UserWhereInput
@@ -2204,6 +2366,10 @@ export namespace Prisma {
      * Omit specific fields from the User
      */
     omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
     /**
      * The data needed to create a User.
      */
@@ -2252,6 +2418,10 @@ export namespace Prisma {
      * Omit specific fields from the User
      */
     omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
     /**
      * The data needed to update a User.
      */
@@ -2319,6 +2489,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * The filter to search for the User to update in case it exists.
      */
     where: UserWhereUniqueInput
@@ -2345,6 +2519,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * Filter which User to delete.
      */
     where: UserWhereUniqueInput
@@ -2365,6 +2543,30 @@ export namespace Prisma {
   }
 
   /**
+   * User.courseHistory
+   */
+  export type User$courseHistoryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CourseHistory
+     */
+    select?: CourseHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CourseHistory
+     */
+    omit?: CourseHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CourseHistoryInclude<ExtArgs> | null
+    where?: CourseHistoryWhereInput
+    orderBy?: CourseHistoryOrderByWithRelationInput | CourseHistoryOrderByWithRelationInput[]
+    cursor?: CourseHistoryWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CourseHistoryScalarFieldEnum | CourseHistoryScalarFieldEnum[]
+  }
+
+  /**
    * User without action
    */
   export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2376,6 +2578,10 @@ export namespace Prisma {
      * Omit specific fields from the User
      */
     omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
   }
 
 
@@ -2710,6 +2916,7 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     lessons?: boolean | Course$lessonsArgs<ExtArgs>
+    courseHistory?: boolean | Course$courseHistoryArgs<ExtArgs>
     _count?: boolean | CourseCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["course"]>
 
@@ -2785,6 +2992,7 @@ export namespace Prisma {
   export type CourseOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "subject" | "icon" | "picture" | "materialType" | "materialCount" | "firstRecommendation" | "secondRecommendation" | "quizTotalScore" | "quizPassingScore" | "status" | "materialStatusType" | "isCertified" | "typeImage" | "progress" | "duration" | "createdAt" | "updatedAt", ExtArgs["result"]["course"]>
   export type CourseInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     lessons?: boolean | Course$lessonsArgs<ExtArgs>
+    courseHistory?: boolean | Course$courseHistoryArgs<ExtArgs>
     _count?: boolean | CourseCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type CourseIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -2794,6 +3002,7 @@ export namespace Prisma {
     name: "Course"
     objects: {
       lessons: Prisma.$CourseLessonPayload<ExtArgs>[]
+      courseHistory: Prisma.$CourseHistoryPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -3211,6 +3420,7 @@ export namespace Prisma {
   export interface Prisma__CourseClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     lessons<T extends Course$lessonsArgs<ExtArgs> = {}>(args?: Subset<T, Course$lessonsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CourseLessonPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    courseHistory<T extends Course$courseHistoryArgs<ExtArgs> = {}>(args?: Subset<T, Course$courseHistoryArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CourseHistoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3669,6 +3879,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: CourseLessonScalarFieldEnum | CourseLessonScalarFieldEnum[]
+  }
+
+  /**
+   * Course.courseHistory
+   */
+  export type Course$courseHistoryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CourseHistory
+     */
+    select?: CourseHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CourseHistory
+     */
+    omit?: CourseHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CourseHistoryInclude<ExtArgs> | null
+    where?: CourseHistoryWhereInput
+    orderBy?: CourseHistoryOrderByWithRelationInput | CourseHistoryOrderByWithRelationInput[]
+    cursor?: CourseHistoryWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CourseHistoryScalarFieldEnum | CourseHistoryScalarFieldEnum[]
   }
 
   /**
@@ -7046,6 +7280,1127 @@ export namespace Prisma {
 
 
   /**
+   * Model CourseHistory
+   */
+
+  export type AggregateCourseHistory = {
+    _count: CourseHistoryCountAggregateOutputType | null
+    _avg: CourseHistoryAvgAggregateOutputType | null
+    _sum: CourseHistorySumAggregateOutputType | null
+    _min: CourseHistoryMinAggregateOutputType | null
+    _max: CourseHistoryMaxAggregateOutputType | null
+  }
+
+  export type CourseHistoryAvgAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    courseId: number | null
+  }
+
+  export type CourseHistorySumAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    courseId: number | null
+  }
+
+  export type CourseHistoryMinAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    courseId: number | null
+    viewedAt: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type CourseHistoryMaxAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    courseId: number | null
+    viewedAt: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type CourseHistoryCountAggregateOutputType = {
+    id: number
+    userId: number
+    courseId: number
+    viewedAt: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type CourseHistoryAvgAggregateInputType = {
+    id?: true
+    userId?: true
+    courseId?: true
+  }
+
+  export type CourseHistorySumAggregateInputType = {
+    id?: true
+    userId?: true
+    courseId?: true
+  }
+
+  export type CourseHistoryMinAggregateInputType = {
+    id?: true
+    userId?: true
+    courseId?: true
+    viewedAt?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type CourseHistoryMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    courseId?: true
+    viewedAt?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type CourseHistoryCountAggregateInputType = {
+    id?: true
+    userId?: true
+    courseId?: true
+    viewedAt?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type CourseHistoryAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CourseHistory to aggregate.
+     */
+    where?: CourseHistoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CourseHistories to fetch.
+     */
+    orderBy?: CourseHistoryOrderByWithRelationInput | CourseHistoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: CourseHistoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CourseHistories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CourseHistories.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned CourseHistories
+    **/
+    _count?: true | CourseHistoryCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: CourseHistoryAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: CourseHistorySumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CourseHistoryMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CourseHistoryMaxAggregateInputType
+  }
+
+  export type GetCourseHistoryAggregateType<T extends CourseHistoryAggregateArgs> = {
+        [P in keyof T & keyof AggregateCourseHistory]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCourseHistory[P]>
+      : GetScalarType<T[P], AggregateCourseHistory[P]>
+  }
+
+
+
+
+  export type CourseHistoryGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CourseHistoryWhereInput
+    orderBy?: CourseHistoryOrderByWithAggregationInput | CourseHistoryOrderByWithAggregationInput[]
+    by: CourseHistoryScalarFieldEnum[] | CourseHistoryScalarFieldEnum
+    having?: CourseHistoryScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CourseHistoryCountAggregateInputType | true
+    _avg?: CourseHistoryAvgAggregateInputType
+    _sum?: CourseHistorySumAggregateInputType
+    _min?: CourseHistoryMinAggregateInputType
+    _max?: CourseHistoryMaxAggregateInputType
+  }
+
+  export type CourseHistoryGroupByOutputType = {
+    id: number
+    userId: number
+    courseId: number
+    viewedAt: Date
+    createdAt: Date
+    updatedAt: Date
+    _count: CourseHistoryCountAggregateOutputType | null
+    _avg: CourseHistoryAvgAggregateOutputType | null
+    _sum: CourseHistorySumAggregateOutputType | null
+    _min: CourseHistoryMinAggregateOutputType | null
+    _max: CourseHistoryMaxAggregateOutputType | null
+  }
+
+  type GetCourseHistoryGroupByPayload<T extends CourseHistoryGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<CourseHistoryGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CourseHistoryGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CourseHistoryGroupByOutputType[P]>
+            : GetScalarType<T[P], CourseHistoryGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type CourseHistorySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    courseId?: boolean
+    viewedAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    course?: boolean | CourseDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["courseHistory"]>
+
+  export type CourseHistorySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    courseId?: boolean
+    viewedAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    course?: boolean | CourseDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["courseHistory"]>
+
+  export type CourseHistorySelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    courseId?: boolean
+    viewedAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    course?: boolean | CourseDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["courseHistory"]>
+
+  export type CourseHistorySelectScalar = {
+    id?: boolean
+    userId?: boolean
+    courseId?: boolean
+    viewedAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type CourseHistoryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "courseId" | "viewedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["courseHistory"]>
+  export type CourseHistoryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    course?: boolean | CourseDefaultArgs<ExtArgs>
+  }
+  export type CourseHistoryIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    course?: boolean | CourseDefaultArgs<ExtArgs>
+  }
+  export type CourseHistoryIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    course?: boolean | CourseDefaultArgs<ExtArgs>
+  }
+
+  export type $CourseHistoryPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "CourseHistory"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+      course: Prisma.$CoursePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      userId: number
+      courseId: number
+      viewedAt: Date
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["courseHistory"]>
+    composites: {}
+  }
+
+  type CourseHistoryGetPayload<S extends boolean | null | undefined | CourseHistoryDefaultArgs> = $Result.GetResult<Prisma.$CourseHistoryPayload, S>
+
+  type CourseHistoryCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<CourseHistoryFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: CourseHistoryCountAggregateInputType | true
+    }
+
+  export interface CourseHistoryDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['CourseHistory'], meta: { name: 'CourseHistory' } }
+    /**
+     * Find zero or one CourseHistory that matches the filter.
+     * @param {CourseHistoryFindUniqueArgs} args - Arguments to find a CourseHistory
+     * @example
+     * // Get one CourseHistory
+     * const courseHistory = await prisma.courseHistory.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends CourseHistoryFindUniqueArgs>(args: SelectSubset<T, CourseHistoryFindUniqueArgs<ExtArgs>>): Prisma__CourseHistoryClient<$Result.GetResult<Prisma.$CourseHistoryPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one CourseHistory that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {CourseHistoryFindUniqueOrThrowArgs} args - Arguments to find a CourseHistory
+     * @example
+     * // Get one CourseHistory
+     * const courseHistory = await prisma.courseHistory.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends CourseHistoryFindUniqueOrThrowArgs>(args: SelectSubset<T, CourseHistoryFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CourseHistoryClient<$Result.GetResult<Prisma.$CourseHistoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CourseHistory that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CourseHistoryFindFirstArgs} args - Arguments to find a CourseHistory
+     * @example
+     * // Get one CourseHistory
+     * const courseHistory = await prisma.courseHistory.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends CourseHistoryFindFirstArgs>(args?: SelectSubset<T, CourseHistoryFindFirstArgs<ExtArgs>>): Prisma__CourseHistoryClient<$Result.GetResult<Prisma.$CourseHistoryPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CourseHistory that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CourseHistoryFindFirstOrThrowArgs} args - Arguments to find a CourseHistory
+     * @example
+     * // Get one CourseHistory
+     * const courseHistory = await prisma.courseHistory.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends CourseHistoryFindFirstOrThrowArgs>(args?: SelectSubset<T, CourseHistoryFindFirstOrThrowArgs<ExtArgs>>): Prisma__CourseHistoryClient<$Result.GetResult<Prisma.$CourseHistoryPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more CourseHistories that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CourseHistoryFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all CourseHistories
+     * const courseHistories = await prisma.courseHistory.findMany()
+     * 
+     * // Get first 10 CourseHistories
+     * const courseHistories = await prisma.courseHistory.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const courseHistoryWithIdOnly = await prisma.courseHistory.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends CourseHistoryFindManyArgs>(args?: SelectSubset<T, CourseHistoryFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CourseHistoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a CourseHistory.
+     * @param {CourseHistoryCreateArgs} args - Arguments to create a CourseHistory.
+     * @example
+     * // Create one CourseHistory
+     * const CourseHistory = await prisma.courseHistory.create({
+     *   data: {
+     *     // ... data to create a CourseHistory
+     *   }
+     * })
+     * 
+     */
+    create<T extends CourseHistoryCreateArgs>(args: SelectSubset<T, CourseHistoryCreateArgs<ExtArgs>>): Prisma__CourseHistoryClient<$Result.GetResult<Prisma.$CourseHistoryPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many CourseHistories.
+     * @param {CourseHistoryCreateManyArgs} args - Arguments to create many CourseHistories.
+     * @example
+     * // Create many CourseHistories
+     * const courseHistory = await prisma.courseHistory.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends CourseHistoryCreateManyArgs>(args?: SelectSubset<T, CourseHistoryCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many CourseHistories and returns the data saved in the database.
+     * @param {CourseHistoryCreateManyAndReturnArgs} args - Arguments to create many CourseHistories.
+     * @example
+     * // Create many CourseHistories
+     * const courseHistory = await prisma.courseHistory.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many CourseHistories and only return the `id`
+     * const courseHistoryWithIdOnly = await prisma.courseHistory.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends CourseHistoryCreateManyAndReturnArgs>(args?: SelectSubset<T, CourseHistoryCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CourseHistoryPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a CourseHistory.
+     * @param {CourseHistoryDeleteArgs} args - Arguments to delete one CourseHistory.
+     * @example
+     * // Delete one CourseHistory
+     * const CourseHistory = await prisma.courseHistory.delete({
+     *   where: {
+     *     // ... filter to delete one CourseHistory
+     *   }
+     * })
+     * 
+     */
+    delete<T extends CourseHistoryDeleteArgs>(args: SelectSubset<T, CourseHistoryDeleteArgs<ExtArgs>>): Prisma__CourseHistoryClient<$Result.GetResult<Prisma.$CourseHistoryPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one CourseHistory.
+     * @param {CourseHistoryUpdateArgs} args - Arguments to update one CourseHistory.
+     * @example
+     * // Update one CourseHistory
+     * const courseHistory = await prisma.courseHistory.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends CourseHistoryUpdateArgs>(args: SelectSubset<T, CourseHistoryUpdateArgs<ExtArgs>>): Prisma__CourseHistoryClient<$Result.GetResult<Prisma.$CourseHistoryPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more CourseHistories.
+     * @param {CourseHistoryDeleteManyArgs} args - Arguments to filter CourseHistories to delete.
+     * @example
+     * // Delete a few CourseHistories
+     * const { count } = await prisma.courseHistory.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends CourseHistoryDeleteManyArgs>(args?: SelectSubset<T, CourseHistoryDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CourseHistories.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CourseHistoryUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many CourseHistories
+     * const courseHistory = await prisma.courseHistory.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends CourseHistoryUpdateManyArgs>(args: SelectSubset<T, CourseHistoryUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CourseHistories and returns the data updated in the database.
+     * @param {CourseHistoryUpdateManyAndReturnArgs} args - Arguments to update many CourseHistories.
+     * @example
+     * // Update many CourseHistories
+     * const courseHistory = await prisma.courseHistory.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more CourseHistories and only return the `id`
+     * const courseHistoryWithIdOnly = await prisma.courseHistory.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends CourseHistoryUpdateManyAndReturnArgs>(args: SelectSubset<T, CourseHistoryUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CourseHistoryPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one CourseHistory.
+     * @param {CourseHistoryUpsertArgs} args - Arguments to update or create a CourseHistory.
+     * @example
+     * // Update or create a CourseHistory
+     * const courseHistory = await prisma.courseHistory.upsert({
+     *   create: {
+     *     // ... data to create a CourseHistory
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the CourseHistory we want to update
+     *   }
+     * })
+     */
+    upsert<T extends CourseHistoryUpsertArgs>(args: SelectSubset<T, CourseHistoryUpsertArgs<ExtArgs>>): Prisma__CourseHistoryClient<$Result.GetResult<Prisma.$CourseHistoryPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of CourseHistories.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CourseHistoryCountArgs} args - Arguments to filter CourseHistories to count.
+     * @example
+     * // Count the number of CourseHistories
+     * const count = await prisma.courseHistory.count({
+     *   where: {
+     *     // ... the filter for the CourseHistories we want to count
+     *   }
+     * })
+    **/
+    count<T extends CourseHistoryCountArgs>(
+      args?: Subset<T, CourseHistoryCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CourseHistoryCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a CourseHistory.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CourseHistoryAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CourseHistoryAggregateArgs>(args: Subset<T, CourseHistoryAggregateArgs>): Prisma.PrismaPromise<GetCourseHistoryAggregateType<T>>
+
+    /**
+     * Group by CourseHistory.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CourseHistoryGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends CourseHistoryGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: CourseHistoryGroupByArgs['orderBy'] }
+        : { orderBy?: CourseHistoryGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, CourseHistoryGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCourseHistoryGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the CourseHistory model
+   */
+  readonly fields: CourseHistoryFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for CourseHistory.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__CourseHistoryClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    course<T extends CourseDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CourseDefaultArgs<ExtArgs>>): Prisma__CourseClient<$Result.GetResult<Prisma.$CoursePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the CourseHistory model
+   */
+  interface CourseHistoryFieldRefs {
+    readonly id: FieldRef<"CourseHistory", 'Int'>
+    readonly userId: FieldRef<"CourseHistory", 'Int'>
+    readonly courseId: FieldRef<"CourseHistory", 'Int'>
+    readonly viewedAt: FieldRef<"CourseHistory", 'DateTime'>
+    readonly createdAt: FieldRef<"CourseHistory", 'DateTime'>
+    readonly updatedAt: FieldRef<"CourseHistory", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * CourseHistory findUnique
+   */
+  export type CourseHistoryFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CourseHistory
+     */
+    select?: CourseHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CourseHistory
+     */
+    omit?: CourseHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CourseHistoryInclude<ExtArgs> | null
+    /**
+     * Filter, which CourseHistory to fetch.
+     */
+    where: CourseHistoryWhereUniqueInput
+  }
+
+  /**
+   * CourseHistory findUniqueOrThrow
+   */
+  export type CourseHistoryFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CourseHistory
+     */
+    select?: CourseHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CourseHistory
+     */
+    omit?: CourseHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CourseHistoryInclude<ExtArgs> | null
+    /**
+     * Filter, which CourseHistory to fetch.
+     */
+    where: CourseHistoryWhereUniqueInput
+  }
+
+  /**
+   * CourseHistory findFirst
+   */
+  export type CourseHistoryFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CourseHistory
+     */
+    select?: CourseHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CourseHistory
+     */
+    omit?: CourseHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CourseHistoryInclude<ExtArgs> | null
+    /**
+     * Filter, which CourseHistory to fetch.
+     */
+    where?: CourseHistoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CourseHistories to fetch.
+     */
+    orderBy?: CourseHistoryOrderByWithRelationInput | CourseHistoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CourseHistories.
+     */
+    cursor?: CourseHistoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CourseHistories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CourseHistories.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CourseHistories.
+     */
+    distinct?: CourseHistoryScalarFieldEnum | CourseHistoryScalarFieldEnum[]
+  }
+
+  /**
+   * CourseHistory findFirstOrThrow
+   */
+  export type CourseHistoryFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CourseHistory
+     */
+    select?: CourseHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CourseHistory
+     */
+    omit?: CourseHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CourseHistoryInclude<ExtArgs> | null
+    /**
+     * Filter, which CourseHistory to fetch.
+     */
+    where?: CourseHistoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CourseHistories to fetch.
+     */
+    orderBy?: CourseHistoryOrderByWithRelationInput | CourseHistoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CourseHistories.
+     */
+    cursor?: CourseHistoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CourseHistories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CourseHistories.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CourseHistories.
+     */
+    distinct?: CourseHistoryScalarFieldEnum | CourseHistoryScalarFieldEnum[]
+  }
+
+  /**
+   * CourseHistory findMany
+   */
+  export type CourseHistoryFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CourseHistory
+     */
+    select?: CourseHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CourseHistory
+     */
+    omit?: CourseHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CourseHistoryInclude<ExtArgs> | null
+    /**
+     * Filter, which CourseHistories to fetch.
+     */
+    where?: CourseHistoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CourseHistories to fetch.
+     */
+    orderBy?: CourseHistoryOrderByWithRelationInput | CourseHistoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing CourseHistories.
+     */
+    cursor?: CourseHistoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CourseHistories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CourseHistories.
+     */
+    skip?: number
+    distinct?: CourseHistoryScalarFieldEnum | CourseHistoryScalarFieldEnum[]
+  }
+
+  /**
+   * CourseHistory create
+   */
+  export type CourseHistoryCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CourseHistory
+     */
+    select?: CourseHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CourseHistory
+     */
+    omit?: CourseHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CourseHistoryInclude<ExtArgs> | null
+    /**
+     * The data needed to create a CourseHistory.
+     */
+    data: XOR<CourseHistoryCreateInput, CourseHistoryUncheckedCreateInput>
+  }
+
+  /**
+   * CourseHistory createMany
+   */
+  export type CourseHistoryCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many CourseHistories.
+     */
+    data: CourseHistoryCreateManyInput | CourseHistoryCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * CourseHistory createManyAndReturn
+   */
+  export type CourseHistoryCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CourseHistory
+     */
+    select?: CourseHistorySelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the CourseHistory
+     */
+    omit?: CourseHistoryOmit<ExtArgs> | null
+    /**
+     * The data used to create many CourseHistories.
+     */
+    data: CourseHistoryCreateManyInput | CourseHistoryCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CourseHistoryIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * CourseHistory update
+   */
+  export type CourseHistoryUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CourseHistory
+     */
+    select?: CourseHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CourseHistory
+     */
+    omit?: CourseHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CourseHistoryInclude<ExtArgs> | null
+    /**
+     * The data needed to update a CourseHistory.
+     */
+    data: XOR<CourseHistoryUpdateInput, CourseHistoryUncheckedUpdateInput>
+    /**
+     * Choose, which CourseHistory to update.
+     */
+    where: CourseHistoryWhereUniqueInput
+  }
+
+  /**
+   * CourseHistory updateMany
+   */
+  export type CourseHistoryUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update CourseHistories.
+     */
+    data: XOR<CourseHistoryUpdateManyMutationInput, CourseHistoryUncheckedUpdateManyInput>
+    /**
+     * Filter which CourseHistories to update
+     */
+    where?: CourseHistoryWhereInput
+    /**
+     * Limit how many CourseHistories to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * CourseHistory updateManyAndReturn
+   */
+  export type CourseHistoryUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CourseHistory
+     */
+    select?: CourseHistorySelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the CourseHistory
+     */
+    omit?: CourseHistoryOmit<ExtArgs> | null
+    /**
+     * The data used to update CourseHistories.
+     */
+    data: XOR<CourseHistoryUpdateManyMutationInput, CourseHistoryUncheckedUpdateManyInput>
+    /**
+     * Filter which CourseHistories to update
+     */
+    where?: CourseHistoryWhereInput
+    /**
+     * Limit how many CourseHistories to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CourseHistoryIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * CourseHistory upsert
+   */
+  export type CourseHistoryUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CourseHistory
+     */
+    select?: CourseHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CourseHistory
+     */
+    omit?: CourseHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CourseHistoryInclude<ExtArgs> | null
+    /**
+     * The filter to search for the CourseHistory to update in case it exists.
+     */
+    where: CourseHistoryWhereUniqueInput
+    /**
+     * In case the CourseHistory found by the `where` argument doesn't exist, create a new CourseHistory with this data.
+     */
+    create: XOR<CourseHistoryCreateInput, CourseHistoryUncheckedCreateInput>
+    /**
+     * In case the CourseHistory was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<CourseHistoryUpdateInput, CourseHistoryUncheckedUpdateInput>
+  }
+
+  /**
+   * CourseHistory delete
+   */
+  export type CourseHistoryDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CourseHistory
+     */
+    select?: CourseHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CourseHistory
+     */
+    omit?: CourseHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CourseHistoryInclude<ExtArgs> | null
+    /**
+     * Filter which CourseHistory to delete.
+     */
+    where: CourseHistoryWhereUniqueInput
+  }
+
+  /**
+   * CourseHistory deleteMany
+   */
+  export type CourseHistoryDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CourseHistories to delete
+     */
+    where?: CourseHistoryWhereInput
+    /**
+     * Limit how many CourseHistories to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * CourseHistory without action
+   */
+  export type CourseHistoryDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CourseHistory
+     */
+    select?: CourseHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CourseHistory
+     */
+    omit?: CourseHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CourseHistoryInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -7140,6 +8495,18 @@ export namespace Prisma {
   };
 
   export type CourseProgressScalarFieldEnum = (typeof CourseProgressScalarFieldEnum)[keyof typeof CourseProgressScalarFieldEnum]
+
+
+  export const CourseHistoryScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    courseId: 'courseId',
+    viewedAt: 'viewedAt',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type CourseHistoryScalarFieldEnum = (typeof CourseHistoryScalarFieldEnum)[keyof typeof CourseHistoryScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -7251,6 +8618,7 @@ export namespace Prisma {
     interests?: StringNullableListFilter<"User">
     skills?: StringNullableFilter<"User"> | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
+    courseHistory?: CourseHistoryListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -7264,6 +8632,7 @@ export namespace Prisma {
     interests?: SortOrder
     skills?: SortOrderInput | SortOrder
     createdAt?: SortOrder
+    courseHistory?: CourseHistoryOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -7280,6 +8649,7 @@ export namespace Prisma {
     interests?: StringNullableListFilter<"User">
     skills?: StringNullableFilter<"User"> | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
+    courseHistory?: CourseHistoryListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -7341,6 +8711,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Course"> | Date | string
     updatedAt?: DateTimeFilter<"Course"> | Date | string
     lessons?: CourseLessonListRelationFilter
+    courseHistory?: CourseHistoryListRelationFilter
   }
 
   export type CourseOrderByWithRelationInput = {
@@ -7365,6 +8736,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     lessons?: CourseLessonOrderByRelationAggregateInput
+    courseHistory?: CourseHistoryOrderByRelationAggregateInput
   }
 
   export type CourseWhereUniqueInput = Prisma.AtLeast<{
@@ -7392,6 +8764,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Course"> | Date | string
     updatedAt?: DateTimeFilter<"Course"> | Date | string
     lessons?: CourseLessonListRelationFilter
+    courseHistory?: CourseHistoryListRelationFilter
   }, "id">
 
   export type CourseOrderByWithAggregationInput = {
@@ -7660,6 +9033,72 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"CourseProgress"> | Date | string
   }
 
+  export type CourseHistoryWhereInput = {
+    AND?: CourseHistoryWhereInput | CourseHistoryWhereInput[]
+    OR?: CourseHistoryWhereInput[]
+    NOT?: CourseHistoryWhereInput | CourseHistoryWhereInput[]
+    id?: IntFilter<"CourseHistory"> | number
+    userId?: IntFilter<"CourseHistory"> | number
+    courseId?: IntFilter<"CourseHistory"> | number
+    viewedAt?: DateTimeFilter<"CourseHistory"> | Date | string
+    createdAt?: DateTimeFilter<"CourseHistory"> | Date | string
+    updatedAt?: DateTimeFilter<"CourseHistory"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    course?: XOR<CourseScalarRelationFilter, CourseWhereInput>
+  }
+
+  export type CourseHistoryOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    courseId?: SortOrder
+    viewedAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+    course?: CourseOrderByWithRelationInput
+  }
+
+  export type CourseHistoryWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    userId_courseId?: CourseHistoryUserIdCourseIdCompoundUniqueInput
+    AND?: CourseHistoryWhereInput | CourseHistoryWhereInput[]
+    OR?: CourseHistoryWhereInput[]
+    NOT?: CourseHistoryWhereInput | CourseHistoryWhereInput[]
+    userId?: IntFilter<"CourseHistory"> | number
+    courseId?: IntFilter<"CourseHistory"> | number
+    viewedAt?: DateTimeFilter<"CourseHistory"> | Date | string
+    createdAt?: DateTimeFilter<"CourseHistory"> | Date | string
+    updatedAt?: DateTimeFilter<"CourseHistory"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    course?: XOR<CourseScalarRelationFilter, CourseWhereInput>
+  }, "id" | "userId_courseId">
+
+  export type CourseHistoryOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    courseId?: SortOrder
+    viewedAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: CourseHistoryCountOrderByAggregateInput
+    _avg?: CourseHistoryAvgOrderByAggregateInput
+    _max?: CourseHistoryMaxOrderByAggregateInput
+    _min?: CourseHistoryMinOrderByAggregateInput
+    _sum?: CourseHistorySumOrderByAggregateInput
+  }
+
+  export type CourseHistoryScalarWhereWithAggregatesInput = {
+    AND?: CourseHistoryScalarWhereWithAggregatesInput | CourseHistoryScalarWhereWithAggregatesInput[]
+    OR?: CourseHistoryScalarWhereWithAggregatesInput[]
+    NOT?: CourseHistoryScalarWhereWithAggregatesInput | CourseHistoryScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"CourseHistory"> | number
+    userId?: IntWithAggregatesFilter<"CourseHistory"> | number
+    courseId?: IntWithAggregatesFilter<"CourseHistory"> | number
+    viewedAt?: DateTimeWithAggregatesFilter<"CourseHistory"> | Date | string
+    createdAt?: DateTimeWithAggregatesFilter<"CourseHistory"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"CourseHistory"> | Date | string
+  }
+
   export type UserCreateInput = {
     email: string
     username: string
@@ -7670,6 +9109,7 @@ export namespace Prisma {
     interests?: UserCreateinterestsInput | string[]
     skills?: string | null
     createdAt?: Date | string
+    courseHistory?: CourseHistoryCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -7683,6 +9123,7 @@ export namespace Prisma {
     interests?: UserCreateinterestsInput | string[]
     skills?: string | null
     createdAt?: Date | string
+    courseHistory?: CourseHistoryUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -7695,6 +9136,7 @@ export namespace Prisma {
     interests?: UserUpdateinterestsInput | string[]
     skills?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    courseHistory?: CourseHistoryUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -7708,6 +9150,7 @@ export namespace Prisma {
     interests?: UserUpdateinterestsInput | string[]
     skills?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    courseHistory?: CourseHistoryUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -7769,6 +9212,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     lessons?: CourseLessonCreateNestedManyWithoutCourseInput
+    courseHistory?: CourseHistoryCreateNestedManyWithoutCourseInput
   }
 
   export type CourseUncheckedCreateInput = {
@@ -7793,6 +9237,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     lessons?: CourseLessonUncheckedCreateNestedManyWithoutCourseInput
+    courseHistory?: CourseHistoryUncheckedCreateNestedManyWithoutCourseInput
   }
 
   export type CourseUpdateInput = {
@@ -7816,6 +9261,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lessons?: CourseLessonUpdateManyWithoutCourseNestedInput
+    courseHistory?: CourseHistoryUpdateManyWithoutCourseNestedInput
   }
 
   export type CourseUncheckedUpdateInput = {
@@ -7840,6 +9286,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lessons?: CourseLessonUncheckedUpdateManyWithoutCourseNestedInput
+    courseHistory?: CourseHistoryUncheckedUpdateManyWithoutCourseNestedInput
   }
 
   export type CourseCreateManyInput = {
@@ -8133,6 +9580,64 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type CourseHistoryCreateInput = {
+    viewedAt?: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutCourseHistoryInput
+    course: CourseCreateNestedOneWithoutCourseHistoryInput
+  }
+
+  export type CourseHistoryUncheckedCreateInput = {
+    id?: number
+    userId: number
+    courseId: number
+    viewedAt?: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CourseHistoryUpdateInput = {
+    viewedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutCourseHistoryNestedInput
+    course?: CourseUpdateOneRequiredWithoutCourseHistoryNestedInput
+  }
+
+  export type CourseHistoryUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    courseId?: IntFieldUpdateOperationsInput | number
+    viewedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CourseHistoryCreateManyInput = {
+    id?: number
+    userId: number
+    courseId: number
+    viewedAt?: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CourseHistoryUpdateManyMutationInput = {
+    viewedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CourseHistoryUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    courseId?: IntFieldUpdateOperationsInput | number
+    viewedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type IntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -8204,9 +9709,19 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
+  export type CourseHistoryListRelationFilter = {
+    every?: CourseHistoryWhereInput
+    some?: CourseHistoryWhereInput
+    none?: CourseHistoryWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
+  }
+
+  export type CourseHistoryOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type UserCountOrderByAggregateInput = {
@@ -8620,8 +10135,71 @@ export namespace Prisma {
     lessonId?: SortOrder
   }
 
+  export type UserScalarRelationFilter = {
+    is?: UserWhereInput
+    isNot?: UserWhereInput
+  }
+
+  export type CourseHistoryUserIdCourseIdCompoundUniqueInput = {
+    userId: number
+    courseId: number
+  }
+
+  export type CourseHistoryCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    courseId?: SortOrder
+    viewedAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type CourseHistoryAvgOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    courseId?: SortOrder
+  }
+
+  export type CourseHistoryMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    courseId?: SortOrder
+    viewedAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type CourseHistoryMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    courseId?: SortOrder
+    viewedAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type CourseHistorySumOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    courseId?: SortOrder
+  }
+
   export type UserCreateinterestsInput = {
     set: string[]
+  }
+
+  export type CourseHistoryCreateNestedManyWithoutUserInput = {
+    create?: XOR<CourseHistoryCreateWithoutUserInput, CourseHistoryUncheckedCreateWithoutUserInput> | CourseHistoryCreateWithoutUserInput[] | CourseHistoryUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CourseHistoryCreateOrConnectWithoutUserInput | CourseHistoryCreateOrConnectWithoutUserInput[]
+    createMany?: CourseHistoryCreateManyUserInputEnvelope
+    connect?: CourseHistoryWhereUniqueInput | CourseHistoryWhereUniqueInput[]
+  }
+
+  export type CourseHistoryUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<CourseHistoryCreateWithoutUserInput, CourseHistoryUncheckedCreateWithoutUserInput> | CourseHistoryCreateWithoutUserInput[] | CourseHistoryUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CourseHistoryCreateOrConnectWithoutUserInput | CourseHistoryCreateOrConnectWithoutUserInput[]
+    createMany?: CourseHistoryCreateManyUserInputEnvelope
+    connect?: CourseHistoryWhereUniqueInput | CourseHistoryWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -8649,12 +10227,40 @@ export namespace Prisma {
     set?: Date | string
   }
 
+  export type CourseHistoryUpdateManyWithoutUserNestedInput = {
+    create?: XOR<CourseHistoryCreateWithoutUserInput, CourseHistoryUncheckedCreateWithoutUserInput> | CourseHistoryCreateWithoutUserInput[] | CourseHistoryUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CourseHistoryCreateOrConnectWithoutUserInput | CourseHistoryCreateOrConnectWithoutUserInput[]
+    upsert?: CourseHistoryUpsertWithWhereUniqueWithoutUserInput | CourseHistoryUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: CourseHistoryCreateManyUserInputEnvelope
+    set?: CourseHistoryWhereUniqueInput | CourseHistoryWhereUniqueInput[]
+    disconnect?: CourseHistoryWhereUniqueInput | CourseHistoryWhereUniqueInput[]
+    delete?: CourseHistoryWhereUniqueInput | CourseHistoryWhereUniqueInput[]
+    connect?: CourseHistoryWhereUniqueInput | CourseHistoryWhereUniqueInput[]
+    update?: CourseHistoryUpdateWithWhereUniqueWithoutUserInput | CourseHistoryUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: CourseHistoryUpdateManyWithWhereWithoutUserInput | CourseHistoryUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: CourseHistoryScalarWhereInput | CourseHistoryScalarWhereInput[]
+  }
+
   export type IntFieldUpdateOperationsInput = {
     set?: number
     increment?: number
     decrement?: number
     multiply?: number
     divide?: number
+  }
+
+  export type CourseHistoryUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<CourseHistoryCreateWithoutUserInput, CourseHistoryUncheckedCreateWithoutUserInput> | CourseHistoryCreateWithoutUserInput[] | CourseHistoryUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CourseHistoryCreateOrConnectWithoutUserInput | CourseHistoryCreateOrConnectWithoutUserInput[]
+    upsert?: CourseHistoryUpsertWithWhereUniqueWithoutUserInput | CourseHistoryUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: CourseHistoryCreateManyUserInputEnvelope
+    set?: CourseHistoryWhereUniqueInput | CourseHistoryWhereUniqueInput[]
+    disconnect?: CourseHistoryWhereUniqueInput | CourseHistoryWhereUniqueInput[]
+    delete?: CourseHistoryWhereUniqueInput | CourseHistoryWhereUniqueInput[]
+    connect?: CourseHistoryWhereUniqueInput | CourseHistoryWhereUniqueInput[]
+    update?: CourseHistoryUpdateWithWhereUniqueWithoutUserInput | CourseHistoryUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: CourseHistoryUpdateManyWithWhereWithoutUserInput | CourseHistoryUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: CourseHistoryScalarWhereInput | CourseHistoryScalarWhereInput[]
   }
 
   export type CourseLessonCreateNestedManyWithoutCourseInput = {
@@ -8664,11 +10270,25 @@ export namespace Prisma {
     connect?: CourseLessonWhereUniqueInput | CourseLessonWhereUniqueInput[]
   }
 
+  export type CourseHistoryCreateNestedManyWithoutCourseInput = {
+    create?: XOR<CourseHistoryCreateWithoutCourseInput, CourseHistoryUncheckedCreateWithoutCourseInput> | CourseHistoryCreateWithoutCourseInput[] | CourseHistoryUncheckedCreateWithoutCourseInput[]
+    connectOrCreate?: CourseHistoryCreateOrConnectWithoutCourseInput | CourseHistoryCreateOrConnectWithoutCourseInput[]
+    createMany?: CourseHistoryCreateManyCourseInputEnvelope
+    connect?: CourseHistoryWhereUniqueInput | CourseHistoryWhereUniqueInput[]
+  }
+
   export type CourseLessonUncheckedCreateNestedManyWithoutCourseInput = {
     create?: XOR<CourseLessonCreateWithoutCourseInput, CourseLessonUncheckedCreateWithoutCourseInput> | CourseLessonCreateWithoutCourseInput[] | CourseLessonUncheckedCreateWithoutCourseInput[]
     connectOrCreate?: CourseLessonCreateOrConnectWithoutCourseInput | CourseLessonCreateOrConnectWithoutCourseInput[]
     createMany?: CourseLessonCreateManyCourseInputEnvelope
     connect?: CourseLessonWhereUniqueInput | CourseLessonWhereUniqueInput[]
+  }
+
+  export type CourseHistoryUncheckedCreateNestedManyWithoutCourseInput = {
+    create?: XOR<CourseHistoryCreateWithoutCourseInput, CourseHistoryUncheckedCreateWithoutCourseInput> | CourseHistoryCreateWithoutCourseInput[] | CourseHistoryUncheckedCreateWithoutCourseInput[]
+    connectOrCreate?: CourseHistoryCreateOrConnectWithoutCourseInput | CourseHistoryCreateOrConnectWithoutCourseInput[]
+    createMany?: CourseHistoryCreateManyCourseInputEnvelope
+    connect?: CourseHistoryWhereUniqueInput | CourseHistoryWhereUniqueInput[]
   }
 
   export type BoolFieldUpdateOperationsInput = {
@@ -8697,6 +10317,20 @@ export namespace Prisma {
     deleteMany?: CourseLessonScalarWhereInput | CourseLessonScalarWhereInput[]
   }
 
+  export type CourseHistoryUpdateManyWithoutCourseNestedInput = {
+    create?: XOR<CourseHistoryCreateWithoutCourseInput, CourseHistoryUncheckedCreateWithoutCourseInput> | CourseHistoryCreateWithoutCourseInput[] | CourseHistoryUncheckedCreateWithoutCourseInput[]
+    connectOrCreate?: CourseHistoryCreateOrConnectWithoutCourseInput | CourseHistoryCreateOrConnectWithoutCourseInput[]
+    upsert?: CourseHistoryUpsertWithWhereUniqueWithoutCourseInput | CourseHistoryUpsertWithWhereUniqueWithoutCourseInput[]
+    createMany?: CourseHistoryCreateManyCourseInputEnvelope
+    set?: CourseHistoryWhereUniqueInput | CourseHistoryWhereUniqueInput[]
+    disconnect?: CourseHistoryWhereUniqueInput | CourseHistoryWhereUniqueInput[]
+    delete?: CourseHistoryWhereUniqueInput | CourseHistoryWhereUniqueInput[]
+    connect?: CourseHistoryWhereUniqueInput | CourseHistoryWhereUniqueInput[]
+    update?: CourseHistoryUpdateWithWhereUniqueWithoutCourseInput | CourseHistoryUpdateWithWhereUniqueWithoutCourseInput[]
+    updateMany?: CourseHistoryUpdateManyWithWhereWithoutCourseInput | CourseHistoryUpdateManyWithWhereWithoutCourseInput[]
+    deleteMany?: CourseHistoryScalarWhereInput | CourseHistoryScalarWhereInput[]
+  }
+
   export type CourseLessonUncheckedUpdateManyWithoutCourseNestedInput = {
     create?: XOR<CourseLessonCreateWithoutCourseInput, CourseLessonUncheckedCreateWithoutCourseInput> | CourseLessonCreateWithoutCourseInput[] | CourseLessonUncheckedCreateWithoutCourseInput[]
     connectOrCreate?: CourseLessonCreateOrConnectWithoutCourseInput | CourseLessonCreateOrConnectWithoutCourseInput[]
@@ -8709,6 +10343,20 @@ export namespace Prisma {
     update?: CourseLessonUpdateWithWhereUniqueWithoutCourseInput | CourseLessonUpdateWithWhereUniqueWithoutCourseInput[]
     updateMany?: CourseLessonUpdateManyWithWhereWithoutCourseInput | CourseLessonUpdateManyWithWhereWithoutCourseInput[]
     deleteMany?: CourseLessonScalarWhereInput | CourseLessonScalarWhereInput[]
+  }
+
+  export type CourseHistoryUncheckedUpdateManyWithoutCourseNestedInput = {
+    create?: XOR<CourseHistoryCreateWithoutCourseInput, CourseHistoryUncheckedCreateWithoutCourseInput> | CourseHistoryCreateWithoutCourseInput[] | CourseHistoryUncheckedCreateWithoutCourseInput[]
+    connectOrCreate?: CourseHistoryCreateOrConnectWithoutCourseInput | CourseHistoryCreateOrConnectWithoutCourseInput[]
+    upsert?: CourseHistoryUpsertWithWhereUniqueWithoutCourseInput | CourseHistoryUpsertWithWhereUniqueWithoutCourseInput[]
+    createMany?: CourseHistoryCreateManyCourseInputEnvelope
+    set?: CourseHistoryWhereUniqueInput | CourseHistoryWhereUniqueInput[]
+    disconnect?: CourseHistoryWhereUniqueInput | CourseHistoryWhereUniqueInput[]
+    delete?: CourseHistoryWhereUniqueInput | CourseHistoryWhereUniqueInput[]
+    connect?: CourseHistoryWhereUniqueInput | CourseHistoryWhereUniqueInput[]
+    update?: CourseHistoryUpdateWithWhereUniqueWithoutCourseInput | CourseHistoryUpdateWithWhereUniqueWithoutCourseInput[]
+    updateMany?: CourseHistoryUpdateManyWithWhereWithoutCourseInput | CourseHistoryUpdateManyWithWhereWithoutCourseInput[]
+    deleteMany?: CourseHistoryScalarWhereInput | CourseHistoryScalarWhereInput[]
   }
 
   export type CourseCreateNestedOneWithoutLessonsInput = {
@@ -8779,6 +10427,34 @@ export namespace Prisma {
     upsert?: CourseLessonUpsertWithoutResourcesInput
     connect?: CourseLessonWhereUniqueInput
     update?: XOR<XOR<CourseLessonUpdateToOneWithWhereWithoutResourcesInput, CourseLessonUpdateWithoutResourcesInput>, CourseLessonUncheckedUpdateWithoutResourcesInput>
+  }
+
+  export type UserCreateNestedOneWithoutCourseHistoryInput = {
+    create?: XOR<UserCreateWithoutCourseHistoryInput, UserUncheckedCreateWithoutCourseHistoryInput>
+    connectOrCreate?: UserCreateOrConnectWithoutCourseHistoryInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type CourseCreateNestedOneWithoutCourseHistoryInput = {
+    create?: XOR<CourseCreateWithoutCourseHistoryInput, CourseUncheckedCreateWithoutCourseHistoryInput>
+    connectOrCreate?: CourseCreateOrConnectWithoutCourseHistoryInput
+    connect?: CourseWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutCourseHistoryNestedInput = {
+    create?: XOR<UserCreateWithoutCourseHistoryInput, UserUncheckedCreateWithoutCourseHistoryInput>
+    connectOrCreate?: UserCreateOrConnectWithoutCourseHistoryInput
+    upsert?: UserUpsertWithoutCourseHistoryInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutCourseHistoryInput, UserUpdateWithoutCourseHistoryInput>, UserUncheckedUpdateWithoutCourseHistoryInput>
+  }
+
+  export type CourseUpdateOneRequiredWithoutCourseHistoryNestedInput = {
+    create?: XOR<CourseCreateWithoutCourseHistoryInput, CourseUncheckedCreateWithoutCourseHistoryInput>
+    connectOrCreate?: CourseCreateOrConnectWithoutCourseHistoryInput
+    upsert?: CourseUpsertWithoutCourseHistoryInput
+    connect?: CourseWhereUniqueInput
+    update?: XOR<XOR<CourseUpdateToOneWithWhereWithoutCourseHistoryInput, CourseUpdateWithoutCourseHistoryInput>, CourseUncheckedUpdateWithoutCourseHistoryInput>
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -8973,6 +10649,59 @@ export namespace Prisma {
     _max?: NestedFloatNullableFilter<$PrismaModel>
   }
 
+  export type CourseHistoryCreateWithoutUserInput = {
+    viewedAt?: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    course: CourseCreateNestedOneWithoutCourseHistoryInput
+  }
+
+  export type CourseHistoryUncheckedCreateWithoutUserInput = {
+    id?: number
+    courseId: number
+    viewedAt?: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CourseHistoryCreateOrConnectWithoutUserInput = {
+    where: CourseHistoryWhereUniqueInput
+    create: XOR<CourseHistoryCreateWithoutUserInput, CourseHistoryUncheckedCreateWithoutUserInput>
+  }
+
+  export type CourseHistoryCreateManyUserInputEnvelope = {
+    data: CourseHistoryCreateManyUserInput | CourseHistoryCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type CourseHistoryUpsertWithWhereUniqueWithoutUserInput = {
+    where: CourseHistoryWhereUniqueInput
+    update: XOR<CourseHistoryUpdateWithoutUserInput, CourseHistoryUncheckedUpdateWithoutUserInput>
+    create: XOR<CourseHistoryCreateWithoutUserInput, CourseHistoryUncheckedCreateWithoutUserInput>
+  }
+
+  export type CourseHistoryUpdateWithWhereUniqueWithoutUserInput = {
+    where: CourseHistoryWhereUniqueInput
+    data: XOR<CourseHistoryUpdateWithoutUserInput, CourseHistoryUncheckedUpdateWithoutUserInput>
+  }
+
+  export type CourseHistoryUpdateManyWithWhereWithoutUserInput = {
+    where: CourseHistoryScalarWhereInput
+    data: XOR<CourseHistoryUpdateManyMutationInput, CourseHistoryUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type CourseHistoryScalarWhereInput = {
+    AND?: CourseHistoryScalarWhereInput | CourseHistoryScalarWhereInput[]
+    OR?: CourseHistoryScalarWhereInput[]
+    NOT?: CourseHistoryScalarWhereInput | CourseHistoryScalarWhereInput[]
+    id?: IntFilter<"CourseHistory"> | number
+    userId?: IntFilter<"CourseHistory"> | number
+    courseId?: IntFilter<"CourseHistory"> | number
+    viewedAt?: DateTimeFilter<"CourseHistory"> | Date | string
+    createdAt?: DateTimeFilter<"CourseHistory"> | Date | string
+    updatedAt?: DateTimeFilter<"CourseHistory"> | Date | string
+  }
+
   export type CourseLessonCreateWithoutCourseInput = {
     id?: string
     name: string
@@ -9002,6 +10731,31 @@ export namespace Prisma {
 
   export type CourseLessonCreateManyCourseInputEnvelope = {
     data: CourseLessonCreateManyCourseInput | CourseLessonCreateManyCourseInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type CourseHistoryCreateWithoutCourseInput = {
+    viewedAt?: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutCourseHistoryInput
+  }
+
+  export type CourseHistoryUncheckedCreateWithoutCourseInput = {
+    id?: number
+    userId: number
+    viewedAt?: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CourseHistoryCreateOrConnectWithoutCourseInput = {
+    where: CourseHistoryWhereUniqueInput
+    create: XOR<CourseHistoryCreateWithoutCourseInput, CourseHistoryUncheckedCreateWithoutCourseInput>
+  }
+
+  export type CourseHistoryCreateManyCourseInputEnvelope = {
+    data: CourseHistoryCreateManyCourseInput | CourseHistoryCreateManyCourseInput[]
     skipDuplicates?: boolean
   }
 
@@ -9035,6 +10789,22 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"CourseLesson"> | Date | string
   }
 
+  export type CourseHistoryUpsertWithWhereUniqueWithoutCourseInput = {
+    where: CourseHistoryWhereUniqueInput
+    update: XOR<CourseHistoryUpdateWithoutCourseInput, CourseHistoryUncheckedUpdateWithoutCourseInput>
+    create: XOR<CourseHistoryCreateWithoutCourseInput, CourseHistoryUncheckedCreateWithoutCourseInput>
+  }
+
+  export type CourseHistoryUpdateWithWhereUniqueWithoutCourseInput = {
+    where: CourseHistoryWhereUniqueInput
+    data: XOR<CourseHistoryUpdateWithoutCourseInput, CourseHistoryUncheckedUpdateWithoutCourseInput>
+  }
+
+  export type CourseHistoryUpdateManyWithWhereWithoutCourseInput = {
+    where: CourseHistoryScalarWhereInput
+    data: XOR<CourseHistoryUpdateManyMutationInput, CourseHistoryUncheckedUpdateManyWithoutCourseInput>
+  }
+
   export type CourseCreateWithoutLessonsInput = {
     name: string
     description: string
@@ -9055,6 +10825,7 @@ export namespace Prisma {
     duration?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    courseHistory?: CourseHistoryCreateNestedManyWithoutCourseInput
   }
 
   export type CourseUncheckedCreateWithoutLessonsInput = {
@@ -9078,6 +10849,7 @@ export namespace Prisma {
     duration?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    courseHistory?: CourseHistoryUncheckedCreateNestedManyWithoutCourseInput
   }
 
   export type CourseCreateOrConnectWithoutLessonsInput = {
@@ -9148,6 +10920,7 @@ export namespace Prisma {
     duration?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    courseHistory?: CourseHistoryUpdateManyWithoutCourseNestedInput
   }
 
   export type CourseUncheckedUpdateWithoutLessonsInput = {
@@ -9171,6 +10944,7 @@ export namespace Prisma {
     duration?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    courseHistory?: CourseHistoryUncheckedUpdateManyWithoutCourseNestedInput
   }
 
   export type LessonResourceUpsertWithWhereUniqueWithoutLessonInput = {
@@ -9264,6 +11038,213 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type UserCreateWithoutCourseHistoryInput = {
+    email: string
+    username: string
+    password: string
+    age?: number | null
+    profilePicture?: string | null
+    bio?: string | null
+    interests?: UserCreateinterestsInput | string[]
+    skills?: string | null
+    createdAt?: Date | string
+  }
+
+  export type UserUncheckedCreateWithoutCourseHistoryInput = {
+    id?: number
+    email: string
+    username: string
+    password: string
+    age?: number | null
+    profilePicture?: string | null
+    bio?: string | null
+    interests?: UserCreateinterestsInput | string[]
+    skills?: string | null
+    createdAt?: Date | string
+  }
+
+  export type UserCreateOrConnectWithoutCourseHistoryInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutCourseHistoryInput, UserUncheckedCreateWithoutCourseHistoryInput>
+  }
+
+  export type CourseCreateWithoutCourseHistoryInput = {
+    name: string
+    description: string
+    subject: string
+    icon?: string | null
+    picture?: string | null
+    materialType: string
+    materialCount?: string | null
+    firstRecommendation?: string | null
+    secondRecommendation?: string | null
+    quizTotalScore?: number | null
+    quizPassingScore?: number | null
+    status: string
+    materialStatusType: string
+    isCertified?: boolean
+    typeImage?: string | null
+    progress?: number | null
+    duration?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    lessons?: CourseLessonCreateNestedManyWithoutCourseInput
+  }
+
+  export type CourseUncheckedCreateWithoutCourseHistoryInput = {
+    id?: number
+    name: string
+    description: string
+    subject: string
+    icon?: string | null
+    picture?: string | null
+    materialType: string
+    materialCount?: string | null
+    firstRecommendation?: string | null
+    secondRecommendation?: string | null
+    quizTotalScore?: number | null
+    quizPassingScore?: number | null
+    status: string
+    materialStatusType: string
+    isCertified?: boolean
+    typeImage?: string | null
+    progress?: number | null
+    duration?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    lessons?: CourseLessonUncheckedCreateNestedManyWithoutCourseInput
+  }
+
+  export type CourseCreateOrConnectWithoutCourseHistoryInput = {
+    where: CourseWhereUniqueInput
+    create: XOR<CourseCreateWithoutCourseHistoryInput, CourseUncheckedCreateWithoutCourseHistoryInput>
+  }
+
+  export type UserUpsertWithoutCourseHistoryInput = {
+    update: XOR<UserUpdateWithoutCourseHistoryInput, UserUncheckedUpdateWithoutCourseHistoryInput>
+    create: XOR<UserCreateWithoutCourseHistoryInput, UserUncheckedCreateWithoutCourseHistoryInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutCourseHistoryInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutCourseHistoryInput, UserUncheckedUpdateWithoutCourseHistoryInput>
+  }
+
+  export type UserUpdateWithoutCourseHistoryInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    age?: NullableIntFieldUpdateOperationsInput | number | null
+    profilePicture?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    interests?: UserUpdateinterestsInput | string[]
+    skills?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserUncheckedUpdateWithoutCourseHistoryInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    email?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    age?: NullableIntFieldUpdateOperationsInput | number | null
+    profilePicture?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    interests?: UserUpdateinterestsInput | string[]
+    skills?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CourseUpsertWithoutCourseHistoryInput = {
+    update: XOR<CourseUpdateWithoutCourseHistoryInput, CourseUncheckedUpdateWithoutCourseHistoryInput>
+    create: XOR<CourseCreateWithoutCourseHistoryInput, CourseUncheckedCreateWithoutCourseHistoryInput>
+    where?: CourseWhereInput
+  }
+
+  export type CourseUpdateToOneWithWhereWithoutCourseHistoryInput = {
+    where?: CourseWhereInput
+    data: XOR<CourseUpdateWithoutCourseHistoryInput, CourseUncheckedUpdateWithoutCourseHistoryInput>
+  }
+
+  export type CourseUpdateWithoutCourseHistoryInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    subject?: StringFieldUpdateOperationsInput | string
+    icon?: NullableStringFieldUpdateOperationsInput | string | null
+    picture?: NullableStringFieldUpdateOperationsInput | string | null
+    materialType?: StringFieldUpdateOperationsInput | string
+    materialCount?: NullableStringFieldUpdateOperationsInput | string | null
+    firstRecommendation?: NullableStringFieldUpdateOperationsInput | string | null
+    secondRecommendation?: NullableStringFieldUpdateOperationsInput | string | null
+    quizTotalScore?: NullableIntFieldUpdateOperationsInput | number | null
+    quizPassingScore?: NullableIntFieldUpdateOperationsInput | number | null
+    status?: StringFieldUpdateOperationsInput | string
+    materialStatusType?: StringFieldUpdateOperationsInput | string
+    isCertified?: BoolFieldUpdateOperationsInput | boolean
+    typeImage?: NullableStringFieldUpdateOperationsInput | string | null
+    progress?: NullableFloatFieldUpdateOperationsInput | number | null
+    duration?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lessons?: CourseLessonUpdateManyWithoutCourseNestedInput
+  }
+
+  export type CourseUncheckedUpdateWithoutCourseHistoryInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    subject?: StringFieldUpdateOperationsInput | string
+    icon?: NullableStringFieldUpdateOperationsInput | string | null
+    picture?: NullableStringFieldUpdateOperationsInput | string | null
+    materialType?: StringFieldUpdateOperationsInput | string
+    materialCount?: NullableStringFieldUpdateOperationsInput | string | null
+    firstRecommendation?: NullableStringFieldUpdateOperationsInput | string | null
+    secondRecommendation?: NullableStringFieldUpdateOperationsInput | string | null
+    quizTotalScore?: NullableIntFieldUpdateOperationsInput | number | null
+    quizPassingScore?: NullableIntFieldUpdateOperationsInput | number | null
+    status?: StringFieldUpdateOperationsInput | string
+    materialStatusType?: StringFieldUpdateOperationsInput | string
+    isCertified?: BoolFieldUpdateOperationsInput | boolean
+    typeImage?: NullableStringFieldUpdateOperationsInput | string | null
+    progress?: NullableFloatFieldUpdateOperationsInput | number | null
+    duration?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lessons?: CourseLessonUncheckedUpdateManyWithoutCourseNestedInput
+  }
+
+  export type CourseHistoryCreateManyUserInput = {
+    id?: number
+    courseId: number
+    viewedAt?: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CourseHistoryUpdateWithoutUserInput = {
+    viewedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    course?: CourseUpdateOneRequiredWithoutCourseHistoryNestedInput
+  }
+
+  export type CourseHistoryUncheckedUpdateWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    courseId?: IntFieldUpdateOperationsInput | number
+    viewedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CourseHistoryUncheckedUpdateManyWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    courseId?: IntFieldUpdateOperationsInput | number
+    viewedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type CourseLessonCreateManyCourseInput = {
     id?: string
     name: string
@@ -9272,6 +11253,14 @@ export namespace Prisma {
     url?: string | null
     video?: string | null
     createdAt?: Date | string
+  }
+
+  export type CourseHistoryCreateManyCourseInput = {
+    id?: number
+    userId: number
+    viewedAt?: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type CourseLessonUpdateWithoutCourseInput = {
@@ -9304,6 +11293,29 @@ export namespace Prisma {
     url?: NullableStringFieldUpdateOperationsInput | string | null
     video?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CourseHistoryUpdateWithoutCourseInput = {
+    viewedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutCourseHistoryNestedInput
+  }
+
+  export type CourseHistoryUncheckedUpdateWithoutCourseInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    viewedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CourseHistoryUncheckedUpdateManyWithoutCourseInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    viewedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type LessonResourceCreateManyLessonInput = {

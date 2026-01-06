@@ -4,7 +4,7 @@ import crypto from 'crypto';
 import path from 'path';
 import fs from 'fs';
 import { put } from '@vercel/blob';
-import { createCourse, getAllCourses } from './course-services';
+import { createCourse, getAllCourses, getCourseById } from './course-services';
 import { validateCourse } from './validate/course-validate'; 
 import courseLessonsRoutes from '../course-lesson/course-lessons-routes';
 
@@ -120,6 +120,46 @@ router.get('/courses', async (req, res) => {
   } catch (err) {
     console.error(err);
     return res.status(500).json({ error: 'Error fetching courses' });
+  }
+});
+
+/**
+ * @swagger
+ * /courses/courses/{id}:
+ *   get:
+ *     summary: Get a course by ID
+ *     tags: [Courses]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: The course ID
+ *     responses:
+ *       200:
+ *         description: Course details
+ *       404:
+ *         description: Course not found
+ *       500:
+ *         description: Server error
+ */
+router.get('/courses/:id', async (req, res) => {
+  try {
+    const courseId = Number(req.params.id);
+    if (isNaN(courseId)) {
+      return res.status(400).json({ error: 'Invalid course ID' });
+    }
+    
+    const course = await getCourseById(courseId);
+    if (!course) {
+      return res.status(404).json({ error: 'Course not found' });
+    }
+    
+    return res.status(200).json({ course });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: 'Error fetching course' });
   }
 });
 
