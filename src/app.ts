@@ -8,6 +8,10 @@ import courseHistoryRoutes from './module/course-history/course-history-routes';
 import uploadRoute from './routes/uploadRoute';
 import uploadTestRoute from './routes/upload-test-route';
 import chatRoute from './routes/chat';
+import testRoutes from './module/test/test-routes';
+import quizRoutes from './module/quiz/quiz-routes';
+import badgeRoutes from './module/badge/badge-routes';
+import certificationRoutes from './module/certification/certification-routes';
 
 const app = express();
 app.use(cors());
@@ -28,5 +32,11 @@ app.use('/files', uploadRoute);
 app.use("/api/chat", chatRoute)
 
 app.use('/test', uploadTestRoute);
+
+// New routes for tests, quizzes, badges, and certifications
+app.use('/tests', testRoutes);
+app.use('/quizzes', quizRoutes);
+app.use('/badges', badgeRoutes);
+app.use('/certifications', certificationRoutes);
 
 export default app;

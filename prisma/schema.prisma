@@ -19,6 +19,11 @@ model User {
   interests      String[] 
   skills         String?   // اضافه ک
   courseHistory  CourseHistory[]
+  certifications Certification[]
+  badges         UserBadge[]
+  points         UserPoint[]
+  testAttempts   TestAttempt[]
+  quizAttempts   QuizAttempt[]
   createdAt      DateTime @default(now())
 }
 
@@ -43,7 +48,10 @@ model Course {
   progress            Float?   // 0 to 100
   duration            String?  // e.g., "5h 30m"
   lessons             CourseLesson[]  // ← فیلد رابطه‌ای معکوس
+  tests               CourseTest[]
+  quizzes             CourseQuiz[]
   courseHistory       CourseHistory[]
+  certifications      Certification[]
   createdAt           DateTime @default(now())
   updatedAt           DateTime @updatedAt
 }
@@ -101,4 +109,189 @@ model CourseHistory {
   @@unique([userId, courseId])
   @@index([userId])
   @@index([courseId])
+}
+
+// Course Test Model - for tests within a course
+model CourseTest {
+  id          Int            @id @default(autoincrement())
+  name        String
+  description String?
+  courseId    Int
+  course      Course         @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  questions   TestQuestion[]
+  attempts    TestAttempt[]
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+
+  @@index([courseId])
+}
+
+// Test Question Model
+model TestQuestion {
+  id        Int            @id @default(autoincrement())
+  question  String
+  testId    Int
+  test      CourseTest     @relation(fields: [testId], references: [id], onDelete: Cascade)
+  answers   TestAnswer[]
+  createdAt DateTime       @default(now())
+  updatedAt DateTime       @updatedAt
+
+  @@index([testId])
+}
+
+// Test Answer Model
+model TestAnswer {
+  id          Int          @id @default(autoincrement())
+  answer      String
+  isCorrect   Boolean      @default(false)
+  questionId  Int
+  question    TestQuestion @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  @@index([questionId])
+}
+
+// Course Quiz Model - for quizzes within a course
+model CourseQuiz {
+  id          Int            @id @default(autoincrement())
+  name        String
+  description String?
+  courseId    Int
+  course      Course         @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  badgeId     Int?           // Badge awarded for completing this quiz
+  badge       Badge?         @relation(fields: [badgeId], references: [id])
+  questions   QuizQuestion[]
+  attempts    QuizAttempt[]
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+
+  @@index([courseId])
+  @@index([badgeId])
+}
+
+// Quiz Question Model
+model QuizQuestion {
+  id        Int            @id @default(autoincrement())
+  question  String
+  quizId    Int
+  quiz      CourseQuiz     @relation(fields: [quizId], references: [id], onDelete: Cascade)
+  answers   QuizAnswer[]
+  createdAt DateTime       @default(now())
+  updatedAt DateTime       @updatedAt
+
+  @@index([quizId])
+}
+
+// Quiz Answer Model
+model QuizAnswer {
+  id          Int          @id @default(autoincrement())
+  answer      String
+  isCorrect   Boolean      @default(false)
+  questionId  Int
+  question    QuizQuestion @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  @@index([questionId])
+}
+
+// Test Attempt Model - tracks user test attempts and awards points
+model TestAttempt {
+  id            Int      @id @default(autoincrement())
+  userId        Int
+  testId        Int
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  test          CourseTest @relation(fields: [testId], references: [id], onDelete: Cascade)
+  score         Int      // Points earned from this test
+  totalQuestions Int     // Total number of questions
+  correctAnswers Int     // Number of correct answers
+  isPassed      Boolean  @default(false)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([userId])
+  @@index([testId])
+  @@index([userId, testId])
+}
+
+// Quiz Attempt Model - tracks user quiz attempts and awards badges
+model QuizAttempt {
+  id            Int      @id @default(autoincrement())
+  userId        Int
+  quizId        Int
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  quiz          CourseQuiz @relation(fields: [quizId], references: [id], onDelete: Cascade)
+  score         Int      // Score achieved
+  totalQuestions Int     // Total number of questions
+  correctAnswers Int     // Number of correct answers
+  isPassed      Boolean  @default(false)
+  badgeEarned   Boolean  @default(false) // Whether badge was earned
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([userId])
+  @@index([quizId])
+  @@index([userId, quizId])
+}
+
+// Badge Model - defines badges that can be earned
+model Badge {
+  id          Int         @id @default(autoincrement())
+  name        String
+  description String?
+  icon        String?     // URL or file path for badge icon
+  quizzes     CourseQuiz[]
+  userBadges  UserBadge[]
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+}
+
+// User Badge Model - tracks which badges users have earned
+model UserBadge {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  badgeId   Int
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  badge     Badge    @relation(fields: [badgeId], references: [id], onDelete: Cascade)
+  earnedAt  DateTime @default(now())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, badgeId])
+  @@index([userId])
+  @@index([badgeId])
+}
+
+// Certification Model - tracks certifications earned when users complete courses
+model Certification {
+  id          Int      @id @default(autoincrement())
+  userId      Int
+  courseId    Int
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  course      Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  certificateUrl String? // URL to certificate PDF/image
+  issuedAt    DateTime @default(now())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@unique([userId, courseId])
+  @@index([userId])
+  @@index([courseId])
+}
+
+// User Point Model - tracks points earned by users from tests
+model UserPoint {
+  id          Int      @id @default(autoincrement())
+  userId      Int
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  points      Int      // Points earned
+  source      String   // Source of points (e.g., "test", "quiz", "achievement")
+  testId      Int?     // If points from a test
+  description String?  // Description of how points were earned
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([userId])
+  @@index([testId])
 }
