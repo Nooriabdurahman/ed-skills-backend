@@ -9,8 +9,95 @@ const course_lessons_controllers_1 = require("./course-lessons-controllers");
 const lesson_resource_routes_1 = __importDefault(require("../lesson-resource/lesson-resource-routes"));
 const router = (0, express_1.Router)({ mergeParams: true });
 const upload = (0, multer_1.default)({ dest: "tmp/" });
-// Course lessons routes
-router.post("/", upload.single("video"), course_lessons_controllers_1.CourseLessonController.create);
+/**
+ * @swagger
+ * tags:
+ *   name: Course Lessons
+ *   description: Manage lessons for courses
+ */
+/**
+ * @swagger
+ * /courses/courses/{courseId}/lessons:
+ *   post:
+ *     summary: Create a new lesson for a course
+ *     tags: [Course Lessons]
+ *     consumes:
+ *       - multipart/form-data
+ *     parameters:
+ *       - in: path
+ *         name: courseId
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: The ID of the course
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - name
+ *             properties:
+ *               name:
+ *                 type: string
+ *                 description: Lesson name
+ *               content:
+ *                 type: string
+ *                 description: HTML or text content of the lesson
+ *               text:
+ *                 type: string
+ *                 description: Short description
+ *               video:
+ *                 type: string
+ *                 format: binary
+ *                 description: Lesson video file (optional)
+ *               file:
+ *                 type: string
+ *                 format: binary
+ *                 description: Additional lesson file (PDF, ZIP, etc.)
+ *     responses:
+ *       201:
+ *         description: Lesson created successfully
+ *       400:
+ *         description: Bad request
+ *       500:
+ *         description: Server error
+ */
+router.post("/", upload.fields([
+    { name: "video", maxCount: 1 },
+    { name: "file", maxCount: 1 },
+]), course_lessons_controllers_1.CourseLessonController.create);
+/**
+ * @swagger
+ * /courses/courses/{courseId}/lessons:
+ *   get:
+ *     summary: Get all lessons for a course
+ *     tags: [Course Lessons]
+ *     parameters:
+ *       - in: path
+ *         name: courseId
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: The ID of the course
+ *     responses:
+ *       200:
+ *         description: List of lessons
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *       500:
+ *         description: Server error
+ */
 router.get("/", course_lessons_controllers_1.CourseLessonController.getByCourse);
 // Nested lesson resources routes
 router.use("/:lessonId/resources", lesson_resource_routes_1.default);

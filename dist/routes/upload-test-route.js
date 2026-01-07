@@ -12,7 +12,50 @@ const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config(); // حتماً dotenv برای خواندن .env
 const router = express_1.default.Router();
 const upload = (0, multer_1.default)({ dest: 'tmp/' });
-// مسیر تست آپلود فایل بدون دیتابیس
+/**
+ * @swagger
+ * tags:
+ *   name: Test Upload
+ *   description: Test file upload operations
+ */
+/**
+ * @swagger
+ * /test/upload:
+ *   post:
+ *     summary: Test file upload (without database)
+ *     tags: [Test Upload]
+ *     consumes:
+ *       - multipart/form-data
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - file
+ *             properties:
+ *               file:
+ *                 type: string
+ *                 format: binary
+ *                 description: File to upload for testing
+ *     responses:
+ *       200:
+ *         description: File uploaded successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                 url:
+ *                   type: string
+ *       400:
+ *         description: Bad request - No file uploaded
+ *       500:
+ *         description: Server error
+ */
 router.post('/upload', upload.single('file'), async (req, res) => {
     if (!req.file)
         return res.status(400).json({ error: 'فایلی آپلود نشده' });

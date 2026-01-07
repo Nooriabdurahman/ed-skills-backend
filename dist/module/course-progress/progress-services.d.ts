@@ -1,11 +1,11 @@
 export declare class CourseProgressService {
-    static markCompleted(userId: number, lessonId: number): Promise<{
+    static markCompleted(userId: number, lessonId: string): Promise<{
         id: number;
         createdAt: Date;
         userId: number;
         updatedAt: Date;
         completed: boolean;
-        lessonId: number;
+        lessonId: string;
     }>;
     static getUserProgress(userId: number): Promise<{
         id: number;
@@ -13,7 +13,7 @@ export declare class CourseProgressService {
         userId: number;
         updatedAt: Date;
         completed: boolean;
-        lessonId: number;
+        lessonId: string;
     }[]>;
 }
 //# sourceMappingURL=progress-services.d.ts.map

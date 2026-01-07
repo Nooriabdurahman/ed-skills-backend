@@ -1,7 +1,7 @@
 import prisma from "../../common/config/database/prisma";
 
 export class CourseProgressService {
-  static async markCompleted(userId: number, lessonId: number) {
+  static async markCompleted(userId: number, lessonId: string) {
     return prisma.courseProgress.upsert({
       where: {
         userId_lessonId: {

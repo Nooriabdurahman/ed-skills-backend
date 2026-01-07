@@ -26,7 +26,7 @@ const upload = (0, multer_1.default)({ dest: 'tmp/' });
  *       - in: path
  *         name: userId
  *         schema:
- *           type: string
+ *           type: integer
  *         required: true
  *         description: ID of the user
  *     responses:

@@ -30,18 +30,24 @@ const validateRequest = (schema) => {
  */
 /**
  * @swagger
- * /users:
+ * /users/users:
  *   get:
  *     summary: Get all users
  *     tags: [Users]
  *     responses:
  *       200:
  *         description: List of all users
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
  */
 router.get('/users', auth_services_1.getUsers);
 /**
  * @swagger
- * /users/{id}:
+ * /users/users/{id}:
  *   get:
  *     summary: Get a single user by ID
  *     tags: [Users]
@@ -61,9 +67,9 @@ router.get('/users', auth_services_1.getUsers);
 router.get('/users/:id', auth_services_1.getUserById);
 /**
  * @swagger
- * /users:
+ * /users/users:
  *   post:
- *     summary: Create a new user
+ *     summary: Create a new user (Register)
  *     tags: [Users]
  *     requestBody:
  *       required: true
@@ -71,6 +77,10 @@ router.get('/users/:id', auth_services_1.getUserById);
  *         application/json:
  *           schema:
  *             type: object
+ *             required:
+ *               - username
+ *               - email
+ *               - password
  *             properties:
  *               username:
  *                 type: string
@@ -87,6 +97,8 @@ router.get('/users/:id', auth_services_1.getUserById);
  *     responses:
  *       201:
  *         description: User created successfully
+ *       400:
+ *         description: Validation error
  */
 router.post('/users', validateRequest(register_dto_1.default), auth_services_1.createUser);
 /**
@@ -113,7 +125,7 @@ router.post('/users', validateRequest(register_dto_1.default), auth_services_1.c
 router.post('/login', auth_services_1.loginUser);
 /**
  * @swagger
- * /users/{id}:
+ * /users/users/{id}:
  *   put:
  *     summary: Update a user
  *     tags: [Users]
@@ -152,7 +164,7 @@ router.post('/login', auth_services_1.loginUser);
 router.put('/users/:id', auth_services_1.updateUser);
 /**
  * @swagger
- * /users/{id}:
+ * /users/users/{id}:
  *   delete:
  *     summary: Delete a user by ID
  *     tags: [Users]
