@@ -30,23 +30,36 @@ model User {
 
 model Course {
   id                  Int             @id @default(autoincrement())
-  name                String
-  description         String
-  subject             String
-  icon                String?  // URL or file path
-  picture             String?  // URL or file path
-  materialType        String   // "course", "pages", "learning path", "quiz"
-  materialCount       String?  // e.g., "12 chapters"
-  firstRecommendation String?
-  secondRecommendation String?
-  quizTotalScore      Int?
-  quizPassingScore    Int?
-  status              String   // "inProgress", "notStarted"
-  materialStatusType  String   // "StartedQuiz", "StartedCourse", "NotStartedCourse"
-  isCertified         Boolean  @default(false)
-  typeImage           String?  // URL or file path
-  progress            Float?   // 0 to 100
-  duration            String?  // e.g., "5h 30m"
+  name                String           // You can map this to `topic` or a course title
+  description         String           // Maps to `description`
+  subject             String           // Maps to `subject`
+
+  // Extra fields to match frontend `Materials` data
+  trainer             String?          // Maps to `trainer`
+  trainerImage        String?          // Maps to `trainerImage`
+  dialog              String?          // Maps to `dialog`
+  nextStep            String?          // Maps to `nextStep`
+
+  icon                String?          // Maps to `icon` (URL or file path)
+  picture             String?          // Maps to `image` (URL or file path)
+  typeImage           String?          // Maps to `typeImage` (URL or file path)
+
+  materialType        String           // Maps to `contentType` e.g. "Courses", "Pages", "Quiz"
+  materialCount       String?          // Maps to `content` e.g. "12 Questions"
+  firstRecommendation String?          // Maps to `firstRecommendation`
+  secondRecommendation String?         // Maps to `secondRecommendation`
+
+  topic               String?          // Maps to `topic`
+
+  quizTotalScore      Int?             // Maps to `points`
+  quizPassingScore    Int?             // Maps to `passingPoints`
+
+  status              String           // Maps to `status` e.g. "inProgress", "notStarted"
+  materialStatusType  String           // Maps to `type` e.g. "StartedQuiz", "StartedCourse"
+
+  isCertified         Boolean          @default(false) // Maps to `isCertified`
+  progress            Float?           // Maps to `progress` 0–100
+  duration            String?          // Maps to `duration` e.g., "35 minutes"
   lessons             CourseLesson[]  // ← فیلد رابطه‌ای معکوس
   tests               CourseTest[]
   quizzes             CourseQuiz[]
