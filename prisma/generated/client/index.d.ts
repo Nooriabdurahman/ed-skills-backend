@@ -28879,16 +28879,16 @@ export namespace Prisma {
     description?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    course: CourseCreateNestedOneWithoutTestsInput
+    course: CourseCreateNestedOneWithoutTestsInput | undefined
     questions?: TestQuestionCreateNestedManyWithoutTestInput
     attempts?: TestAttemptCreateNestedManyWithoutTestInput
   }
 
   export type CourseTestUncheckedCreateInput = {
-    id?: number
+    id?: number | undefined
     name: string
     description?: string | null
-    courseId: number
+    courseId: number | undefined
     createdAt?: Date | string
     updatedAt?: Date | string
     questions?: TestQuestionUncheckedCreateNestedManyWithoutTestInput

@@ -9,7 +9,7 @@ export class TestService {
       data: {
         courseId,
         name,
-        description,
+        description: description ?? null,
       },
       include: {
         questions: {
