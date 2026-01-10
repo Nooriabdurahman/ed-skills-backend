@@ -13,8 +13,9 @@ class BadgeService {
         return prisma_1.default.badge.create({
             data: {
                 name,
-                description,
-                icon,
+                // Prisma expects `string | null`, not `string | undefined`
+                description: description ?? null,
+                icon: icon ?? null,
             },
         });
     }

@@ -8,8 +8,9 @@ export class BadgeService {
     return prisma.badge.create({
       data: {
         name,
-        description,
-        icon,
+        // Prisma expects `string | null`, not `string | undefined`
+        description: description ?? null,
+        icon: icon ?? null,
       },
     });
   }

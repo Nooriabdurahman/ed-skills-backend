@@ -3,6 +3,31 @@ export declare class QuizService {
      * Create a quiz for a course
      */
     static createQuiz(courseId: number, name: string, description?: string, badgeId?: number): Promise<{
+        questions: ({
+            answers: {
+                id: number;
+                createdAt: Date;
+                updatedAt: Date;
+                answer: string;
+                isCorrect: boolean;
+                questionId: number;
+            }[];
+        } & {
+            id: number;
+            createdAt: Date;
+            updatedAt: Date;
+            question: string;
+            quizId: number;
+        })[];
+        badge: {
+            id: number;
+            createdAt: Date;
+            name: string;
+            description: string | null;
+            icon: string | null;
+            updatedAt: Date;
+        } | null;
+    } & {
         id: number;
         createdAt: Date;
         name: string;

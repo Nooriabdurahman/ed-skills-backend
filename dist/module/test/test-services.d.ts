@@ -3,6 +3,23 @@ export declare class TestService {
      * Create a test for a course
      */
     static createTest(courseId: number, name: string, description?: string): Promise<{
+        questions: ({
+            answers: {
+                id: number;
+                createdAt: Date;
+                updatedAt: Date;
+                answer: string;
+                isCorrect: boolean;
+                questionId: number;
+            }[];
+        } & {
+            id: number;
+            createdAt: Date;
+            updatedAt: Date;
+            question: string;
+            testId: number;
+        })[];
+    } & {
         id: number;
         createdAt: Date;
         name: string;

@@ -28,7 +28,8 @@ class CertificationService {
             data: {
                 userId,
                 courseId,
-                certificateUrl,
+                // Prisma expects `string | null`, not `string | undefined`
+                certificateUrl: certificateUrl ?? null,
             },
             include: {
                 user: {

@@ -14,8 +14,9 @@ class QuizService {
             data: {
                 courseId,
                 name,
-                description,
-                badgeId,
+                // Prisma expects `string | null` / `number | null`, not `undefined`
+                description: description ?? null,
+                badgeId: badgeId ?? null,
             },
             include: {
                 questions: {
