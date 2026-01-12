@@ -113,6 +113,11 @@ export type Medal = $Result.DefaultSelection<Prisma.$MedalPayload>
  * 
  */
 export type UserMedal = $Result.DefaultSelection<Prisma.$UserMedalPayload>
+/**
+ * Model UserLessonActivity
+ * 
+ */
+export type UserLessonActivity = $Result.DefaultSelection<Prisma.$UserLessonActivityPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -431,6 +436,16 @@ export class PrismaClient<
     * ```
     */
   get userMedal(): Prisma.UserMedalDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.userLessonActivity`: Exposes CRUD operations for the **UserLessonActivity** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more UserLessonActivities
+    * const userLessonActivities = await prisma.userLessonActivity.findMany()
+    * ```
+    */
+  get userLessonActivity(): Prisma.UserLessonActivityDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -890,7 +905,8 @@ export namespace Prisma {
     UserBadge: 'UserBadge',
     Certification: 'Certification',
     Medal: 'Medal',
-    UserMedal: 'UserMedal'
+    UserMedal: 'UserMedal',
+    UserLessonActivity: 'UserLessonActivity'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -909,7 +925,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "course" | "courseLesson" | "lessonResource" | "courseProgress" | "courseHistory" | "courseTest" | "testQuestion" | "testAnswer" | "testAttempt" | "userPoint" | "courseQuiz" | "quizQuestion" | "quizAnswer" | "quizAttempt" | "badge" | "userBadge" | "certification" | "medal" | "userMedal"
+      modelProps: "user" | "course" | "courseLesson" | "lessonResource" | "courseProgress" | "courseHistory" | "courseTest" | "testQuestion" | "testAnswer" | "testAttempt" | "userPoint" | "courseQuiz" | "quizQuestion" | "quizAnswer" | "quizAttempt" | "badge" | "userBadge" | "certification" | "medal" | "userMedal" | "userLessonActivity"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -2393,6 +2409,80 @@ export namespace Prisma {
           }
         }
       }
+      UserLessonActivity: {
+        payload: Prisma.$UserLessonActivityPayload<ExtArgs>
+        fields: Prisma.UserLessonActivityFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.UserLessonActivityFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserLessonActivityPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.UserLessonActivityFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserLessonActivityPayload>
+          }
+          findFirst: {
+            args: Prisma.UserLessonActivityFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserLessonActivityPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.UserLessonActivityFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserLessonActivityPayload>
+          }
+          findMany: {
+            args: Prisma.UserLessonActivityFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserLessonActivityPayload>[]
+          }
+          create: {
+            args: Prisma.UserLessonActivityCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserLessonActivityPayload>
+          }
+          createMany: {
+            args: Prisma.UserLessonActivityCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.UserLessonActivityCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserLessonActivityPayload>[]
+          }
+          delete: {
+            args: Prisma.UserLessonActivityDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserLessonActivityPayload>
+          }
+          update: {
+            args: Prisma.UserLessonActivityUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserLessonActivityPayload>
+          }
+          deleteMany: {
+            args: Prisma.UserLessonActivityDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.UserLessonActivityUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.UserLessonActivityUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserLessonActivityPayload>[]
+          }
+          upsert: {
+            args: Prisma.UserLessonActivityUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserLessonActivityPayload>
+          }
+          aggregate: {
+            args: Prisma.UserLessonActivityAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateUserLessonActivity>
+          }
+          groupBy: {
+            args: Prisma.UserLessonActivityGroupByArgs<ExtArgs>
+            result: $Utils.Optional<UserLessonActivityGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.UserLessonActivityCountArgs<ExtArgs>
+            result: $Utils.Optional<UserLessonActivityCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -2509,6 +2599,7 @@ export namespace Prisma {
     certification?: CertificationOmit
     medal?: MedalOmit
     userMedal?: UserMedalOmit
+    userLessonActivity?: UserLessonActivityOmit
   }
 
   /* Types for Logging */
@@ -2596,6 +2687,7 @@ export namespace Prisma {
     badges: number
     certifications: number
     medals: number
+    lessonActivities: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2606,6 +2698,7 @@ export namespace Prisma {
     badges?: boolean | UserCountOutputTypeCountBadgesArgs
     certifications?: boolean | UserCountOutputTypeCountCertificationsArgs
     medals?: boolean | UserCountOutputTypeCountMedalsArgs
+    lessonActivities?: boolean | UserCountOutputTypeCountLessonActivitiesArgs
   }
 
   // Custom InputTypes
@@ -2666,6 +2759,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountMedalsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: UserMedalWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountLessonActivitiesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserLessonActivityWhereInput
   }
 
 
@@ -2743,11 +2843,13 @@ export namespace Prisma {
   export type CourseLessonCountOutputType = {
     resources: number
     progress: number
+    activities: number
   }
 
   export type CourseLessonCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     resources?: boolean | CourseLessonCountOutputTypeCountResourcesArgs
     progress?: boolean | CourseLessonCountOutputTypeCountProgressArgs
+    activities?: boolean | CourseLessonCountOutputTypeCountActivitiesArgs
   }
 
   // Custom InputTypes
@@ -2773,6 +2875,13 @@ export namespace Prisma {
    */
   export type CourseLessonCountOutputTypeCountProgressArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: CourseProgressWhereInput
+  }
+
+  /**
+   * CourseLessonCountOutputType without action
+   */
+  export type CourseLessonCountOutputTypeCountActivitiesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserLessonActivityWhereInput
   }
 
 
@@ -3238,6 +3347,7 @@ export namespace Prisma {
     badges?: boolean | User$badgesArgs<ExtArgs>
     certifications?: boolean | User$certificationsArgs<ExtArgs>
     medals?: boolean | User$medalsArgs<ExtArgs>
+    lessonActivities?: boolean | User$lessonActivitiesArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -3289,6 +3399,7 @@ export namespace Prisma {
     badges?: boolean | User$badgesArgs<ExtArgs>
     certifications?: boolean | User$certificationsArgs<ExtArgs>
     medals?: boolean | User$medalsArgs<ExtArgs>
+    lessonActivities?: boolean | User$lessonActivitiesArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -3304,6 +3415,7 @@ export namespace Prisma {
       badges: Prisma.$UserBadgePayload<ExtArgs>[]
       certifications: Prisma.$CertificationPayload<ExtArgs>[]
       medals: Prisma.$UserMedalPayload<ExtArgs>[]
+      lessonActivities: Prisma.$UserLessonActivityPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -3717,6 +3829,7 @@ export namespace Prisma {
     badges<T extends User$badgesArgs<ExtArgs> = {}>(args?: Subset<T, User$badgesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserBadgePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     certifications<T extends User$certificationsArgs<ExtArgs> = {}>(args?: Subset<T, User$certificationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CertificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     medals<T extends User$medalsArgs<ExtArgs> = {}>(args?: Subset<T, User$medalsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserMedalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    lessonActivities<T extends User$lessonActivitiesArgs<ExtArgs> = {}>(args?: Subset<T, User$lessonActivitiesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserLessonActivityPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4309,6 +4422,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: UserMedalScalarFieldEnum | UserMedalScalarFieldEnum[]
+  }
+
+  /**
+   * User.lessonActivities
+   */
+  export type User$lessonActivitiesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserLessonActivity
+     */
+    select?: UserLessonActivitySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserLessonActivity
+     */
+    omit?: UserLessonActivityOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserLessonActivityInclude<ExtArgs> | null
+    where?: UserLessonActivityWhereInput
+    orderBy?: UserLessonActivityOrderByWithRelationInput | UserLessonActivityOrderByWithRelationInput[]
+    cursor?: UserLessonActivityWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: UserLessonActivityScalarFieldEnum | UserLessonActivityScalarFieldEnum[]
   }
 
   /**
@@ -6043,6 +6180,7 @@ export namespace Prisma {
     course?: boolean | CourseDefaultArgs<ExtArgs>
     resources?: boolean | CourseLesson$resourcesArgs<ExtArgs>
     progress?: boolean | CourseLesson$progressArgs<ExtArgs>
+    activities?: boolean | CourseLesson$activitiesArgs<ExtArgs>
     _count?: boolean | CourseLessonCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["courseLesson"]>
 
@@ -6086,6 +6224,7 @@ export namespace Prisma {
     course?: boolean | CourseDefaultArgs<ExtArgs>
     resources?: boolean | CourseLesson$resourcesArgs<ExtArgs>
     progress?: boolean | CourseLesson$progressArgs<ExtArgs>
+    activities?: boolean | CourseLesson$activitiesArgs<ExtArgs>
     _count?: boolean | CourseLessonCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type CourseLessonIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -6101,6 +6240,7 @@ export namespace Prisma {
       course: Prisma.$CoursePayload<ExtArgs>
       resources: Prisma.$LessonResourcePayload<ExtArgs>[]
       progress: Prisma.$CourseProgressPayload<ExtArgs>[]
+      activities: Prisma.$UserLessonActivityPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -6508,6 +6648,7 @@ export namespace Prisma {
     course<T extends CourseDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CourseDefaultArgs<ExtArgs>>): Prisma__CourseClient<$Result.GetResult<Prisma.$CoursePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     resources<T extends CourseLesson$resourcesArgs<ExtArgs> = {}>(args?: Subset<T, CourseLesson$resourcesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LessonResourcePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     progress<T extends CourseLesson$progressArgs<ExtArgs> = {}>(args?: Subset<T, CourseLesson$progressArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CourseProgressPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    activities<T extends CourseLesson$activitiesArgs<ExtArgs> = {}>(args?: Subset<T, CourseLesson$activitiesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserLessonActivityPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6986,6 +7127,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: CourseProgressScalarFieldEnum | CourseProgressScalarFieldEnum[]
+  }
+
+  /**
+   * CourseLesson.activities
+   */
+  export type CourseLesson$activitiesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserLessonActivity
+     */
+    select?: UserLessonActivitySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserLessonActivity
+     */
+    omit?: UserLessonActivityOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserLessonActivityInclude<ExtArgs> | null
+    where?: UserLessonActivityWhereInput
+    orderBy?: UserLessonActivityOrderByWithRelationInput | UserLessonActivityOrderByWithRelationInput[]
+    cursor?: UserLessonActivityWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: UserLessonActivityScalarFieldEnum | UserLessonActivityScalarFieldEnum[]
   }
 
   /**
@@ -26368,6 +26533,1127 @@ export namespace Prisma {
 
 
   /**
+   * Model UserLessonActivity
+   */
+
+  export type AggregateUserLessonActivity = {
+    _count: UserLessonActivityCountAggregateOutputType | null
+    _avg: UserLessonActivityAvgAggregateOutputType | null
+    _sum: UserLessonActivitySumAggregateOutputType | null
+    _min: UserLessonActivityMinAggregateOutputType | null
+    _max: UserLessonActivityMaxAggregateOutputType | null
+  }
+
+  export type UserLessonActivityAvgAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    duration: number | null
+  }
+
+  export type UserLessonActivitySumAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    duration: number | null
+  }
+
+  export type UserLessonActivityMinAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    lessonId: string | null
+    startTime: Date | null
+    endTime: Date | null
+    duration: number | null
+  }
+
+  export type UserLessonActivityMaxAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    lessonId: string | null
+    startTime: Date | null
+    endTime: Date | null
+    duration: number | null
+  }
+
+  export type UserLessonActivityCountAggregateOutputType = {
+    id: number
+    userId: number
+    lessonId: number
+    startTime: number
+    endTime: number
+    duration: number
+    _all: number
+  }
+
+
+  export type UserLessonActivityAvgAggregateInputType = {
+    id?: true
+    userId?: true
+    duration?: true
+  }
+
+  export type UserLessonActivitySumAggregateInputType = {
+    id?: true
+    userId?: true
+    duration?: true
+  }
+
+  export type UserLessonActivityMinAggregateInputType = {
+    id?: true
+    userId?: true
+    lessonId?: true
+    startTime?: true
+    endTime?: true
+    duration?: true
+  }
+
+  export type UserLessonActivityMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    lessonId?: true
+    startTime?: true
+    endTime?: true
+    duration?: true
+  }
+
+  export type UserLessonActivityCountAggregateInputType = {
+    id?: true
+    userId?: true
+    lessonId?: true
+    startTime?: true
+    endTime?: true
+    duration?: true
+    _all?: true
+  }
+
+  export type UserLessonActivityAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which UserLessonActivity to aggregate.
+     */
+    where?: UserLessonActivityWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserLessonActivities to fetch.
+     */
+    orderBy?: UserLessonActivityOrderByWithRelationInput | UserLessonActivityOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: UserLessonActivityWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserLessonActivities from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserLessonActivities.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned UserLessonActivities
+    **/
+    _count?: true | UserLessonActivityCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: UserLessonActivityAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: UserLessonActivitySumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: UserLessonActivityMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: UserLessonActivityMaxAggregateInputType
+  }
+
+  export type GetUserLessonActivityAggregateType<T extends UserLessonActivityAggregateArgs> = {
+        [P in keyof T & keyof AggregateUserLessonActivity]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateUserLessonActivity[P]>
+      : GetScalarType<T[P], AggregateUserLessonActivity[P]>
+  }
+
+
+
+
+  export type UserLessonActivityGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserLessonActivityWhereInput
+    orderBy?: UserLessonActivityOrderByWithAggregationInput | UserLessonActivityOrderByWithAggregationInput[]
+    by: UserLessonActivityScalarFieldEnum[] | UserLessonActivityScalarFieldEnum
+    having?: UserLessonActivityScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: UserLessonActivityCountAggregateInputType | true
+    _avg?: UserLessonActivityAvgAggregateInputType
+    _sum?: UserLessonActivitySumAggregateInputType
+    _min?: UserLessonActivityMinAggregateInputType
+    _max?: UserLessonActivityMaxAggregateInputType
+  }
+
+  export type UserLessonActivityGroupByOutputType = {
+    id: number
+    userId: number
+    lessonId: string
+    startTime: Date
+    endTime: Date | null
+    duration: number | null
+    _count: UserLessonActivityCountAggregateOutputType | null
+    _avg: UserLessonActivityAvgAggregateOutputType | null
+    _sum: UserLessonActivitySumAggregateOutputType | null
+    _min: UserLessonActivityMinAggregateOutputType | null
+    _max: UserLessonActivityMaxAggregateOutputType | null
+  }
+
+  type GetUserLessonActivityGroupByPayload<T extends UserLessonActivityGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<UserLessonActivityGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof UserLessonActivityGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], UserLessonActivityGroupByOutputType[P]>
+            : GetScalarType<T[P], UserLessonActivityGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type UserLessonActivitySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    lessonId?: boolean
+    startTime?: boolean
+    endTime?: boolean
+    duration?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    lesson?: boolean | CourseLessonDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userLessonActivity"]>
+
+  export type UserLessonActivitySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    lessonId?: boolean
+    startTime?: boolean
+    endTime?: boolean
+    duration?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    lesson?: boolean | CourseLessonDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userLessonActivity"]>
+
+  export type UserLessonActivitySelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    lessonId?: boolean
+    startTime?: boolean
+    endTime?: boolean
+    duration?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    lesson?: boolean | CourseLessonDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userLessonActivity"]>
+
+  export type UserLessonActivitySelectScalar = {
+    id?: boolean
+    userId?: boolean
+    lessonId?: boolean
+    startTime?: boolean
+    endTime?: boolean
+    duration?: boolean
+  }
+
+  export type UserLessonActivityOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "lessonId" | "startTime" | "endTime" | "duration", ExtArgs["result"]["userLessonActivity"]>
+  export type UserLessonActivityInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    lesson?: boolean | CourseLessonDefaultArgs<ExtArgs>
+  }
+  export type UserLessonActivityIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    lesson?: boolean | CourseLessonDefaultArgs<ExtArgs>
+  }
+  export type UserLessonActivityIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    lesson?: boolean | CourseLessonDefaultArgs<ExtArgs>
+  }
+
+  export type $UserLessonActivityPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "UserLessonActivity"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+      lesson: Prisma.$CourseLessonPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      userId: number
+      lessonId: string
+      startTime: Date
+      endTime: Date | null
+      duration: number | null
+    }, ExtArgs["result"]["userLessonActivity"]>
+    composites: {}
+  }
+
+  type UserLessonActivityGetPayload<S extends boolean | null | undefined | UserLessonActivityDefaultArgs> = $Result.GetResult<Prisma.$UserLessonActivityPayload, S>
+
+  type UserLessonActivityCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<UserLessonActivityFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: UserLessonActivityCountAggregateInputType | true
+    }
+
+  export interface UserLessonActivityDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['UserLessonActivity'], meta: { name: 'UserLessonActivity' } }
+    /**
+     * Find zero or one UserLessonActivity that matches the filter.
+     * @param {UserLessonActivityFindUniqueArgs} args - Arguments to find a UserLessonActivity
+     * @example
+     * // Get one UserLessonActivity
+     * const userLessonActivity = await prisma.userLessonActivity.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends UserLessonActivityFindUniqueArgs>(args: SelectSubset<T, UserLessonActivityFindUniqueArgs<ExtArgs>>): Prisma__UserLessonActivityClient<$Result.GetResult<Prisma.$UserLessonActivityPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one UserLessonActivity that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {UserLessonActivityFindUniqueOrThrowArgs} args - Arguments to find a UserLessonActivity
+     * @example
+     * // Get one UserLessonActivity
+     * const userLessonActivity = await prisma.userLessonActivity.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends UserLessonActivityFindUniqueOrThrowArgs>(args: SelectSubset<T, UserLessonActivityFindUniqueOrThrowArgs<ExtArgs>>): Prisma__UserLessonActivityClient<$Result.GetResult<Prisma.$UserLessonActivityPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first UserLessonActivity that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserLessonActivityFindFirstArgs} args - Arguments to find a UserLessonActivity
+     * @example
+     * // Get one UserLessonActivity
+     * const userLessonActivity = await prisma.userLessonActivity.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends UserLessonActivityFindFirstArgs>(args?: SelectSubset<T, UserLessonActivityFindFirstArgs<ExtArgs>>): Prisma__UserLessonActivityClient<$Result.GetResult<Prisma.$UserLessonActivityPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first UserLessonActivity that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserLessonActivityFindFirstOrThrowArgs} args - Arguments to find a UserLessonActivity
+     * @example
+     * // Get one UserLessonActivity
+     * const userLessonActivity = await prisma.userLessonActivity.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends UserLessonActivityFindFirstOrThrowArgs>(args?: SelectSubset<T, UserLessonActivityFindFirstOrThrowArgs<ExtArgs>>): Prisma__UserLessonActivityClient<$Result.GetResult<Prisma.$UserLessonActivityPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more UserLessonActivities that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserLessonActivityFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all UserLessonActivities
+     * const userLessonActivities = await prisma.userLessonActivity.findMany()
+     * 
+     * // Get first 10 UserLessonActivities
+     * const userLessonActivities = await prisma.userLessonActivity.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const userLessonActivityWithIdOnly = await prisma.userLessonActivity.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends UserLessonActivityFindManyArgs>(args?: SelectSubset<T, UserLessonActivityFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserLessonActivityPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a UserLessonActivity.
+     * @param {UserLessonActivityCreateArgs} args - Arguments to create a UserLessonActivity.
+     * @example
+     * // Create one UserLessonActivity
+     * const UserLessonActivity = await prisma.userLessonActivity.create({
+     *   data: {
+     *     // ... data to create a UserLessonActivity
+     *   }
+     * })
+     * 
+     */
+    create<T extends UserLessonActivityCreateArgs>(args: SelectSubset<T, UserLessonActivityCreateArgs<ExtArgs>>): Prisma__UserLessonActivityClient<$Result.GetResult<Prisma.$UserLessonActivityPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many UserLessonActivities.
+     * @param {UserLessonActivityCreateManyArgs} args - Arguments to create many UserLessonActivities.
+     * @example
+     * // Create many UserLessonActivities
+     * const userLessonActivity = await prisma.userLessonActivity.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends UserLessonActivityCreateManyArgs>(args?: SelectSubset<T, UserLessonActivityCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many UserLessonActivities and returns the data saved in the database.
+     * @param {UserLessonActivityCreateManyAndReturnArgs} args - Arguments to create many UserLessonActivities.
+     * @example
+     * // Create many UserLessonActivities
+     * const userLessonActivity = await prisma.userLessonActivity.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many UserLessonActivities and only return the `id`
+     * const userLessonActivityWithIdOnly = await prisma.userLessonActivity.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends UserLessonActivityCreateManyAndReturnArgs>(args?: SelectSubset<T, UserLessonActivityCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserLessonActivityPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a UserLessonActivity.
+     * @param {UserLessonActivityDeleteArgs} args - Arguments to delete one UserLessonActivity.
+     * @example
+     * // Delete one UserLessonActivity
+     * const UserLessonActivity = await prisma.userLessonActivity.delete({
+     *   where: {
+     *     // ... filter to delete one UserLessonActivity
+     *   }
+     * })
+     * 
+     */
+    delete<T extends UserLessonActivityDeleteArgs>(args: SelectSubset<T, UserLessonActivityDeleteArgs<ExtArgs>>): Prisma__UserLessonActivityClient<$Result.GetResult<Prisma.$UserLessonActivityPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one UserLessonActivity.
+     * @param {UserLessonActivityUpdateArgs} args - Arguments to update one UserLessonActivity.
+     * @example
+     * // Update one UserLessonActivity
+     * const userLessonActivity = await prisma.userLessonActivity.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends UserLessonActivityUpdateArgs>(args: SelectSubset<T, UserLessonActivityUpdateArgs<ExtArgs>>): Prisma__UserLessonActivityClient<$Result.GetResult<Prisma.$UserLessonActivityPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more UserLessonActivities.
+     * @param {UserLessonActivityDeleteManyArgs} args - Arguments to filter UserLessonActivities to delete.
+     * @example
+     * // Delete a few UserLessonActivities
+     * const { count } = await prisma.userLessonActivity.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends UserLessonActivityDeleteManyArgs>(args?: SelectSubset<T, UserLessonActivityDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more UserLessonActivities.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserLessonActivityUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many UserLessonActivities
+     * const userLessonActivity = await prisma.userLessonActivity.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends UserLessonActivityUpdateManyArgs>(args: SelectSubset<T, UserLessonActivityUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more UserLessonActivities and returns the data updated in the database.
+     * @param {UserLessonActivityUpdateManyAndReturnArgs} args - Arguments to update many UserLessonActivities.
+     * @example
+     * // Update many UserLessonActivities
+     * const userLessonActivity = await prisma.userLessonActivity.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more UserLessonActivities and only return the `id`
+     * const userLessonActivityWithIdOnly = await prisma.userLessonActivity.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends UserLessonActivityUpdateManyAndReturnArgs>(args: SelectSubset<T, UserLessonActivityUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserLessonActivityPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one UserLessonActivity.
+     * @param {UserLessonActivityUpsertArgs} args - Arguments to update or create a UserLessonActivity.
+     * @example
+     * // Update or create a UserLessonActivity
+     * const userLessonActivity = await prisma.userLessonActivity.upsert({
+     *   create: {
+     *     // ... data to create a UserLessonActivity
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the UserLessonActivity we want to update
+     *   }
+     * })
+     */
+    upsert<T extends UserLessonActivityUpsertArgs>(args: SelectSubset<T, UserLessonActivityUpsertArgs<ExtArgs>>): Prisma__UserLessonActivityClient<$Result.GetResult<Prisma.$UserLessonActivityPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of UserLessonActivities.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserLessonActivityCountArgs} args - Arguments to filter UserLessonActivities to count.
+     * @example
+     * // Count the number of UserLessonActivities
+     * const count = await prisma.userLessonActivity.count({
+     *   where: {
+     *     // ... the filter for the UserLessonActivities we want to count
+     *   }
+     * })
+    **/
+    count<T extends UserLessonActivityCountArgs>(
+      args?: Subset<T, UserLessonActivityCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], UserLessonActivityCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a UserLessonActivity.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserLessonActivityAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends UserLessonActivityAggregateArgs>(args: Subset<T, UserLessonActivityAggregateArgs>): Prisma.PrismaPromise<GetUserLessonActivityAggregateType<T>>
+
+    /**
+     * Group by UserLessonActivity.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserLessonActivityGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends UserLessonActivityGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: UserLessonActivityGroupByArgs['orderBy'] }
+        : { orderBy?: UserLessonActivityGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, UserLessonActivityGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetUserLessonActivityGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the UserLessonActivity model
+   */
+  readonly fields: UserLessonActivityFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for UserLessonActivity.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__UserLessonActivityClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    lesson<T extends CourseLessonDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CourseLessonDefaultArgs<ExtArgs>>): Prisma__CourseLessonClient<$Result.GetResult<Prisma.$CourseLessonPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the UserLessonActivity model
+   */
+  interface UserLessonActivityFieldRefs {
+    readonly id: FieldRef<"UserLessonActivity", 'Int'>
+    readonly userId: FieldRef<"UserLessonActivity", 'Int'>
+    readonly lessonId: FieldRef<"UserLessonActivity", 'String'>
+    readonly startTime: FieldRef<"UserLessonActivity", 'DateTime'>
+    readonly endTime: FieldRef<"UserLessonActivity", 'DateTime'>
+    readonly duration: FieldRef<"UserLessonActivity", 'Int'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * UserLessonActivity findUnique
+   */
+  export type UserLessonActivityFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserLessonActivity
+     */
+    select?: UserLessonActivitySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserLessonActivity
+     */
+    omit?: UserLessonActivityOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserLessonActivityInclude<ExtArgs> | null
+    /**
+     * Filter, which UserLessonActivity to fetch.
+     */
+    where: UserLessonActivityWhereUniqueInput
+  }
+
+  /**
+   * UserLessonActivity findUniqueOrThrow
+   */
+  export type UserLessonActivityFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserLessonActivity
+     */
+    select?: UserLessonActivitySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserLessonActivity
+     */
+    omit?: UserLessonActivityOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserLessonActivityInclude<ExtArgs> | null
+    /**
+     * Filter, which UserLessonActivity to fetch.
+     */
+    where: UserLessonActivityWhereUniqueInput
+  }
+
+  /**
+   * UserLessonActivity findFirst
+   */
+  export type UserLessonActivityFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserLessonActivity
+     */
+    select?: UserLessonActivitySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserLessonActivity
+     */
+    omit?: UserLessonActivityOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserLessonActivityInclude<ExtArgs> | null
+    /**
+     * Filter, which UserLessonActivity to fetch.
+     */
+    where?: UserLessonActivityWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserLessonActivities to fetch.
+     */
+    orderBy?: UserLessonActivityOrderByWithRelationInput | UserLessonActivityOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for UserLessonActivities.
+     */
+    cursor?: UserLessonActivityWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserLessonActivities from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserLessonActivities.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UserLessonActivities.
+     */
+    distinct?: UserLessonActivityScalarFieldEnum | UserLessonActivityScalarFieldEnum[]
+  }
+
+  /**
+   * UserLessonActivity findFirstOrThrow
+   */
+  export type UserLessonActivityFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserLessonActivity
+     */
+    select?: UserLessonActivitySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserLessonActivity
+     */
+    omit?: UserLessonActivityOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserLessonActivityInclude<ExtArgs> | null
+    /**
+     * Filter, which UserLessonActivity to fetch.
+     */
+    where?: UserLessonActivityWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserLessonActivities to fetch.
+     */
+    orderBy?: UserLessonActivityOrderByWithRelationInput | UserLessonActivityOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for UserLessonActivities.
+     */
+    cursor?: UserLessonActivityWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserLessonActivities from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserLessonActivities.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UserLessonActivities.
+     */
+    distinct?: UserLessonActivityScalarFieldEnum | UserLessonActivityScalarFieldEnum[]
+  }
+
+  /**
+   * UserLessonActivity findMany
+   */
+  export type UserLessonActivityFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserLessonActivity
+     */
+    select?: UserLessonActivitySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserLessonActivity
+     */
+    omit?: UserLessonActivityOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserLessonActivityInclude<ExtArgs> | null
+    /**
+     * Filter, which UserLessonActivities to fetch.
+     */
+    where?: UserLessonActivityWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserLessonActivities to fetch.
+     */
+    orderBy?: UserLessonActivityOrderByWithRelationInput | UserLessonActivityOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing UserLessonActivities.
+     */
+    cursor?: UserLessonActivityWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserLessonActivities from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserLessonActivities.
+     */
+    skip?: number
+    distinct?: UserLessonActivityScalarFieldEnum | UserLessonActivityScalarFieldEnum[]
+  }
+
+  /**
+   * UserLessonActivity create
+   */
+  export type UserLessonActivityCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserLessonActivity
+     */
+    select?: UserLessonActivitySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserLessonActivity
+     */
+    omit?: UserLessonActivityOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserLessonActivityInclude<ExtArgs> | null
+    /**
+     * The data needed to create a UserLessonActivity.
+     */
+    data: XOR<UserLessonActivityCreateInput, UserLessonActivityUncheckedCreateInput>
+  }
+
+  /**
+   * UserLessonActivity createMany
+   */
+  export type UserLessonActivityCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many UserLessonActivities.
+     */
+    data: UserLessonActivityCreateManyInput | UserLessonActivityCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * UserLessonActivity createManyAndReturn
+   */
+  export type UserLessonActivityCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserLessonActivity
+     */
+    select?: UserLessonActivitySelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserLessonActivity
+     */
+    omit?: UserLessonActivityOmit<ExtArgs> | null
+    /**
+     * The data used to create many UserLessonActivities.
+     */
+    data: UserLessonActivityCreateManyInput | UserLessonActivityCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserLessonActivityIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * UserLessonActivity update
+   */
+  export type UserLessonActivityUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserLessonActivity
+     */
+    select?: UserLessonActivitySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserLessonActivity
+     */
+    omit?: UserLessonActivityOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserLessonActivityInclude<ExtArgs> | null
+    /**
+     * The data needed to update a UserLessonActivity.
+     */
+    data: XOR<UserLessonActivityUpdateInput, UserLessonActivityUncheckedUpdateInput>
+    /**
+     * Choose, which UserLessonActivity to update.
+     */
+    where: UserLessonActivityWhereUniqueInput
+  }
+
+  /**
+   * UserLessonActivity updateMany
+   */
+  export type UserLessonActivityUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update UserLessonActivities.
+     */
+    data: XOR<UserLessonActivityUpdateManyMutationInput, UserLessonActivityUncheckedUpdateManyInput>
+    /**
+     * Filter which UserLessonActivities to update
+     */
+    where?: UserLessonActivityWhereInput
+    /**
+     * Limit how many UserLessonActivities to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * UserLessonActivity updateManyAndReturn
+   */
+  export type UserLessonActivityUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserLessonActivity
+     */
+    select?: UserLessonActivitySelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserLessonActivity
+     */
+    omit?: UserLessonActivityOmit<ExtArgs> | null
+    /**
+     * The data used to update UserLessonActivities.
+     */
+    data: XOR<UserLessonActivityUpdateManyMutationInput, UserLessonActivityUncheckedUpdateManyInput>
+    /**
+     * Filter which UserLessonActivities to update
+     */
+    where?: UserLessonActivityWhereInput
+    /**
+     * Limit how many UserLessonActivities to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserLessonActivityIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * UserLessonActivity upsert
+   */
+  export type UserLessonActivityUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserLessonActivity
+     */
+    select?: UserLessonActivitySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserLessonActivity
+     */
+    omit?: UserLessonActivityOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserLessonActivityInclude<ExtArgs> | null
+    /**
+     * The filter to search for the UserLessonActivity to update in case it exists.
+     */
+    where: UserLessonActivityWhereUniqueInput
+    /**
+     * In case the UserLessonActivity found by the `where` argument doesn't exist, create a new UserLessonActivity with this data.
+     */
+    create: XOR<UserLessonActivityCreateInput, UserLessonActivityUncheckedCreateInput>
+    /**
+     * In case the UserLessonActivity was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<UserLessonActivityUpdateInput, UserLessonActivityUncheckedUpdateInput>
+  }
+
+  /**
+   * UserLessonActivity delete
+   */
+  export type UserLessonActivityDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserLessonActivity
+     */
+    select?: UserLessonActivitySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserLessonActivity
+     */
+    omit?: UserLessonActivityOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserLessonActivityInclude<ExtArgs> | null
+    /**
+     * Filter which UserLessonActivity to delete.
+     */
+    where: UserLessonActivityWhereUniqueInput
+  }
+
+  /**
+   * UserLessonActivity deleteMany
+   */
+  export type UserLessonActivityDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which UserLessonActivities to delete
+     */
+    where?: UserLessonActivityWhereInput
+    /**
+     * Limit how many UserLessonActivities to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * UserLessonActivity without action
+   */
+  export type UserLessonActivityDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserLessonActivity
+     */
+    select?: UserLessonActivitySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserLessonActivity
+     */
+    omit?: UserLessonActivityOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserLessonActivityInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -26658,6 +27944,18 @@ export namespace Prisma {
   export type UserMedalScalarFieldEnum = (typeof UserMedalScalarFieldEnum)[keyof typeof UserMedalScalarFieldEnum]
 
 
+  export const UserLessonActivityScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    lessonId: 'lessonId',
+    startTime: 'startTime',
+    endTime: 'endTime',
+    duration: 'duration'
+  };
+
+  export type UserLessonActivityScalarFieldEnum = (typeof UserLessonActivityScalarFieldEnum)[keyof typeof UserLessonActivityScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -26774,6 +28072,7 @@ export namespace Prisma {
     badges?: UserBadgeListRelationFilter
     certifications?: CertificationListRelationFilter
     medals?: UserMedalListRelationFilter
+    lessonActivities?: UserLessonActivityListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -26794,6 +28093,7 @@ export namespace Prisma {
     badges?: UserBadgeOrderByRelationAggregateInput
     certifications?: CertificationOrderByRelationAggregateInput
     medals?: UserMedalOrderByRelationAggregateInput
+    lessonActivities?: UserLessonActivityOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -26817,6 +28117,7 @@ export namespace Prisma {
     badges?: UserBadgeListRelationFilter
     certifications?: CertificationListRelationFilter
     medals?: UserMedalListRelationFilter
+    lessonActivities?: UserLessonActivityListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -27037,6 +28338,7 @@ export namespace Prisma {
     course?: XOR<CourseScalarRelationFilter, CourseWhereInput>
     resources?: LessonResourceListRelationFilter
     progress?: CourseProgressListRelationFilter
+    activities?: UserLessonActivityListRelationFilter
   }
 
   export type CourseLessonOrderByWithRelationInput = {
@@ -27051,6 +28353,7 @@ export namespace Prisma {
     course?: CourseOrderByWithRelationInput
     resources?: LessonResourceOrderByRelationAggregateInput
     progress?: CourseProgressOrderByRelationAggregateInput
+    activities?: UserLessonActivityOrderByRelationAggregateInput
   }
 
   export type CourseLessonWhereUniqueInput = Prisma.AtLeast<{
@@ -27068,6 +28371,7 @@ export namespace Prisma {
     course?: XOR<CourseScalarRelationFilter, CourseWhereInput>
     resources?: LessonResourceListRelationFilter
     progress?: CourseProgressListRelationFilter
+    activities?: UserLessonActivityListRelationFilter
   }, "id">
 
   export type CourseLessonOrderByWithAggregationInput = {
@@ -28261,6 +29565,71 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"UserMedal"> | Date | string
   }
 
+  export type UserLessonActivityWhereInput = {
+    AND?: UserLessonActivityWhereInput | UserLessonActivityWhereInput[]
+    OR?: UserLessonActivityWhereInput[]
+    NOT?: UserLessonActivityWhereInput | UserLessonActivityWhereInput[]
+    id?: IntFilter<"UserLessonActivity"> | number
+    userId?: IntFilter<"UserLessonActivity"> | number
+    lessonId?: StringFilter<"UserLessonActivity"> | string
+    startTime?: DateTimeFilter<"UserLessonActivity"> | Date | string
+    endTime?: DateTimeNullableFilter<"UserLessonActivity"> | Date | string | null
+    duration?: IntNullableFilter<"UserLessonActivity"> | number | null
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    lesson?: XOR<CourseLessonScalarRelationFilter, CourseLessonWhereInput>
+  }
+
+  export type UserLessonActivityOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    lessonId?: SortOrder
+    startTime?: SortOrder
+    endTime?: SortOrderInput | SortOrder
+    duration?: SortOrderInput | SortOrder
+    user?: UserOrderByWithRelationInput
+    lesson?: CourseLessonOrderByWithRelationInput
+  }
+
+  export type UserLessonActivityWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: UserLessonActivityWhereInput | UserLessonActivityWhereInput[]
+    OR?: UserLessonActivityWhereInput[]
+    NOT?: UserLessonActivityWhereInput | UserLessonActivityWhereInput[]
+    userId?: IntFilter<"UserLessonActivity"> | number
+    lessonId?: StringFilter<"UserLessonActivity"> | string
+    startTime?: DateTimeFilter<"UserLessonActivity"> | Date | string
+    endTime?: DateTimeNullableFilter<"UserLessonActivity"> | Date | string | null
+    duration?: IntNullableFilter<"UserLessonActivity"> | number | null
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    lesson?: XOR<CourseLessonScalarRelationFilter, CourseLessonWhereInput>
+  }, "id">
+
+  export type UserLessonActivityOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    lessonId?: SortOrder
+    startTime?: SortOrder
+    endTime?: SortOrderInput | SortOrder
+    duration?: SortOrderInput | SortOrder
+    _count?: UserLessonActivityCountOrderByAggregateInput
+    _avg?: UserLessonActivityAvgOrderByAggregateInput
+    _max?: UserLessonActivityMaxOrderByAggregateInput
+    _min?: UserLessonActivityMinOrderByAggregateInput
+    _sum?: UserLessonActivitySumOrderByAggregateInput
+  }
+
+  export type UserLessonActivityScalarWhereWithAggregatesInput = {
+    AND?: UserLessonActivityScalarWhereWithAggregatesInput | UserLessonActivityScalarWhereWithAggregatesInput[]
+    OR?: UserLessonActivityScalarWhereWithAggregatesInput[]
+    NOT?: UserLessonActivityScalarWhereWithAggregatesInput | UserLessonActivityScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"UserLessonActivity"> | number
+    userId?: IntWithAggregatesFilter<"UserLessonActivity"> | number
+    lessonId?: StringWithAggregatesFilter<"UserLessonActivity"> | string
+    startTime?: DateTimeWithAggregatesFilter<"UserLessonActivity"> | Date | string
+    endTime?: DateTimeNullableWithAggregatesFilter<"UserLessonActivity"> | Date | string | null
+    duration?: IntNullableWithAggregatesFilter<"UserLessonActivity"> | number | null
+  }
+
   export type UserCreateInput = {
     email: string
     username: string
@@ -28278,6 +29647,7 @@ export namespace Prisma {
     badges?: UserBadgeCreateNestedManyWithoutUserInput
     certifications?: CertificationCreateNestedManyWithoutUserInput
     medals?: UserMedalCreateNestedManyWithoutUserInput
+    lessonActivities?: UserLessonActivityCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -28298,6 +29668,7 @@ export namespace Prisma {
     badges?: UserBadgeUncheckedCreateNestedManyWithoutUserInput
     certifications?: CertificationUncheckedCreateNestedManyWithoutUserInput
     medals?: UserMedalUncheckedCreateNestedManyWithoutUserInput
+    lessonActivities?: UserLessonActivityUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -28317,6 +29688,7 @@ export namespace Prisma {
     badges?: UserBadgeUpdateManyWithoutUserNestedInput
     certifications?: CertificationUpdateManyWithoutUserNestedInput
     medals?: UserMedalUpdateManyWithoutUserNestedInput
+    lessonActivities?: UserLessonActivityUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -28337,6 +29709,7 @@ export namespace Prisma {
     badges?: UserBadgeUncheckedUpdateManyWithoutUserNestedInput
     certifications?: CertificationUncheckedUpdateManyWithoutUserNestedInput
     medals?: UserMedalUncheckedUpdateManyWithoutUserNestedInput
+    lessonActivities?: UserLessonActivityUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -28601,6 +29974,7 @@ export namespace Prisma {
     course: CourseCreateNestedOneWithoutLessonsInput
     resources?: LessonResourceCreateNestedManyWithoutLessonInput
     progress?: CourseProgressCreateNestedManyWithoutLessonInput
+    activities?: UserLessonActivityCreateNestedManyWithoutLessonInput
   }
 
   export type CourseLessonUncheckedCreateInput = {
@@ -28614,6 +29988,7 @@ export namespace Prisma {
     createdAt?: Date | string
     resources?: LessonResourceUncheckedCreateNestedManyWithoutLessonInput
     progress?: CourseProgressUncheckedCreateNestedManyWithoutLessonInput
+    activities?: UserLessonActivityUncheckedCreateNestedManyWithoutLessonInput
   }
 
   export type CourseLessonUpdateInput = {
@@ -28627,6 +30002,7 @@ export namespace Prisma {
     course?: CourseUpdateOneRequiredWithoutLessonsNestedInput
     resources?: LessonResourceUpdateManyWithoutLessonNestedInput
     progress?: CourseProgressUpdateManyWithoutLessonNestedInput
+    activities?: UserLessonActivityUpdateManyWithoutLessonNestedInput
   }
 
   export type CourseLessonUncheckedUpdateInput = {
@@ -28640,6 +30016,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     resources?: LessonResourceUncheckedUpdateManyWithoutLessonNestedInput
     progress?: CourseProgressUncheckedUpdateManyWithoutLessonNestedInput
+    activities?: UserLessonActivityUncheckedUpdateManyWithoutLessonNestedInput
   }
 
   export type CourseLessonCreateManyInput = {
@@ -28879,16 +30256,16 @@ export namespace Prisma {
     description?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    course: CourseCreateNestedOneWithoutTestsInput | undefined
+    course: CourseCreateNestedOneWithoutTestsInput
     questions?: TestQuestionCreateNestedManyWithoutTestInput
     attempts?: TestAttemptCreateNestedManyWithoutTestInput
   }
 
   export type CourseTestUncheckedCreateInput = {
-    id?: number | undefined
+    id?: number
     name: string
     description?: string | null
-    courseId: number | undefined
+    courseId: number
     createdAt?: Date | string
     updatedAt?: Date | string
     questions?: TestQuestionUncheckedCreateNestedManyWithoutTestInput
@@ -29795,6 +31172,64 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type UserLessonActivityCreateInput = {
+    startTime?: Date | string
+    endTime?: Date | string | null
+    duration?: number | null
+    user: UserCreateNestedOneWithoutLessonActivitiesInput
+    lesson: CourseLessonCreateNestedOneWithoutActivitiesInput
+  }
+
+  export type UserLessonActivityUncheckedCreateInput = {
+    id?: number
+    userId: number
+    lessonId: string
+    startTime?: Date | string
+    endTime?: Date | string | null
+    duration?: number | null
+  }
+
+  export type UserLessonActivityUpdateInput = {
+    startTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    endTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    duration?: NullableIntFieldUpdateOperationsInput | number | null
+    user?: UserUpdateOneRequiredWithoutLessonActivitiesNestedInput
+    lesson?: CourseLessonUpdateOneRequiredWithoutActivitiesNestedInput
+  }
+
+  export type UserLessonActivityUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    lessonId?: StringFieldUpdateOperationsInput | string
+    startTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    endTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    duration?: NullableIntFieldUpdateOperationsInput | number | null
+  }
+
+  export type UserLessonActivityCreateManyInput = {
+    id?: number
+    userId: number
+    lessonId: string
+    startTime?: Date | string
+    endTime?: Date | string | null
+    duration?: number | null
+  }
+
+  export type UserLessonActivityUpdateManyMutationInput = {
+    startTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    endTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    duration?: NullableIntFieldUpdateOperationsInput | number | null
+  }
+
+  export type UserLessonActivityUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    lessonId?: StringFieldUpdateOperationsInput | string
+    startTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    endTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    duration?: NullableIntFieldUpdateOperationsInput | number | null
+  }
+
   export type IntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -29908,6 +31343,12 @@ export namespace Prisma {
     none?: UserMedalWhereInput
   }
 
+  export type UserLessonActivityListRelationFilter = {
+    every?: UserLessonActivityWhereInput
+    some?: UserLessonActivityWhereInput
+    none?: UserLessonActivityWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -29938,6 +31379,10 @@ export namespace Prisma {
   }
 
   export type UserMedalOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type UserLessonActivityOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -31103,6 +32548,70 @@ export namespace Prisma {
     medalId?: SortOrder
   }
 
+  export type DateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
+  export type UserLessonActivityCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    lessonId?: SortOrder
+    startTime?: SortOrder
+    endTime?: SortOrder
+    duration?: SortOrder
+  }
+
+  export type UserLessonActivityAvgOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    duration?: SortOrder
+  }
+
+  export type UserLessonActivityMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    lessonId?: SortOrder
+    startTime?: SortOrder
+    endTime?: SortOrder
+    duration?: SortOrder
+  }
+
+  export type UserLessonActivityMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    lessonId?: SortOrder
+    startTime?: SortOrder
+    endTime?: SortOrder
+    duration?: SortOrder
+  }
+
+  export type UserLessonActivitySumOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    duration?: SortOrder
+  }
+
+  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
   export type UserCreateinterestsInput = {
     set: string[]
   }
@@ -31156,6 +32665,13 @@ export namespace Prisma {
     connect?: UserMedalWhereUniqueInput | UserMedalWhereUniqueInput[]
   }
 
+  export type UserLessonActivityCreateNestedManyWithoutUserInput = {
+    create?: XOR<UserLessonActivityCreateWithoutUserInput, UserLessonActivityUncheckedCreateWithoutUserInput> | UserLessonActivityCreateWithoutUserInput[] | UserLessonActivityUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserLessonActivityCreateOrConnectWithoutUserInput | UserLessonActivityCreateOrConnectWithoutUserInput[]
+    createMany?: UserLessonActivityCreateManyUserInputEnvelope
+    connect?: UserLessonActivityWhereUniqueInput | UserLessonActivityWhereUniqueInput[]
+  }
+
   export type CourseHistoryUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<CourseHistoryCreateWithoutUserInput, CourseHistoryUncheckedCreateWithoutUserInput> | CourseHistoryCreateWithoutUserInput[] | CourseHistoryUncheckedCreateWithoutUserInput[]
     connectOrCreate?: CourseHistoryCreateOrConnectWithoutUserInput | CourseHistoryCreateOrConnectWithoutUserInput[]
@@ -31203,6 +32719,13 @@ export namespace Prisma {
     connectOrCreate?: UserMedalCreateOrConnectWithoutUserInput | UserMedalCreateOrConnectWithoutUserInput[]
     createMany?: UserMedalCreateManyUserInputEnvelope
     connect?: UserMedalWhereUniqueInput | UserMedalWhereUniqueInput[]
+  }
+
+  export type UserLessonActivityUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<UserLessonActivityCreateWithoutUserInput, UserLessonActivityUncheckedCreateWithoutUserInput> | UserLessonActivityCreateWithoutUserInput[] | UserLessonActivityUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserLessonActivityCreateOrConnectWithoutUserInput | UserLessonActivityCreateOrConnectWithoutUserInput[]
+    createMany?: UserLessonActivityCreateManyUserInputEnvelope
+    connect?: UserLessonActivityWhereUniqueInput | UserLessonActivityWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -31328,6 +32851,20 @@ export namespace Prisma {
     deleteMany?: UserMedalScalarWhereInput | UserMedalScalarWhereInput[]
   }
 
+  export type UserLessonActivityUpdateManyWithoutUserNestedInput = {
+    create?: XOR<UserLessonActivityCreateWithoutUserInput, UserLessonActivityUncheckedCreateWithoutUserInput> | UserLessonActivityCreateWithoutUserInput[] | UserLessonActivityUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserLessonActivityCreateOrConnectWithoutUserInput | UserLessonActivityCreateOrConnectWithoutUserInput[]
+    upsert?: UserLessonActivityUpsertWithWhereUniqueWithoutUserInput | UserLessonActivityUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: UserLessonActivityCreateManyUserInputEnvelope
+    set?: UserLessonActivityWhereUniqueInput | UserLessonActivityWhereUniqueInput[]
+    disconnect?: UserLessonActivityWhereUniqueInput | UserLessonActivityWhereUniqueInput[]
+    delete?: UserLessonActivityWhereUniqueInput | UserLessonActivityWhereUniqueInput[]
+    connect?: UserLessonActivityWhereUniqueInput | UserLessonActivityWhereUniqueInput[]
+    update?: UserLessonActivityUpdateWithWhereUniqueWithoutUserInput | UserLessonActivityUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: UserLessonActivityUpdateManyWithWhereWithoutUserInput | UserLessonActivityUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: UserLessonActivityScalarWhereInput | UserLessonActivityScalarWhereInput[]
+  }
+
   export type IntFieldUpdateOperationsInput = {
     set?: number
     increment?: number
@@ -31432,6 +32969,20 @@ export namespace Prisma {
     update?: UserMedalUpdateWithWhereUniqueWithoutUserInput | UserMedalUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: UserMedalUpdateManyWithWhereWithoutUserInput | UserMedalUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: UserMedalScalarWhereInput | UserMedalScalarWhereInput[]
+  }
+
+  export type UserLessonActivityUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<UserLessonActivityCreateWithoutUserInput, UserLessonActivityUncheckedCreateWithoutUserInput> | UserLessonActivityCreateWithoutUserInput[] | UserLessonActivityUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserLessonActivityCreateOrConnectWithoutUserInput | UserLessonActivityCreateOrConnectWithoutUserInput[]
+    upsert?: UserLessonActivityUpsertWithWhereUniqueWithoutUserInput | UserLessonActivityUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: UserLessonActivityCreateManyUserInputEnvelope
+    set?: UserLessonActivityWhereUniqueInput | UserLessonActivityWhereUniqueInput[]
+    disconnect?: UserLessonActivityWhereUniqueInput | UserLessonActivityWhereUniqueInput[]
+    delete?: UserLessonActivityWhereUniqueInput | UserLessonActivityWhereUniqueInput[]
+    connect?: UserLessonActivityWhereUniqueInput | UserLessonActivityWhereUniqueInput[]
+    update?: UserLessonActivityUpdateWithWhereUniqueWithoutUserInput | UserLessonActivityUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: UserLessonActivityUpdateManyWithWhereWithoutUserInput | UserLessonActivityUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: UserLessonActivityScalarWhereInput | UserLessonActivityScalarWhereInput[]
   }
 
   export type CourseLessonCreateNestedManyWithoutCourseInput = {
@@ -31676,6 +33227,13 @@ export namespace Prisma {
     connect?: CourseProgressWhereUniqueInput | CourseProgressWhereUniqueInput[]
   }
 
+  export type UserLessonActivityCreateNestedManyWithoutLessonInput = {
+    create?: XOR<UserLessonActivityCreateWithoutLessonInput, UserLessonActivityUncheckedCreateWithoutLessonInput> | UserLessonActivityCreateWithoutLessonInput[] | UserLessonActivityUncheckedCreateWithoutLessonInput[]
+    connectOrCreate?: UserLessonActivityCreateOrConnectWithoutLessonInput | UserLessonActivityCreateOrConnectWithoutLessonInput[]
+    createMany?: UserLessonActivityCreateManyLessonInputEnvelope
+    connect?: UserLessonActivityWhereUniqueInput | UserLessonActivityWhereUniqueInput[]
+  }
+
   export type LessonResourceUncheckedCreateNestedManyWithoutLessonInput = {
     create?: XOR<LessonResourceCreateWithoutLessonInput, LessonResourceUncheckedCreateWithoutLessonInput> | LessonResourceCreateWithoutLessonInput[] | LessonResourceUncheckedCreateWithoutLessonInput[]
     connectOrCreate?: LessonResourceCreateOrConnectWithoutLessonInput | LessonResourceCreateOrConnectWithoutLessonInput[]
@@ -31688,6 +33246,13 @@ export namespace Prisma {
     connectOrCreate?: CourseProgressCreateOrConnectWithoutLessonInput | CourseProgressCreateOrConnectWithoutLessonInput[]
     createMany?: CourseProgressCreateManyLessonInputEnvelope
     connect?: CourseProgressWhereUniqueInput | CourseProgressWhereUniqueInput[]
+  }
+
+  export type UserLessonActivityUncheckedCreateNestedManyWithoutLessonInput = {
+    create?: XOR<UserLessonActivityCreateWithoutLessonInput, UserLessonActivityUncheckedCreateWithoutLessonInput> | UserLessonActivityCreateWithoutLessonInput[] | UserLessonActivityUncheckedCreateWithoutLessonInput[]
+    connectOrCreate?: UserLessonActivityCreateOrConnectWithoutLessonInput | UserLessonActivityCreateOrConnectWithoutLessonInput[]
+    createMany?: UserLessonActivityCreateManyLessonInputEnvelope
+    connect?: UserLessonActivityWhereUniqueInput | UserLessonActivityWhereUniqueInput[]
   }
 
   export type CourseUpdateOneRequiredWithoutLessonsNestedInput = {
@@ -31726,6 +33291,20 @@ export namespace Prisma {
     deleteMany?: CourseProgressScalarWhereInput | CourseProgressScalarWhereInput[]
   }
 
+  export type UserLessonActivityUpdateManyWithoutLessonNestedInput = {
+    create?: XOR<UserLessonActivityCreateWithoutLessonInput, UserLessonActivityUncheckedCreateWithoutLessonInput> | UserLessonActivityCreateWithoutLessonInput[] | UserLessonActivityUncheckedCreateWithoutLessonInput[]
+    connectOrCreate?: UserLessonActivityCreateOrConnectWithoutLessonInput | UserLessonActivityCreateOrConnectWithoutLessonInput[]
+    upsert?: UserLessonActivityUpsertWithWhereUniqueWithoutLessonInput | UserLessonActivityUpsertWithWhereUniqueWithoutLessonInput[]
+    createMany?: UserLessonActivityCreateManyLessonInputEnvelope
+    set?: UserLessonActivityWhereUniqueInput | UserLessonActivityWhereUniqueInput[]
+    disconnect?: UserLessonActivityWhereUniqueInput | UserLessonActivityWhereUniqueInput[]
+    delete?: UserLessonActivityWhereUniqueInput | UserLessonActivityWhereUniqueInput[]
+    connect?: UserLessonActivityWhereUniqueInput | UserLessonActivityWhereUniqueInput[]
+    update?: UserLessonActivityUpdateWithWhereUniqueWithoutLessonInput | UserLessonActivityUpdateWithWhereUniqueWithoutLessonInput[]
+    updateMany?: UserLessonActivityUpdateManyWithWhereWithoutLessonInput | UserLessonActivityUpdateManyWithWhereWithoutLessonInput[]
+    deleteMany?: UserLessonActivityScalarWhereInput | UserLessonActivityScalarWhereInput[]
+  }
+
   export type LessonResourceUncheckedUpdateManyWithoutLessonNestedInput = {
     create?: XOR<LessonResourceCreateWithoutLessonInput, LessonResourceUncheckedCreateWithoutLessonInput> | LessonResourceCreateWithoutLessonInput[] | LessonResourceUncheckedCreateWithoutLessonInput[]
     connectOrCreate?: LessonResourceCreateOrConnectWithoutLessonInput | LessonResourceCreateOrConnectWithoutLessonInput[]
@@ -31752,6 +33331,20 @@ export namespace Prisma {
     update?: CourseProgressUpdateWithWhereUniqueWithoutLessonInput | CourseProgressUpdateWithWhereUniqueWithoutLessonInput[]
     updateMany?: CourseProgressUpdateManyWithWhereWithoutLessonInput | CourseProgressUpdateManyWithWhereWithoutLessonInput[]
     deleteMany?: CourseProgressScalarWhereInput | CourseProgressScalarWhereInput[]
+  }
+
+  export type UserLessonActivityUncheckedUpdateManyWithoutLessonNestedInput = {
+    create?: XOR<UserLessonActivityCreateWithoutLessonInput, UserLessonActivityUncheckedCreateWithoutLessonInput> | UserLessonActivityCreateWithoutLessonInput[] | UserLessonActivityUncheckedCreateWithoutLessonInput[]
+    connectOrCreate?: UserLessonActivityCreateOrConnectWithoutLessonInput | UserLessonActivityCreateOrConnectWithoutLessonInput[]
+    upsert?: UserLessonActivityUpsertWithWhereUniqueWithoutLessonInput | UserLessonActivityUpsertWithWhereUniqueWithoutLessonInput[]
+    createMany?: UserLessonActivityCreateManyLessonInputEnvelope
+    set?: UserLessonActivityWhereUniqueInput | UserLessonActivityWhereUniqueInput[]
+    disconnect?: UserLessonActivityWhereUniqueInput | UserLessonActivityWhereUniqueInput[]
+    delete?: UserLessonActivityWhereUniqueInput | UserLessonActivityWhereUniqueInput[]
+    connect?: UserLessonActivityWhereUniqueInput | UserLessonActivityWhereUniqueInput[]
+    update?: UserLessonActivityUpdateWithWhereUniqueWithoutLessonInput | UserLessonActivityUpdateWithWhereUniqueWithoutLessonInput[]
+    updateMany?: UserLessonActivityUpdateManyWithWhereWithoutLessonInput | UserLessonActivityUpdateManyWithWhereWithoutLessonInput[]
+    deleteMany?: UserLessonActivityScalarWhereInput | UserLessonActivityScalarWhereInput[]
   }
 
   export type CourseLessonCreateNestedOneWithoutResourcesInput = {
@@ -32442,6 +34035,38 @@ export namespace Prisma {
     update?: XOR<XOR<MedalUpdateToOneWithWhereWithoutUserMedalsInput, MedalUpdateWithoutUserMedalsInput>, MedalUncheckedUpdateWithoutUserMedalsInput>
   }
 
+  export type UserCreateNestedOneWithoutLessonActivitiesInput = {
+    create?: XOR<UserCreateWithoutLessonActivitiesInput, UserUncheckedCreateWithoutLessonActivitiesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutLessonActivitiesInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type CourseLessonCreateNestedOneWithoutActivitiesInput = {
+    create?: XOR<CourseLessonCreateWithoutActivitiesInput, CourseLessonUncheckedCreateWithoutActivitiesInput>
+    connectOrCreate?: CourseLessonCreateOrConnectWithoutActivitiesInput
+    connect?: CourseLessonWhereUniqueInput
+  }
+
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
+  }
+
+  export type UserUpdateOneRequiredWithoutLessonActivitiesNestedInput = {
+    create?: XOR<UserCreateWithoutLessonActivitiesInput, UserUncheckedCreateWithoutLessonActivitiesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutLessonActivitiesInput
+    upsert?: UserUpsertWithoutLessonActivitiesInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutLessonActivitiesInput, UserUpdateWithoutLessonActivitiesInput>, UserUncheckedUpdateWithoutLessonActivitiesInput>
+  }
+
+  export type CourseLessonUpdateOneRequiredWithoutActivitiesNestedInput = {
+    create?: XOR<CourseLessonCreateWithoutActivitiesInput, CourseLessonUncheckedCreateWithoutActivitiesInput>
+    connectOrCreate?: CourseLessonCreateOrConnectWithoutActivitiesInput
+    upsert?: CourseLessonUpsertWithoutActivitiesInput
+    connect?: CourseLessonWhereUniqueInput
+    update?: XOR<XOR<CourseLessonUpdateToOneWithWhereWithoutActivitiesInput, CourseLessonUpdateWithoutActivitiesInput>, CourseLessonUncheckedUpdateWithoutActivitiesInput>
+  }
+
   export type NestedIntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -32632,6 +34257,31 @@ export namespace Prisma {
     _sum?: NestedFloatNullableFilter<$PrismaModel>
     _min?: NestedFloatNullableFilter<$PrismaModel>
     _max?: NestedFloatNullableFilter<$PrismaModel>
+  }
+
+  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
+  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type CourseHistoryCreateWithoutUserInput = {
@@ -32826,6 +34476,31 @@ export namespace Prisma {
 
   export type UserMedalCreateManyUserInputEnvelope = {
     data: UserMedalCreateManyUserInput | UserMedalCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type UserLessonActivityCreateWithoutUserInput = {
+    startTime?: Date | string
+    endTime?: Date | string | null
+    duration?: number | null
+    lesson: CourseLessonCreateNestedOneWithoutActivitiesInput
+  }
+
+  export type UserLessonActivityUncheckedCreateWithoutUserInput = {
+    id?: number
+    lessonId: string
+    startTime?: Date | string
+    endTime?: Date | string | null
+    duration?: number | null
+  }
+
+  export type UserLessonActivityCreateOrConnectWithoutUserInput = {
+    where: UserLessonActivityWhereUniqueInput
+    create: XOR<UserLessonActivityCreateWithoutUserInput, UserLessonActivityUncheckedCreateWithoutUserInput>
+  }
+
+  export type UserLessonActivityCreateManyUserInputEnvelope = {
+    data: UserLessonActivityCreateManyUserInput | UserLessonActivityCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
@@ -33035,6 +34710,34 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"UserMedal"> | Date | string
   }
 
+  export type UserLessonActivityUpsertWithWhereUniqueWithoutUserInput = {
+    where: UserLessonActivityWhereUniqueInput
+    update: XOR<UserLessonActivityUpdateWithoutUserInput, UserLessonActivityUncheckedUpdateWithoutUserInput>
+    create: XOR<UserLessonActivityCreateWithoutUserInput, UserLessonActivityUncheckedCreateWithoutUserInput>
+  }
+
+  export type UserLessonActivityUpdateWithWhereUniqueWithoutUserInput = {
+    where: UserLessonActivityWhereUniqueInput
+    data: XOR<UserLessonActivityUpdateWithoutUserInput, UserLessonActivityUncheckedUpdateWithoutUserInput>
+  }
+
+  export type UserLessonActivityUpdateManyWithWhereWithoutUserInput = {
+    where: UserLessonActivityScalarWhereInput
+    data: XOR<UserLessonActivityUpdateManyMutationInput, UserLessonActivityUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type UserLessonActivityScalarWhereInput = {
+    AND?: UserLessonActivityScalarWhereInput | UserLessonActivityScalarWhereInput[]
+    OR?: UserLessonActivityScalarWhereInput[]
+    NOT?: UserLessonActivityScalarWhereInput | UserLessonActivityScalarWhereInput[]
+    id?: IntFilter<"UserLessonActivity"> | number
+    userId?: IntFilter<"UserLessonActivity"> | number
+    lessonId?: StringFilter<"UserLessonActivity"> | string
+    startTime?: DateTimeFilter<"UserLessonActivity"> | Date | string
+    endTime?: DateTimeNullableFilter<"UserLessonActivity"> | Date | string | null
+    duration?: IntNullableFilter<"UserLessonActivity"> | number | null
+  }
+
   export type CourseLessonCreateWithoutCourseInput = {
     id?: string
     name: string
@@ -33045,6 +34748,7 @@ export namespace Prisma {
     createdAt?: Date | string
     resources?: LessonResourceCreateNestedManyWithoutLessonInput
     progress?: CourseProgressCreateNestedManyWithoutLessonInput
+    activities?: UserLessonActivityCreateNestedManyWithoutLessonInput
   }
 
   export type CourseLessonUncheckedCreateWithoutCourseInput = {
@@ -33057,6 +34761,7 @@ export namespace Prisma {
     createdAt?: Date | string
     resources?: LessonResourceUncheckedCreateNestedManyWithoutLessonInput
     progress?: CourseProgressUncheckedCreateNestedManyWithoutLessonInput
+    activities?: UserLessonActivityUncheckedCreateNestedManyWithoutLessonInput
   }
 
   export type CourseLessonCreateOrConnectWithoutCourseInput = {
@@ -33425,6 +35130,31 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type UserLessonActivityCreateWithoutLessonInput = {
+    startTime?: Date | string
+    endTime?: Date | string | null
+    duration?: number | null
+    user: UserCreateNestedOneWithoutLessonActivitiesInput
+  }
+
+  export type UserLessonActivityUncheckedCreateWithoutLessonInput = {
+    id?: number
+    userId: number
+    startTime?: Date | string
+    endTime?: Date | string | null
+    duration?: number | null
+  }
+
+  export type UserLessonActivityCreateOrConnectWithoutLessonInput = {
+    where: UserLessonActivityWhereUniqueInput
+    create: XOR<UserLessonActivityCreateWithoutLessonInput, UserLessonActivityUncheckedCreateWithoutLessonInput>
+  }
+
+  export type UserLessonActivityCreateManyLessonInputEnvelope = {
+    data: UserLessonActivityCreateManyLessonInput | UserLessonActivityCreateManyLessonInput[]
+    skipDuplicates?: boolean
+  }
+
   export type CourseUpsertWithoutLessonsInput = {
     update: XOR<CourseUpdateWithoutLessonsInput, CourseUncheckedUpdateWithoutLessonsInput>
     create: XOR<CourseCreateWithoutLessonsInput, CourseUncheckedCreateWithoutLessonsInput>
@@ -33558,6 +35288,22 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"CourseProgress"> | Date | string
   }
 
+  export type UserLessonActivityUpsertWithWhereUniqueWithoutLessonInput = {
+    where: UserLessonActivityWhereUniqueInput
+    update: XOR<UserLessonActivityUpdateWithoutLessonInput, UserLessonActivityUncheckedUpdateWithoutLessonInput>
+    create: XOR<UserLessonActivityCreateWithoutLessonInput, UserLessonActivityUncheckedCreateWithoutLessonInput>
+  }
+
+  export type UserLessonActivityUpdateWithWhereUniqueWithoutLessonInput = {
+    where: UserLessonActivityWhereUniqueInput
+    data: XOR<UserLessonActivityUpdateWithoutLessonInput, UserLessonActivityUncheckedUpdateWithoutLessonInput>
+  }
+
+  export type UserLessonActivityUpdateManyWithWhereWithoutLessonInput = {
+    where: UserLessonActivityScalarWhereInput
+    data: XOR<UserLessonActivityUpdateManyMutationInput, UserLessonActivityUncheckedUpdateManyWithoutLessonInput>
+  }
+
   export type CourseLessonCreateWithoutResourcesInput = {
     id?: string
     name: string
@@ -33568,6 +35314,7 @@ export namespace Prisma {
     createdAt?: Date | string
     course: CourseCreateNestedOneWithoutLessonsInput
     progress?: CourseProgressCreateNestedManyWithoutLessonInput
+    activities?: UserLessonActivityCreateNestedManyWithoutLessonInput
   }
 
   export type CourseLessonUncheckedCreateWithoutResourcesInput = {
@@ -33580,6 +35327,7 @@ export namespace Prisma {
     courseId: number
     createdAt?: Date | string
     progress?: CourseProgressUncheckedCreateNestedManyWithoutLessonInput
+    activities?: UserLessonActivityUncheckedCreateNestedManyWithoutLessonInput
   }
 
   export type CourseLessonCreateOrConnectWithoutResourcesInput = {
@@ -33608,6 +35356,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     course?: CourseUpdateOneRequiredWithoutLessonsNestedInput
     progress?: CourseProgressUpdateManyWithoutLessonNestedInput
+    activities?: UserLessonActivityUpdateManyWithoutLessonNestedInput
   }
 
   export type CourseLessonUncheckedUpdateWithoutResourcesInput = {
@@ -33620,6 +35369,7 @@ export namespace Prisma {
     courseId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     progress?: CourseProgressUncheckedUpdateManyWithoutLessonNestedInput
+    activities?: UserLessonActivityUncheckedUpdateManyWithoutLessonNestedInput
   }
 
   export type CourseLessonCreateWithoutProgressInput = {
@@ -33632,6 +35382,7 @@ export namespace Prisma {
     createdAt?: Date | string
     course: CourseCreateNestedOneWithoutLessonsInput
     resources?: LessonResourceCreateNestedManyWithoutLessonInput
+    activities?: UserLessonActivityCreateNestedManyWithoutLessonInput
   }
 
   export type CourseLessonUncheckedCreateWithoutProgressInput = {
@@ -33644,6 +35395,7 @@ export namespace Prisma {
     courseId: number
     createdAt?: Date | string
     resources?: LessonResourceUncheckedCreateNestedManyWithoutLessonInput
+    activities?: UserLessonActivityUncheckedCreateNestedManyWithoutLessonInput
   }
 
   export type CourseLessonCreateOrConnectWithoutProgressInput = {
@@ -33672,6 +35424,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     course?: CourseUpdateOneRequiredWithoutLessonsNestedInput
     resources?: LessonResourceUpdateManyWithoutLessonNestedInput
+    activities?: UserLessonActivityUpdateManyWithoutLessonNestedInput
   }
 
   export type CourseLessonUncheckedUpdateWithoutProgressInput = {
@@ -33684,6 +35437,7 @@ export namespace Prisma {
     courseId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     resources?: LessonResourceUncheckedUpdateManyWithoutLessonNestedInput
+    activities?: UserLessonActivityUncheckedUpdateManyWithoutLessonNestedInput
   }
 
   export type UserCreateWithoutCourseHistoryInput = {
@@ -33702,6 +35456,7 @@ export namespace Prisma {
     badges?: UserBadgeCreateNestedManyWithoutUserInput
     certifications?: CertificationCreateNestedManyWithoutUserInput
     medals?: UserMedalCreateNestedManyWithoutUserInput
+    lessonActivities?: UserLessonActivityCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutCourseHistoryInput = {
@@ -33721,6 +35476,7 @@ export namespace Prisma {
     badges?: UserBadgeUncheckedCreateNestedManyWithoutUserInput
     certifications?: CertificationUncheckedCreateNestedManyWithoutUserInput
     medals?: UserMedalUncheckedCreateNestedManyWithoutUserInput
+    lessonActivities?: UserLessonActivityUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutCourseHistoryInput = {
@@ -33823,6 +35579,7 @@ export namespace Prisma {
     badges?: UserBadgeUpdateManyWithoutUserNestedInput
     certifications?: CertificationUpdateManyWithoutUserNestedInput
     medals?: UserMedalUpdateManyWithoutUserNestedInput
+    lessonActivities?: UserLessonActivityUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCourseHistoryInput = {
@@ -33842,6 +35599,7 @@ export namespace Prisma {
     badges?: UserBadgeUncheckedUpdateManyWithoutUserNestedInput
     certifications?: CertificationUncheckedUpdateManyWithoutUserNestedInput
     medals?: UserMedalUncheckedUpdateManyWithoutUserNestedInput
+    lessonActivities?: UserLessonActivityUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type CourseUpsertWithoutCourseHistoryInput = {
@@ -34328,6 +36086,7 @@ export namespace Prisma {
     badges?: UserBadgeCreateNestedManyWithoutUserInput
     certifications?: CertificationCreateNestedManyWithoutUserInput
     medals?: UserMedalCreateNestedManyWithoutUserInput
+    lessonActivities?: UserLessonActivityCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutTestAttemptsInput = {
@@ -34347,6 +36106,7 @@ export namespace Prisma {
     badges?: UserBadgeUncheckedCreateNestedManyWithoutUserInput
     certifications?: CertificationUncheckedCreateNestedManyWithoutUserInput
     medals?: UserMedalUncheckedCreateNestedManyWithoutUserInput
+    lessonActivities?: UserLessonActivityUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutTestAttemptsInput = {
@@ -34405,6 +36165,7 @@ export namespace Prisma {
     badges?: UserBadgeUpdateManyWithoutUserNestedInput
     certifications?: CertificationUpdateManyWithoutUserNestedInput
     medals?: UserMedalUpdateManyWithoutUserNestedInput
+    lessonActivities?: UserLessonActivityUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutTestAttemptsInput = {
@@ -34424,6 +36185,7 @@ export namespace Prisma {
     badges?: UserBadgeUncheckedUpdateManyWithoutUserNestedInput
     certifications?: CertificationUncheckedUpdateManyWithoutUserNestedInput
     medals?: UserMedalUncheckedUpdateManyWithoutUserNestedInput
+    lessonActivities?: UserLessonActivityUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type CourseTestUpsertWithoutAttemptsInput = {
@@ -34472,6 +36234,7 @@ export namespace Prisma {
     badges?: UserBadgeCreateNestedManyWithoutUserInput
     certifications?: CertificationCreateNestedManyWithoutUserInput
     medals?: UserMedalCreateNestedManyWithoutUserInput
+    lessonActivities?: UserLessonActivityCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutPointsInput = {
@@ -34491,6 +36254,7 @@ export namespace Prisma {
     badges?: UserBadgeUncheckedCreateNestedManyWithoutUserInput
     certifications?: CertificationUncheckedCreateNestedManyWithoutUserInput
     medals?: UserMedalUncheckedCreateNestedManyWithoutUserInput
+    lessonActivities?: UserLessonActivityUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutPointsInput = {
@@ -34525,6 +36289,7 @@ export namespace Prisma {
     badges?: UserBadgeUpdateManyWithoutUserNestedInput
     certifications?: CertificationUpdateManyWithoutUserNestedInput
     medals?: UserMedalUpdateManyWithoutUserNestedInput
+    lessonActivities?: UserLessonActivityUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPointsInput = {
@@ -34544,6 +36309,7 @@ export namespace Prisma {
     badges?: UserBadgeUncheckedUpdateManyWithoutUserNestedInput
     certifications?: CertificationUncheckedUpdateManyWithoutUserNestedInput
     medals?: UserMedalUncheckedUpdateManyWithoutUserNestedInput
+    lessonActivities?: UserLessonActivityUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type CourseCreateWithoutQuizzesInput = {
@@ -35016,6 +36782,7 @@ export namespace Prisma {
     badges?: UserBadgeCreateNestedManyWithoutUserInput
     certifications?: CertificationCreateNestedManyWithoutUserInput
     medals?: UserMedalCreateNestedManyWithoutUserInput
+    lessonActivities?: UserLessonActivityCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutQuizAttemptsInput = {
@@ -35035,6 +36802,7 @@ export namespace Prisma {
     badges?: UserBadgeUncheckedCreateNestedManyWithoutUserInput
     certifications?: CertificationUncheckedCreateNestedManyWithoutUserInput
     medals?: UserMedalUncheckedCreateNestedManyWithoutUserInput
+    lessonActivities?: UserLessonActivityUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutQuizAttemptsInput = {
@@ -35095,6 +36863,7 @@ export namespace Prisma {
     badges?: UserBadgeUpdateManyWithoutUserNestedInput
     certifications?: CertificationUpdateManyWithoutUserNestedInput
     medals?: UserMedalUpdateManyWithoutUserNestedInput
+    lessonActivities?: UserLessonActivityUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutQuizAttemptsInput = {
@@ -35114,6 +36883,7 @@ export namespace Prisma {
     badges?: UserBadgeUncheckedUpdateManyWithoutUserNestedInput
     certifications?: CertificationUncheckedUpdateManyWithoutUserNestedInput
     medals?: UserMedalUncheckedUpdateManyWithoutUserNestedInput
+    lessonActivities?: UserLessonActivityUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type CourseQuizUpsertWithoutAttemptsInput = {
@@ -35252,6 +37022,7 @@ export namespace Prisma {
     quizAttempts?: QuizAttemptCreateNestedManyWithoutUserInput
     certifications?: CertificationCreateNestedManyWithoutUserInput
     medals?: UserMedalCreateNestedManyWithoutUserInput
+    lessonActivities?: UserLessonActivityCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutBadgesInput = {
@@ -35271,6 +37042,7 @@ export namespace Prisma {
     quizAttempts?: QuizAttemptUncheckedCreateNestedManyWithoutUserInput
     certifications?: CertificationUncheckedCreateNestedManyWithoutUserInput
     medals?: UserMedalUncheckedCreateNestedManyWithoutUserInput
+    lessonActivities?: UserLessonActivityUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutBadgesInput = {
@@ -35329,6 +37101,7 @@ export namespace Prisma {
     quizAttempts?: QuizAttemptUpdateManyWithoutUserNestedInput
     certifications?: CertificationUpdateManyWithoutUserNestedInput
     medals?: UserMedalUpdateManyWithoutUserNestedInput
+    lessonActivities?: UserLessonActivityUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutBadgesInput = {
@@ -35348,6 +37121,7 @@ export namespace Prisma {
     quizAttempts?: QuizAttemptUncheckedUpdateManyWithoutUserNestedInput
     certifications?: CertificationUncheckedUpdateManyWithoutUserNestedInput
     medals?: UserMedalUncheckedUpdateManyWithoutUserNestedInput
+    lessonActivities?: UserLessonActivityUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type BadgeUpsertWithoutUserBadgesInput = {
@@ -35396,6 +37170,7 @@ export namespace Prisma {
     quizAttempts?: QuizAttemptCreateNestedManyWithoutUserInput
     badges?: UserBadgeCreateNestedManyWithoutUserInput
     medals?: UserMedalCreateNestedManyWithoutUserInput
+    lessonActivities?: UserLessonActivityCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutCertificationsInput = {
@@ -35415,6 +37190,7 @@ export namespace Prisma {
     quizAttempts?: QuizAttemptUncheckedCreateNestedManyWithoutUserInput
     badges?: UserBadgeUncheckedCreateNestedManyWithoutUserInput
     medals?: UserMedalUncheckedCreateNestedManyWithoutUserInput
+    lessonActivities?: UserLessonActivityUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutCertificationsInput = {
@@ -35517,6 +37293,7 @@ export namespace Prisma {
     quizAttempts?: QuizAttemptUpdateManyWithoutUserNestedInput
     badges?: UserBadgeUpdateManyWithoutUserNestedInput
     medals?: UserMedalUpdateManyWithoutUserNestedInput
+    lessonActivities?: UserLessonActivityUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCertificationsInput = {
@@ -35536,6 +37313,7 @@ export namespace Prisma {
     quizAttempts?: QuizAttemptUncheckedUpdateManyWithoutUserNestedInput
     badges?: UserBadgeUncheckedUpdateManyWithoutUserNestedInput
     medals?: UserMedalUncheckedUpdateManyWithoutUserNestedInput
+    lessonActivities?: UserLessonActivityUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type CourseUpsertWithoutCertificationsInput = {
@@ -35669,6 +37447,7 @@ export namespace Prisma {
     quizAttempts?: QuizAttemptCreateNestedManyWithoutUserInput
     badges?: UserBadgeCreateNestedManyWithoutUserInput
     certifications?: CertificationCreateNestedManyWithoutUserInput
+    lessonActivities?: UserLessonActivityCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutMedalsInput = {
@@ -35688,6 +37467,7 @@ export namespace Prisma {
     quizAttempts?: QuizAttemptUncheckedCreateNestedManyWithoutUserInput
     badges?: UserBadgeUncheckedCreateNestedManyWithoutUserInput
     certifications?: CertificationUncheckedCreateNestedManyWithoutUserInput
+    lessonActivities?: UserLessonActivityUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutMedalsInput = {
@@ -35744,6 +37524,7 @@ export namespace Prisma {
     quizAttempts?: QuizAttemptUpdateManyWithoutUserNestedInput
     badges?: UserBadgeUpdateManyWithoutUserNestedInput
     certifications?: CertificationUpdateManyWithoutUserNestedInput
+    lessonActivities?: UserLessonActivityUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutMedalsInput = {
@@ -35763,6 +37544,7 @@ export namespace Prisma {
     quizAttempts?: QuizAttemptUncheckedUpdateManyWithoutUserNestedInput
     badges?: UserBadgeUncheckedUpdateManyWithoutUserNestedInput
     certifications?: CertificationUncheckedUpdateManyWithoutUserNestedInput
+    lessonActivities?: UserLessonActivityUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type MedalUpsertWithoutUserMedalsInput = {
@@ -35791,6 +37573,168 @@ export namespace Prisma {
     icon?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserCreateWithoutLessonActivitiesInput = {
+    email: string
+    username: string
+    password: string
+    age?: number | null
+    profilePicture?: string | null
+    bio?: string | null
+    interests?: UserCreateinterestsInput | string[]
+    skills?: string | null
+    createdAt?: Date | string
+    courseHistory?: CourseHistoryCreateNestedManyWithoutUserInput
+    testAttempts?: TestAttemptCreateNestedManyWithoutUserInput
+    points?: UserPointCreateNestedManyWithoutUserInput
+    quizAttempts?: QuizAttemptCreateNestedManyWithoutUserInput
+    badges?: UserBadgeCreateNestedManyWithoutUserInput
+    certifications?: CertificationCreateNestedManyWithoutUserInput
+    medals?: UserMedalCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutLessonActivitiesInput = {
+    id?: number
+    email: string
+    username: string
+    password: string
+    age?: number | null
+    profilePicture?: string | null
+    bio?: string | null
+    interests?: UserCreateinterestsInput | string[]
+    skills?: string | null
+    createdAt?: Date | string
+    courseHistory?: CourseHistoryUncheckedCreateNestedManyWithoutUserInput
+    testAttempts?: TestAttemptUncheckedCreateNestedManyWithoutUserInput
+    points?: UserPointUncheckedCreateNestedManyWithoutUserInput
+    quizAttempts?: QuizAttemptUncheckedCreateNestedManyWithoutUserInput
+    badges?: UserBadgeUncheckedCreateNestedManyWithoutUserInput
+    certifications?: CertificationUncheckedCreateNestedManyWithoutUserInput
+    medals?: UserMedalUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutLessonActivitiesInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutLessonActivitiesInput, UserUncheckedCreateWithoutLessonActivitiesInput>
+  }
+
+  export type CourseLessonCreateWithoutActivitiesInput = {
+    id?: string
+    name: string
+    content?: string | null
+    text?: string | null
+    url?: string | null
+    video?: string | null
+    createdAt?: Date | string
+    course: CourseCreateNestedOneWithoutLessonsInput
+    resources?: LessonResourceCreateNestedManyWithoutLessonInput
+    progress?: CourseProgressCreateNestedManyWithoutLessonInput
+  }
+
+  export type CourseLessonUncheckedCreateWithoutActivitiesInput = {
+    id?: string
+    name: string
+    content?: string | null
+    text?: string | null
+    url?: string | null
+    video?: string | null
+    courseId: number
+    createdAt?: Date | string
+    resources?: LessonResourceUncheckedCreateNestedManyWithoutLessonInput
+    progress?: CourseProgressUncheckedCreateNestedManyWithoutLessonInput
+  }
+
+  export type CourseLessonCreateOrConnectWithoutActivitiesInput = {
+    where: CourseLessonWhereUniqueInput
+    create: XOR<CourseLessonCreateWithoutActivitiesInput, CourseLessonUncheckedCreateWithoutActivitiesInput>
+  }
+
+  export type UserUpsertWithoutLessonActivitiesInput = {
+    update: XOR<UserUpdateWithoutLessonActivitiesInput, UserUncheckedUpdateWithoutLessonActivitiesInput>
+    create: XOR<UserCreateWithoutLessonActivitiesInput, UserUncheckedCreateWithoutLessonActivitiesInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutLessonActivitiesInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutLessonActivitiesInput, UserUncheckedUpdateWithoutLessonActivitiesInput>
+  }
+
+  export type UserUpdateWithoutLessonActivitiesInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    age?: NullableIntFieldUpdateOperationsInput | number | null
+    profilePicture?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    interests?: UserUpdateinterestsInput | string[]
+    skills?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    courseHistory?: CourseHistoryUpdateManyWithoutUserNestedInput
+    testAttempts?: TestAttemptUpdateManyWithoutUserNestedInput
+    points?: UserPointUpdateManyWithoutUserNestedInput
+    quizAttempts?: QuizAttemptUpdateManyWithoutUserNestedInput
+    badges?: UserBadgeUpdateManyWithoutUserNestedInput
+    certifications?: CertificationUpdateManyWithoutUserNestedInput
+    medals?: UserMedalUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutLessonActivitiesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    email?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    age?: NullableIntFieldUpdateOperationsInput | number | null
+    profilePicture?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    interests?: UserUpdateinterestsInput | string[]
+    skills?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    courseHistory?: CourseHistoryUncheckedUpdateManyWithoutUserNestedInput
+    testAttempts?: TestAttemptUncheckedUpdateManyWithoutUserNestedInput
+    points?: UserPointUncheckedUpdateManyWithoutUserNestedInput
+    quizAttempts?: QuizAttemptUncheckedUpdateManyWithoutUserNestedInput
+    badges?: UserBadgeUncheckedUpdateManyWithoutUserNestedInput
+    certifications?: CertificationUncheckedUpdateManyWithoutUserNestedInput
+    medals?: UserMedalUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type CourseLessonUpsertWithoutActivitiesInput = {
+    update: XOR<CourseLessonUpdateWithoutActivitiesInput, CourseLessonUncheckedUpdateWithoutActivitiesInput>
+    create: XOR<CourseLessonCreateWithoutActivitiesInput, CourseLessonUncheckedCreateWithoutActivitiesInput>
+    where?: CourseLessonWhereInput
+  }
+
+  export type CourseLessonUpdateToOneWithWhereWithoutActivitiesInput = {
+    where?: CourseLessonWhereInput
+    data: XOR<CourseLessonUpdateWithoutActivitiesInput, CourseLessonUncheckedUpdateWithoutActivitiesInput>
+  }
+
+  export type CourseLessonUpdateWithoutActivitiesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    content?: NullableStringFieldUpdateOperationsInput | string | null
+    text?: NullableStringFieldUpdateOperationsInput | string | null
+    url?: NullableStringFieldUpdateOperationsInput | string | null
+    video?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    course?: CourseUpdateOneRequiredWithoutLessonsNestedInput
+    resources?: LessonResourceUpdateManyWithoutLessonNestedInput
+    progress?: CourseProgressUpdateManyWithoutLessonNestedInput
+  }
+
+  export type CourseLessonUncheckedUpdateWithoutActivitiesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    content?: NullableStringFieldUpdateOperationsInput | string | null
+    text?: NullableStringFieldUpdateOperationsInput | string | null
+    url?: NullableStringFieldUpdateOperationsInput | string | null
+    video?: NullableStringFieldUpdateOperationsInput | string | null
+    courseId?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    resources?: LessonResourceUncheckedUpdateManyWithoutLessonNestedInput
+    progress?: CourseProgressUncheckedUpdateManyWithoutLessonNestedInput
   }
 
   export type CourseHistoryCreateManyUserInput = {
@@ -35857,6 +37801,14 @@ export namespace Prisma {
     earnedAt?: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
+  }
+
+  export type UserLessonActivityCreateManyUserInput = {
+    id?: number
+    lessonId: string
+    startTime?: Date | string
+    endTime?: Date | string | null
+    duration?: number | null
   }
 
   export type CourseHistoryUpdateWithoutUserInput = {
@@ -36050,6 +38002,29 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type UserLessonActivityUpdateWithoutUserInput = {
+    startTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    endTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    duration?: NullableIntFieldUpdateOperationsInput | number | null
+    lesson?: CourseLessonUpdateOneRequiredWithoutActivitiesNestedInput
+  }
+
+  export type UserLessonActivityUncheckedUpdateWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    lessonId?: StringFieldUpdateOperationsInput | string
+    startTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    endTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    duration?: NullableIntFieldUpdateOperationsInput | number | null
+  }
+
+  export type UserLessonActivityUncheckedUpdateManyWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    lessonId?: StringFieldUpdateOperationsInput | string
+    startTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    endTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    duration?: NullableIntFieldUpdateOperationsInput | number | null
+  }
+
   export type CourseLessonCreateManyCourseInput = {
     id?: string
     name: string
@@ -36104,6 +38079,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     resources?: LessonResourceUpdateManyWithoutLessonNestedInput
     progress?: CourseProgressUpdateManyWithoutLessonNestedInput
+    activities?: UserLessonActivityUpdateManyWithoutLessonNestedInput
   }
 
   export type CourseLessonUncheckedUpdateWithoutCourseInput = {
@@ -36116,6 +38092,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     resources?: LessonResourceUncheckedUpdateManyWithoutLessonNestedInput
     progress?: CourseProgressUncheckedUpdateManyWithoutLessonNestedInput
+    activities?: UserLessonActivityUncheckedUpdateManyWithoutLessonNestedInput
   }
 
   export type CourseLessonUncheckedUpdateManyWithoutCourseInput = {
@@ -36253,6 +38230,14 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type UserLessonActivityCreateManyLessonInput = {
+    id?: number
+    userId: number
+    startTime?: Date | string
+    endTime?: Date | string | null
+    duration?: number | null
+  }
+
   export type LessonResourceUpdateWithoutLessonInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
@@ -36307,6 +38292,29 @@ export namespace Prisma {
     completed?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserLessonActivityUpdateWithoutLessonInput = {
+    startTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    endTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    duration?: NullableIntFieldUpdateOperationsInput | number | null
+    user?: UserUpdateOneRequiredWithoutLessonActivitiesNestedInput
+  }
+
+  export type UserLessonActivityUncheckedUpdateWithoutLessonInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    startTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    endTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    duration?: NullableIntFieldUpdateOperationsInput | number | null
+  }
+
+  export type UserLessonActivityUncheckedUpdateManyWithoutLessonInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    startTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    endTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    duration?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type TestQuestionCreateManyTestInput = {

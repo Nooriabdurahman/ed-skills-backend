@@ -12,6 +12,7 @@ import testRoutes from './module/test/test-routes';
 import quizRoutes from './module/quiz/quiz-routes';
 import badgeRoutes from './module/badge/badge-routes';
 import certificationRoutes from './module/certification/certification-routes';
+import userPerformanceRoutes from './module/user-performance/user-performance-routes';
 
 const app = express();
 app.use(cors());
@@ -38,5 +39,6 @@ app.use('/tests', testRoutes);
 app.use('/quizzes', quizRoutes);
 app.use('/badges', badgeRoutes);
 app.use('/certifications', certificationRoutes);
+app.use('/performance', userPerformanceRoutes);
 
 export default app;

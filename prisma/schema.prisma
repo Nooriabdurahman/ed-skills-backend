@@ -27,6 +27,7 @@ model User {
   badges         UserBadge[]
   certifications Certification[]
   medals         UserMedal[]
+  lessonActivities UserLessonActivity[]
   createdAt      DateTime @default(now())
 }
 
@@ -76,6 +77,7 @@ model CourseLesson {
   course    Course           @relation(fields: [courseId], references: [id])
   resources LessonResource[]
   progress  CourseProgress[]
+  activities UserLessonActivity[]
   createdAt DateTime         @default(now())
 }
 
@@ -330,4 +332,18 @@ model UserMedal {
   @@unique([userId, medalId])
   @@index([userId])
   @@index([medalId])
+}
+
+model UserLessonActivity {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  lessonId  String
+  startTime DateTime @default(now())
+  endTime   DateTime?
+  duration  Int?     // duration in seconds
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  lesson    CourseLesson @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([lessonId])
 }

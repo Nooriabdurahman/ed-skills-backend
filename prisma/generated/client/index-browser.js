@@ -337,6 +337,15 @@ exports.Prisma.UserMedalScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.UserLessonActivityScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  lessonId: 'lessonId',
+  startTime: 'startTime',
+  endTime: 'endTime',
+  duration: 'duration'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -373,7 +382,8 @@ exports.Prisma.ModelName = {
   UserBadge: 'UserBadge',
   Certification: 'Certification',
   Medal: 'Medal',
-  UserMedal: 'UserMedal'
+  UserMedal: 'UserMedal',
+  UserLessonActivity: 'UserLessonActivity'
 };
 
 /**
