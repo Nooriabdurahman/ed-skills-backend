@@ -4,7 +4,7 @@ import crypto from 'crypto';
 import path from 'path';
 import fs from 'fs';
 import { put } from '@vercel/blob';
-import { createCourse, getAllCourses, getCourseById } from './course-services';
+import { createCourse, deleteCourse, getAllCourses, getCourseById } from './course-services';
 import { validateCourse } from './validate/course-validate';
 import courseLessonsRoutes from '../course-lesson/course-lessons-routes';
 
@@ -212,7 +212,31 @@ router.get('/courses/:id', async (req, res) => {
   }
 });
 
-// Nested course lessons routes
+
+/**
+ * @swagger
+ * /courses/courses/{id}:
+ *   delete:
+ *     summary: Delete a course by ID
+ *     tags: [Courses]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: The course ID
+ *     responses:
+ *       200:
+ *         description: Course deleted successfully
+ *       404:
+ *         description: Course not found
+ *       500:
+ *         description: Server error
+ */
+router.delete('/courses/:id',  deleteCourse);
+
+
 router.use('/courses/:courseId/lessons', courseLessonsRoutes);
 
 export default router;
