@@ -11,7 +11,7 @@ import chatRoute from './routes/chat';
 import testRoutes from './module/test/test-routes';
 import quizRoutes from './module/quiz/quiz-routes';
 import badgeRoutes from './module/badge/badge-routes';
-import certificationRoutes from './module/certification/certification-routes';
+import certificationRoutes from './module/auth/certification/certification-routes';
 import userPerformanceRoutes from './module/user-performance/user-performance-routes';
 
 const app = express();
