@@ -42,7 +42,7 @@ export const updateProfile = async (req: Request, res: Response) => {
   try {
     const user = await prisma.user.update({
       where: { id: Number(userId) },
-      data: { 
+      data: {
         bio: bio || undefined,
         interests: interests || undefined
       },
@@ -74,7 +74,7 @@ export const getProfileByUser = async (req: Request, res: Response): Promise<Res
       }
     });
 
-    if (!user) return res.status(404).json({ error: 'پروفایل یافت نشد' });
+    if (!user) return res.status(200).json({ user: null, message: 'پروفایل یافت نشد' });
 
     return res.json({ user });
   } catch (err) {

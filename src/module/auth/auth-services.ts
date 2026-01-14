@@ -18,12 +18,12 @@ export const getUserById = async (req: Request, res: Response): Promise<void> =>
   const { id } = req.params;
 
   try {
-    const user = await prisma.user.findUnique({ 
-      where: { id: Number(id) } 
+    const user = await prisma.user.findUnique({
+      where: { id: Number(id) }
     });
-    
+
     if (!user) {
-      res.status(404).json({ error: 'User not found' });
+      res.status(200).json({ user: null, error: 'User not found' });
       return;
     }
 
@@ -91,7 +91,7 @@ export const updateUser = async (req: Request, res: Response): Promise<void> => 
   try {
     const user = await prisma.user.findUnique({ where: { id: Number(id) } });
     if (!user) {
-      res.status(404).json({ error: 'User not found' });
+      res.status(200).json({ user: null, error: 'User not found' });
       return;
     }
 
@@ -121,7 +121,7 @@ export const deleteUser = async (req: Request, res: Response): Promise<void> => 
   try {
     const user = await prisma.user.findUnique({ where: { id: Number(id) } });
     if (!user) {
-      res.status(404).json({ error: 'User not found' });
+      res.status(200).json({ user: null, error: 'User not found' });
       return;
     }
 

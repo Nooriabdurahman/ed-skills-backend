@@ -115,8 +115,9 @@ export class QuizController {
       const quiz = await QuizService.getQuizById(quizId);
 
       if (!quiz) {
-        return res.status(404).json({
-          success: false,
+        return res.status(200).json({
+          success: true,
+          data: null,
           message: "Quiz not found",
         });
       }
@@ -182,8 +183,8 @@ export class QuizController {
       const message = result.badgeEarned
         ? `Congratulations! You passed and earned the "${result.badgeEarned.name}" badge!`
         : result.isPassed
-        ? "Congratulations! You passed the quiz!"
-        : "You didn't pass this time. Try again!";
+          ? "Congratulations! You passed the quiz!"
+          : "You didn't pass this time. Try again!";
 
       return res.status(200).json({
         success: true,

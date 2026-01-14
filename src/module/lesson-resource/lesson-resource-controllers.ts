@@ -100,8 +100,9 @@ export class LessonResourceController {
 
       const resource = await LessonResourceService.getById(id);
       if (!resource) {
-        return res.status(404).json({
-          success: false,
+        return res.status(200).json({
+          success: true,
+          data: null,
           message: "Resource not found",
         });
       }

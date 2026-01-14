@@ -126,8 +126,9 @@ export class CertificationController {
         await CertificationService.getCertificationById(certificationId);
 
       if (!certification) {
-        return res.status(404).json({
-          success: false,
+        return res.status(200).json({
+          success: true,
+          data: null,
           message: "Certification not found",
         });
       }
