@@ -95,8 +95,9 @@ class QuizController {
             }
             const quiz = await quiz_services_1.QuizService.getQuizById(quizId);
             if (!quiz) {
-                return res.status(404).json({
-                    success: false,
+                return res.status(200).json({
+                    success: true,
+                    data: null,
                     message: "Quiz not found",
                 });
             }

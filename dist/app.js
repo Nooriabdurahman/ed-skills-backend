@@ -16,7 +16,8 @@ const chat_1 = __importDefault(require("./routes/chat"));
 const test_routes_1 = __importDefault(require("./module/test/test-routes"));
 const quiz_routes_1 = __importDefault(require("./module/quiz/quiz-routes"));
 const badge_routes_1 = __importDefault(require("./module/badge/badge-routes"));
-const certification_routes_1 = __importDefault(require("./module/certification/certification-routes"));
+const certification_routes_1 = __importDefault(require("./module/auth/certification/certification-routes"));
+const user_performance_routes_1 = __importDefault(require("./module/user-performance/user-performance-routes"));
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)());
 app.use(body_parser_1.default.json());
@@ -33,5 +34,6 @@ app.use('/tests', test_routes_1.default);
 app.use('/quizzes', quiz_routes_1.default);
 app.use('/badges', badge_routes_1.default);
 app.use('/certifications', certification_routes_1.default);
+app.use('/performance', user_performance_routes_1.default);
 exports.default = app;
 //# sourceMappingURL=app.js.map

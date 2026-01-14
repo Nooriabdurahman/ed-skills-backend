@@ -72,7 +72,7 @@ const getProfileByUser = async (req, res) => {
             }
         });
         if (!user)
-            return res.status(404).json({ error: 'پروفایل یافت نشد' });
+            return res.status(200).json({ user: null, message: 'پروفایل یافت نشد' });
         return res.json({ user });
     }
     catch (err) {

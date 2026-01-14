@@ -26,7 +26,7 @@ const getUserById = async (req, res) => {
             where: { id: Number(id) }
         });
         if (!user) {
-            res.status(404).json({ error: 'User not found' });
+            res.status(200).json({ user: null, error: 'User not found' });
             return;
         }
         const { password: _, ...userWithoutPassword } = user;
@@ -89,7 +89,7 @@ const updateUser = async (req, res) => {
     try {
         const user = await prisma_1.default.user.findUnique({ where: { id: Number(id) } });
         if (!user) {
-            res.status(404).json({ error: 'User not found' });
+            res.status(200).json({ user: null, error: 'User not found' });
             return;
         }
         const updatedData = {};
@@ -122,7 +122,7 @@ const deleteUser = async (req, res) => {
     try {
         const user = await prisma_1.default.user.findUnique({ where: { id: Number(id) } });
         if (!user) {
-            res.status(404).json({ error: 'User not found' });
+            res.status(200).json({ user: null, error: 'User not found' });
             return;
         }
         await prisma_1.default.user.delete({ where: { id: Number(id) } });

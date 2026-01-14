@@ -62,8 +62,9 @@ class BadgeController {
             }
             const badge = await badge_services_1.BadgeService.getBadgeById(badgeId);
             if (!badge) {
-                return res.status(404).json({
-                    success: false,
+                return res.status(200).json({
+                    success: true,
+                    data: null,
                     message: "Badge not found",
                 });
             }

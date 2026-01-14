@@ -1,4 +1,4 @@
-import prisma from "../../common/config/database/prisma";
+import prisma from "../../../common/config/database/prisma";
 
 export class CertificationService {
   /**
@@ -135,7 +135,7 @@ export class CertificationService {
     const lessonProgress = await prisma.courseProgress.findMany({
       where: {
         userId,
-        lessonId: { in: course.lessons.map((l) => l.id) },
+        lessonId: { in: course.lessons.map((l: { id: any; }) => l.id) },
         completed: true,
       },
     });
@@ -145,12 +145,12 @@ export class CertificationService {
 
     // Check if all tests are passed
     const allTestsPassed = course.tests.every(
-      (test) => test.attempts.length > 0
+      (test: { attempts: string | any[]; }) => test.attempts.length > 0
     );
 
     // Check if all quizzes are passed
     const allQuizzesPassed = course.quizzes.every(
-      (quiz) => quiz.attempts.length > 0
+      (quiz: { attempts: string | any[]; }) => quiz.attempts.length > 0
     );
 
     // Award certification if all conditions are met

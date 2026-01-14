@@ -149,7 +149,7 @@ router.get('/courses/:id', async (req, res) => {
         }
         const course = await (0, course_services_1.getCourseById)(courseId);
         if (!course) {
-            return res.status(404).json({ error: 'Course not found' });
+            return res.status(200).json({ course: null, message: 'Course not found' });
         }
         return res.status(200).json({ course });
     }
