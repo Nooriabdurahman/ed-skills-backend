@@ -16,8 +16,9 @@ export const courseSchema = Joi.object({
   materialCount: Joi.string().allow(''),
   firstRecommendation: Joi.string().allow(''),
   secondRecommendation: Joi.string().allow(''),
-  totalScore: Joi.number().optional(),
-  passingScore: Joi.number().optional(),
+  trainer: Joi.string().allow(''), // ⭐ این خط رو اضافه کن
+  quizTotalScore: Joi.number().optional(),
+  quizPassingScore: Joi.number().optional(),
   status: Joi.string().valid('notStarted', 'inProgress', 'completed').default('notStarted'),
   materialStatusType: Joi.string().required().messages({
     'string.empty': 'Material status type is required',
@@ -27,8 +28,8 @@ export const courseSchema = Joi.object({
   progress: Joi.number().default(0),
   duration: Joi.string().allow(null, '')
 });
-
 // Helper function to validate course
 export const validateCourse = (data: any) => {
   return courseSchema.validate(data, { convert: true });
 };
+

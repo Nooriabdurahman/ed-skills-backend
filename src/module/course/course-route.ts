@@ -9,7 +9,16 @@ import { validateCourse } from './validate/course-validate';
 import courseLessonsRoutes from '../course-lesson/course-lessons-routes';
 
 const router = express.Router();
-const upload = multer({ dest: 'tmp/' });
+
+// Configure multer storage
+const storage = multer.diskStorage({
+  destination: 'tmp/',
+  filename: (req, file, cb) => {
+    cb(null, crypto.randomBytes(16).toString('hex') + path.extname(file.originalname));
+  }
+});
+
+const upload = multer({ storage });
 
 /**
  * @swagger
@@ -51,6 +60,14 @@ const upload = multer({ dest: 'tmp/' });
  *                 type: string
  *                 format: binary
  *                 description: Course image file
+ *               trainerImage:
+ *                 type: string
+ *                 format: binary
+ *                 description: Trainer image file
+ *               typeImage:
+ *                 type: string
+ *                 format: binary
+ *                 description: Type image file
  *     responses:
  *       201:
  *         description: Course created successfully
@@ -59,7 +76,11 @@ const upload = multer({ dest: 'tmp/' });
  *       500:
  *         description: Server error
  */
-router.post('/courses', upload.single('file'), async (req, res) => {
+router.post('/courses', upload.fields([
+  { name: 'file', maxCount: 1 },
+  { name: 'trainerImage', maxCount: 1 },
+  { name: 'typeImage', maxCount: 1 }
+]), async (req, res) => {
   try {
     const validated = validateCourse(req.body);
     if (validated?.error) {
@@ -68,21 +89,49 @@ router.post('/courses', upload.single('file'), async (req, res) => {
     const value = validated?.value;
 
     let fileUrl: string | null = null;
+    let trainerImageUrl: string | null = null;
+    let typeImageUrl: string | null = null;
 
-    if (req.file) {
-      const fileName =
-        crypto.randomBytes(16).toString('hex') + path.extname(req.file.originalname);
-      const result = await put(fileName, fs.readFileSync(req.file.path), {
+    const files = req.files as { [fieldname: string]: Express.Multer.File[] };
+
+    // Handle course image
+    if (files && files.file && files.file[0]) {
+      const fileName = crypto.randomBytes(16).toString('hex') + path.extname(files.file[0].originalname);
+      const result = await put(fileName, fs.readFileSync(files.file[0].path), {
         access: 'public',
         addRandomSuffix: true
       });
       fileUrl = result.url;
-      fs.unlinkSync(req.file.path);
+      fs.unlinkSync(files.file[0].path);
+    }
+
+    // Handle trainer image
+    if (files && files.trainerImage && files.trainerImage[0]) {
+      const fileName = crypto.randomBytes(16).toString('hex') + path.extname(files.trainerImage[0].originalname);
+      const result = await put(fileName, fs.readFileSync(files.trainerImage[0].path), {
+        access: 'public',
+        addRandomSuffix: true
+      });
+      trainerImageUrl = result.url;
+      fs.unlinkSync(files.trainerImage[0].path);
+    }
+
+    // Handle type image
+    if (files && files.typeImage && files.typeImage[0]) {
+      const fileName = crypto.randomBytes(16).toString('hex') + path.extname(files.typeImage[0].originalname);
+      const result = await put(fileName, fs.readFileSync(files.typeImage[0].path), {
+        access: 'public',
+        addRandomSuffix: true
+      });
+      typeImageUrl = result.url;
+      fs.unlinkSync(files.typeImage[0].path);
     }
 
     const course = await createCourse({
       ...value,
-      picture: fileUrl
+      picture: fileUrl,
+      trainerImage: trainerImageUrl,
+      typeImage: typeImageUrl
     });
 
     return res.status(201).json({ course });
