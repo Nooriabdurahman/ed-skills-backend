@@ -15,7 +15,11 @@ import certificationRoutes from './module/auth/certification/certification-route
 import userPerformanceRoutes from './module/user-performance/user-performance-routes';
 
 const app = express();
-app.use(cors());
+app.use(cors({
+  origin: "*", 
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+}));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 

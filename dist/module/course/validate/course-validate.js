@@ -21,8 +21,9 @@ exports.courseSchema = joi_1.default.object({
     materialCount: joi_1.default.string().allow(''),
     firstRecommendation: joi_1.default.string().allow(''),
     secondRecommendation: joi_1.default.string().allow(''),
-    totalScore: joi_1.default.number().optional(),
-    passingScore: joi_1.default.number().optional(),
+    trainer: joi_1.default.string().allow(''), // ⭐ این خط رو اضافه کن
+    quizTotalScore: joi_1.default.number().optional(),
+    quizPassingScore: joi_1.default.number().optional(),
     status: joi_1.default.string().valid('notStarted', 'inProgress', 'completed').default('notStarted'),
     materialStatusType: joi_1.default.string().required().messages({
         'string.empty': 'Material status type is required',

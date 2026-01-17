@@ -13,7 +13,14 @@ const course_services_1 = require("./course-services");
 const course_validate_1 = require("./validate/course-validate");
 const course_lessons_routes_1 = __importDefault(require("../course-lesson/course-lessons-routes"));
 const router = express_1.default.Router();
-const upload = (0, multer_1.default)({ dest: 'tmp/' });
+// Configure multer storage
+const storage = multer_1.default.diskStorage({
+    destination: 'tmp/',
+    filename: (req, file, cb) => {
+        cb(null, crypto_1.default.randomBytes(16).toString('hex') + path_1.default.extname(file.originalname));
+    }
+});
+const upload = (0, multer_1.default)({ storage });
 /**
  * @swagger
  * tags:
@@ -53,6 +60,14 @@ const upload = (0, multer_1.default)({ dest: 'tmp/' });
  *                 type: string
  *                 format: binary
  *                 description: Course image file
+ *               trainerImage:
+ *                 type: string
+ *                 format: binary
+ *                 description: Trainer image file
+ *               typeImage:
+ *                 type: string
+ *                 format: binary
+ *                 description: Type image file
  *     responses:
  *       201:
  *         description: Course created successfully
@@ -61,7 +76,11 @@ const upload = (0, multer_1.default)({ dest: 'tmp/' });
  *       500:
  *         description: Server error
  */
-router.post('/courses', upload.single('file'), async (req, res) => {
+router.post('/courses', upload.fields([
+    { name: 'file', maxCount: 1 },
+    { name: 'trainerImage', maxCount: 1 },
+    { name: 'typeImage', maxCount: 1 }
+]), async (req, res) => {
     try {
         const validated = (0, course_validate_1.validateCourse)(req.body);
         if (validated?.error) {
@@ -69,18 +88,44 @@ router.post('/courses', upload.single('file'), async (req, res) => {
         }
         const value = validated?.value;
         let fileUrl = null;
-        if (req.file) {
-            const fileName = crypto_1.default.randomBytes(16).toString('hex') + path_1.default.extname(req.file.originalname);
-            const result = await (0, blob_1.put)(fileName, fs_1.default.readFileSync(req.file.path), {
+        let trainerImageUrl = null;
+        let typeImageUrl = null;
+        const files = req.files;
+        // Handle course image
+        if (files && files.file && files.file[0]) {
+            const fileName = crypto_1.default.randomBytes(16).toString('hex') + path_1.default.extname(files.file[0].originalname);
+            const result = await (0, blob_1.put)(fileName, fs_1.default.readFileSync(files.file[0].path), {
                 access: 'public',
                 addRandomSuffix: true
             });
             fileUrl = result.url;
-            fs_1.default.unlinkSync(req.file.path);
+            fs_1.default.unlinkSync(files.file[0].path);
+        }
+        // Handle trainer image
+        if (files && files.trainerImage && files.trainerImage[0]) {
+            const fileName = crypto_1.default.randomBytes(16).toString('hex') + path_1.default.extname(files.trainerImage[0].originalname);
+            const result = await (0, blob_1.put)(fileName, fs_1.default.readFileSync(files.trainerImage[0].path), {
+                access: 'public',
+                addRandomSuffix: true
+            });
+            trainerImageUrl = result.url;
+            fs_1.default.unlinkSync(files.trainerImage[0].path);
+        }
+        // Handle type image
+        if (files && files.typeImage && files.typeImage[0]) {
+            const fileName = crypto_1.default.randomBytes(16).toString('hex') + path_1.default.extname(files.typeImage[0].originalname);
+            const result = await (0, blob_1.put)(fileName, fs_1.default.readFileSync(files.typeImage[0].path), {
+                access: 'public',
+                addRandomSuffix: true
+            });
+            typeImageUrl = result.url;
+            fs_1.default.unlinkSync(files.typeImage[0].path);
         }
         const course = await (0, course_services_1.createCourse)({
             ...value,
-            picture: fileUrl
+            picture: fileUrl,
+            trainerImage: trainerImageUrl,
+            typeImage: typeImageUrl
         });
         return res.status(201).json({ course });
     }
@@ -158,7 +203,28 @@ router.get('/courses/:id', async (req, res) => {
         return res.status(500).json({ error: 'Error fetching course' });
     }
 });
-// Nested course lessons routes
+/**
+ * @swagger
+ * /courses/courses/{id}:
+ *   delete:
+ *     summary: Delete a course by ID
+ *     tags: [Courses]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: The course ID
+ *     responses:
+ *       200:
+ *         description: Course deleted successfully
+ *       404:
+ *         description: Course not found
+ *       500:
+ *         description: Server error
+ */
+router.delete('/courses/:id', course_services_1.deleteCourse);
 router.use('/courses/:courseId/lessons', course_lessons_routes_1.default);
 exports.default = router;
 //# sourceMappingURL=course-route.js.map
