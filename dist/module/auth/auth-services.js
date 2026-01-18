@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteUser = exports.updateUser = exports.loginUser = exports.createUser = exports.getUserById = exports.getUsers = void 0;
+exports.appleLogin = exports.googleLogin = exports.deleteUser = exports.updateUser = exports.loginUser = exports.createUser = exports.getUserById = exports.getUsers = void 0;
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const prisma_1 = __importDefault(require("../../common/config/database/prisma"));
 const generateToken_1 = __importDefault(require("../../common/utils/generateToken"));
@@ -66,6 +66,10 @@ const loginUser = async (req, res) => {
         const user = await prisma_1.default.user.findUnique({ where: { email } });
         if (!user) {
             res.status(400).json({ error: 'Invalid email or password' });
+            return;
+        }
+        if (!user.password) {
+            res.status(400).json({ error: 'This account uses social login. Please log in with Google or Apple.' });
             return;
         }
         const isMatch = await bcryptjs_1.default.compare(password, user.password);
@@ -135,4 +139,72 @@ const deleteUser = async (req, res) => {
     }
 };
 exports.deleteUser = deleteUser;
+const googleLogin = async (req, res) => {
+    const { email, username, googleId, profilePicture } = req.body;
+    try {
+        let user = await prisma_1.default.user.findUnique({ where: { email } });
+        if (user) {
+            // If user exists, update their googleId if it's not set
+            if (!user.googleId) {
+                user = await prisma_1.default.user.update({
+                    where: { email },
+                    data: { googleId, profilePicture: user.profilePicture || profilePicture },
+                });
+            }
+        }
+        else {
+            // Create new user if they don't exist
+            user = await prisma_1.default.user.create({
+                data: {
+                    email,
+                    username: username || email.split('@')[0],
+                    googleId,
+                    profilePicture,
+                    // Since it's social login, password is null
+                },
+            });
+        }
+        const token = (0, generateToken_1.default)(user);
+        const { password: _, ...userWithoutPassword } = user;
+        res.json({ user: userWithoutPassword, token });
+        console.log(`✅ User ${email} logged in via Google`);
+    }
+    catch (error) {
+        console.error('❌ Google Login failed:', error);
+        res.status(500).json({ error: 'Google Login failed' });
+    }
+};
+exports.googleLogin = googleLogin;
+const appleLogin = async (req, res) => {
+    const { email, username, appleId } = req.body;
+    try {
+        let user = await prisma_1.default.user.findUnique({ where: { email } });
+        if (user) {
+            if (!user.appleId) {
+                user = await prisma_1.default.user.update({
+                    where: { email },
+                    data: { appleId },
+                });
+            }
+        }
+        else {
+            user = await prisma_1.default.user.create({
+                data: {
+                    email,
+                    username: username || email.split('@')[0],
+                    appleId,
+                },
+            });
+        }
+        const token = (0, generateToken_1.default)(user);
+        const { password: _, ...userWithoutPassword } = user;
+        res.json({ user: userWithoutPassword, token });
+        console.log(`✅ User ${email} logged in via Apple`);
+    }
+    catch (error) {
+        console.error('❌ Apple Login failed:', error);
+        res.status(500).json({ error: 'Apple Login failed' });
+    }
+};
+exports.appleLogin = appleLogin;
 //# sourceMappingURL=auth-services.js.map

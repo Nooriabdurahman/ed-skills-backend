@@ -5,4 +5,6 @@ export declare const createUser: (req: Request, res: Response) => Promise<void>;
 export declare const loginUser: (req: Request, res: Response) => Promise<void>;
 export declare const updateUser: (req: Request, res: Response) => Promise<void>;
 export declare const deleteUser: (req: Request, res: Response) => Promise<void>;
+export declare const googleLogin: (req: Request, res: Response) => Promise<void>;
+export declare const appleLogin: (req: Request, res: Response) => Promise<void>;
 //# sourceMappingURL=auth-services.d.ts.map

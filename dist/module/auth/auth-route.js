@@ -125,6 +125,56 @@ router.post('/users', validateRequest(register_dto_1.default), auth_services_1.c
 router.post('/login', auth_services_1.loginUser);
 /**
  * @swagger
+ * /users/google-login:
+ *   post:
+ *     summary: Login with Google
+ *     tags: [Users]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *               username:
+ *                 type: string
+ *               googleId:
+ *                 type: string
+ *               profilePicture:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Login successful
+ */
+router.post('/google-login', auth_services_1.googleLogin);
+/**
+ * @swagger
+ * /users/apple-login:
+ *   post:
+ *     summary: Login with Apple
+ *     tags: [Users]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *               username:
+ *                 type: string
+ *               appleId:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Login successful
+ */
+router.post('/apple-login', auth_services_1.appleLogin);
+/**
+ * @swagger
  * /users/users/{id}:
  *   put:
  *     summary: Update a user
