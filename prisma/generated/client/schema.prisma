@@ -28,6 +28,7 @@ model User {
   certifications   Certification[]
   medals           UserMedal[]
   lessonActivities UserLessonActivity[]
+  progress         CourseProgress[]
   createdAt        DateTime             @default(now())
 }
 
@@ -72,25 +73,13 @@ model CourseLesson {
   text       String?
   url        String?
   video      String? // Video file stored in Vercel Blob (optional)
+  fileType   String?
+  fileSize   Int?
   courseId   Int
-  course     Course               @relation(fields: [courseId], references: [id])
-  resources  LessonResource[]
+  course     Course               @relation(fields: [courseId], references: [id], onDelete: Cascade)
   progress   CourseProgress[]
   activities UserLessonActivity[]
   createdAt  DateTime             @default(now())
-}
-
-model LessonResource {
-  id          String       @id @default(uuid())
-  name        String
-  description String?
-  fileUrl     String // URL from Vercel Blob
-  fileType    String? // e.g., "pdf", "doc", "video"
-  fileSize    Int? // File size in bytes
-  lessonId    String
-  lesson      CourseLesson @relation(fields: [lessonId], references: [id], onDelete: Cascade)
-  createdAt   DateTime     @default(now())
-  updatedAt   DateTime     @updatedAt
 }
 
 model CourseProgress {
@@ -101,6 +90,7 @@ model CourseProgress {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  user   User         @relation(fields: [userId], references: [id], onDelete: Cascade)
   lesson CourseLesson @relation(fields: [lessonId], references: [id], onDelete: Cascade)
 
   @@unique([userId, lessonId])

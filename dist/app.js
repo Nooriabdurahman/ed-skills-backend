@@ -19,7 +19,11 @@ const badge_routes_1 = __importDefault(require("./module/badge/badge-routes"));
 const certification_routes_1 = __importDefault(require("./module/auth/certification/certification-routes"));
 const user_performance_routes_1 = __importDefault(require("./module/user-performance/user-performance-routes"));
 const app = (0, express_1.default)();
-app.use((0, cors_1.default)());
+app.use((0, cors_1.default)({
+    origin: "*",
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+}));
 app.use(body_parser_1.default.json());
 app.use(body_parser_1.default.urlencoded({ extended: true }));
 app.use('/users', auth_route_1.default);

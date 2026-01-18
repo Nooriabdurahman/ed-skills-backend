@@ -95,6 +95,6 @@ router.put('/update', updateProfile);
  *       400:
  *         description: File upload error
  */
-router.post('/upload-picture',   authMiddleware,upload.single('file'), uploadProfilePicture);
+router.post('/upload-picture', authMiddleware, upload.single('file'), uploadProfilePicture);
 
 export default router;

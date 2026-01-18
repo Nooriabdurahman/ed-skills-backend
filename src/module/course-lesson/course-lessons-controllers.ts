@@ -15,6 +15,8 @@ export class CourseLessonController {
 
       let video: string | null = null;
       let file: string | null = null;
+      let fileType: string | null = null;
+      let fileSize: number | null = null;
 
       const files = req.files as { [fieldname: string]: Express.Multer.File[] } | undefined;
 
@@ -37,6 +39,8 @@ export class CourseLessonController {
           addRandomSuffix: true,
         });
         file = result.url;
+        fileType = files.file[0].mimetype;
+        fileSize = files.file[0].size;
         fs.unlinkSync(files.file[0].path);
       }
 
@@ -45,6 +49,8 @@ export class CourseLessonController {
         courseId,
         video,
         url: file, // ذخیره فایل اضافی در فیلد url
+        fileType: fileType ?? undefined,
+        fileSize: fileSize ?? undefined,
       });
 
       return res.status(201).json({ success: true, data: lesson });
