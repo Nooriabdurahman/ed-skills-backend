@@ -7,7 +7,7 @@ export class QuizController {
    */
   static async createQuiz(req: Request, res: Response) {
     try {
-      const { courseId, name, description, badgeId } = req.body;
+      const { courseId, name, description, badgeId, lessonId } = req.body;
 
       if (!courseId || !name) {
         return res.status(400).json({
@@ -20,7 +20,8 @@ export class QuizController {
         courseId,
         name,
         description,
-        badgeId
+        badgeId,
+        lessonId
       );
 
       return res.status(201).json({
@@ -41,7 +42,7 @@ export class QuizController {
    */
   static async createOneQuestionQuiz(req: Request, res: Response) {
     try {
-      const { courseId, name, question, answers } = req.body;
+      const { courseId, name, question, answers, lessonId } = req.body;
 
       if (!courseId || !name || !question) {
         return res.status(400).json({
@@ -69,7 +70,8 @@ export class QuizController {
         courseId,
         name,
         question,
-        answers
+        answers,
+        lessonId
       );
 
       return res.status(201).json({

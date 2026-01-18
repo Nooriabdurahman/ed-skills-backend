@@ -231,6 +231,7 @@ exports.Prisma.TestAttemptScalarFieldEnum = {
   totalQuestions: 'totalQuestions',
   correctAnswers: 'correctAnswers',
   isPassed: 'isPassed',
+  performanceLabel: 'performanceLabel',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -252,6 +253,7 @@ exports.Prisma.CourseQuizScalarFieldEnum = {
   description: 'description',
   courseId: 'courseId',
   badgeId: 'badgeId',
+  lessonId: 'lessonId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -281,6 +283,7 @@ exports.Prisma.QuizAttemptScalarFieldEnum = {
   totalQuestions: 'totalQuestions',
   correctAnswers: 'correctAnswers',
   isPassed: 'isPassed',
+  performanceLabel: 'performanceLabel',
   badgeEarned: 'badgeEarned',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'

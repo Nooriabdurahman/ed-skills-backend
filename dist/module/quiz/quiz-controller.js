@@ -8,14 +8,14 @@ class QuizController {
      */
     static async createQuiz(req, res) {
         try {
-            const { courseId, name, description, badgeId } = req.body;
+            const { courseId, name, description, badgeId, lessonId } = req.body;
             if (!courseId || !name) {
                 return res.status(400).json({
                     success: false,
                     message: "Course ID and quiz name are required",
                 });
             }
-            const quiz = await quiz_services_1.QuizService.createQuiz(courseId, name, description, badgeId);
+            const quiz = await quiz_services_1.QuizService.createQuiz(courseId, name, description, badgeId, lessonId);
             return res.status(201).json({
                 success: true,
                 data: quiz,
@@ -34,7 +34,7 @@ class QuizController {
      */
     static async createOneQuestionQuiz(req, res) {
         try {
-            const { courseId, name, question, answers } = req.body;
+            const { courseId, name, question, answers, lessonId } = req.body;
             if (!courseId || !name || !question) {
                 return res.status(400).json({
                     success: false,
@@ -54,7 +54,7 @@ class QuizController {
                     message: "Exactly one answer must be correct",
                 });
             }
-            const quiz = await quiz_services_1.QuizService.createOneQuestionQuiz(courseId, name, question, answers);
+            const quiz = await quiz_services_1.QuizService.createOneQuestionQuiz(courseId, name, question, answers, lessonId);
             return res.status(201).json({
                 success: true,
                 data: quiz,

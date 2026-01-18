@@ -125,10 +125,19 @@ export class TestService {
       }
     }
 
+    // Calculate percentage score for labeling
+    const percentage = totalQuestions > 0 ? Math.round((correctAnswers / totalQuestions) * 100) : 0;
+
     // Calculate points (e.g., 10 points per correct answer)
     const pointsPerQuestion = 10;
     const pointsEarned = correctAnswers * pointsPerQuestion;
-    const isPassed = correctAnswers >= totalQuestions * 0.6; // 60% passing rate
+    const isPassed = percentage >= 60; // 60% passing rate
+
+    // Calculate performance label
+    let performanceLabel = "Failed";
+    if (percentage >= 80) performanceLabel = "Excellent";
+    else if (percentage >= 50) performanceLabel = "Good";
+    else if (percentage >= 30) performanceLabel = "Fair";
 
     // Create test attempt
     const attempt = await prisma.testAttempt.create({
@@ -139,6 +148,7 @@ export class TestService {
         totalQuestions,
         correctAnswers,
         isPassed,
+        performanceLabel,
       },
     });
 
@@ -156,9 +166,11 @@ export class TestService {
     return {
       attempt,
       score: pointsEarned,
+      percentage,
       correctAnswers,
       totalQuestions,
       isPassed,
+      performanceLabel,
     };
   }
 

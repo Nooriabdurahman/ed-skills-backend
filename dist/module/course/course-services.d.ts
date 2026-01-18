@@ -1,6 +1,7 @@
 export declare const createCourse: (data: any) => Promise<{
     id: number;
     createdAt: Date;
+    points: string | null;
     progress: number | null;
     name: string;
     description: string;
@@ -23,11 +24,16 @@ export declare const createCourse: (data: any) => Promise<{
     isCertified: boolean;
     typeImage: string | null;
     duration: string | null;
+    content: string | null;
+    contentType: string | null;
+    passingPoints: string | null;
+    type: string | null;
     updatedAt: Date;
 }>;
 export declare const getAllCourses: () => Promise<{
     id: number;
     createdAt: Date;
+    points: string | null;
     progress: number | null;
     name: string;
     description: string;
@@ -50,11 +56,16 @@ export declare const getAllCourses: () => Promise<{
     isCertified: boolean;
     typeImage: string | null;
     duration: string | null;
+    content: string | null;
+    contentType: string | null;
+    passingPoints: string | null;
+    type: string | null;
     updatedAt: Date;
 }[]>;
 export declare const getCourseById: (id: number) => Promise<{
     id: number;
     createdAt: Date;
+    points: string | null;
     progress: number | null;
     name: string;
     description: string;
@@ -77,11 +88,16 @@ export declare const getCourseById: (id: number) => Promise<{
     isCertified: boolean;
     typeImage: string | null;
     duration: string | null;
+    content: string | null;
+    contentType: string | null;
+    passingPoints: string | null;
+    type: string | null;
     updatedAt: Date;
 } | null>;
 export declare const updateCourse: (id: number, data: any) => Promise<{
     id: number;
     createdAt: Date;
+    points: string | null;
     progress: number | null;
     name: string;
     description: string;
@@ -104,11 +120,16 @@ export declare const updateCourse: (id: number, data: any) => Promise<{
     isCertified: boolean;
     typeImage: string | null;
     duration: string | null;
+    content: string | null;
+    contentType: string | null;
+    passingPoints: string | null;
+    type: string | null;
     updatedAt: Date;
 }>;
 export declare const deleteCourse: (id: number) => Promise<{
     id: number;
     createdAt: Date;
+    points: string | null;
     progress: number | null;
     name: string;
     description: string;
@@ -131,6 +152,10 @@ export declare const deleteCourse: (id: number) => Promise<{
     isCertified: boolean;
     typeImage: string | null;
     duration: string | null;
+    content: string | null;
+    contentType: string | null;
+    passingPoints: string | null;
+    type: string | null;
     updatedAt: Date;
 }>;
 //# sourceMappingURL=course-services.d.ts.map

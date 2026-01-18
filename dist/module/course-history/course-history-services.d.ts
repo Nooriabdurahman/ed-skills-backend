@@ -31,6 +31,7 @@ export declare class CourseHistoryService {
         } & {
             id: number;
             createdAt: Date;
+            points: string | null;
             progress: number | null;
             name: string;
             description: string;
@@ -53,6 +54,10 @@ export declare class CourseHistoryService {
             isCertified: boolean;
             typeImage: string | null;
             duration: string | null;
+            content: string | null;
+            contentType: string | null;
+            passingPoints: string | null;
+            type: string | null;
             updatedAt: Date;
         };
     } & {

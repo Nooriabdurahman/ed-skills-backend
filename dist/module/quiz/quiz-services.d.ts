@@ -2,7 +2,7 @@ export declare class QuizService {
     /**
      * Create a quiz for a course
      */
-    static createQuiz(courseId: number, name: string, description?: string, badgeId?: number): Promise<{
+    static createQuiz(courseId: number, name: string, description?: string, badgeId?: number, lessonId?: string): Promise<{
         questions: ({
             answers: {
                 id: number;
@@ -35,6 +35,7 @@ export declare class QuizService {
         updatedAt: Date;
         courseId: number;
         badgeId: number | null;
+        lessonId: string | null;
     }>;
     /**
      * Create a quiz with a single question and answers
@@ -42,7 +43,7 @@ export declare class QuizService {
     static createOneQuestionQuiz(courseId: number, name: string, questionText: string, answers: {
         answer: string;
         isCorrect: boolean;
-    }[]): Promise<{
+    }[], lessonId?: string): Promise<{
         questions: ({
             answers: {
                 id: number;
@@ -67,6 +68,7 @@ export declare class QuizService {
         updatedAt: Date;
         courseId: number;
         badgeId: number | null;
+        lessonId: string | null;
     }>;
     /**
      * Add a question to a quiz
@@ -129,6 +131,7 @@ export declare class QuizService {
         updatedAt: Date;
         courseId: number;
         badgeId: number | null;
+        lessonId: string | null;
     }) | null>;
     /**
      * Get all quizzes for a course
@@ -166,6 +169,7 @@ export declare class QuizService {
         updatedAt: Date;
         courseId: number;
         badgeId: number | null;
+        lessonId: string | null;
     })[]>;
     /**
      * Submit quiz answers and award badge if passed
@@ -184,6 +188,7 @@ export declare class QuizService {
             totalQuestions: number;
             correctAnswers: number;
             isPassed: boolean;
+            performanceLabel: string | null;
             quizId: number;
             badgeEarned: boolean;
         };
@@ -191,6 +196,7 @@ export declare class QuizService {
         correctAnswers: number;
         totalQuestions: number;
         isPassed: boolean;
+        performanceLabel: string;
         badgeEarned: {
             id: number;
             createdAt: Date;
@@ -225,6 +231,7 @@ export declare class QuizService {
             updatedAt: Date;
             courseId: number;
             badgeId: number | null;
+            lessonId: string | null;
         };
     } & {
         id: number;
@@ -235,6 +242,7 @@ export declare class QuizService {
         totalQuestions: number;
         correctAnswers: number;
         isPassed: boolean;
+        performanceLabel: string | null;
         quizId: number;
         badgeEarned: boolean;
     })[]>;

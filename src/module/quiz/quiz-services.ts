@@ -8,15 +8,16 @@ export class QuizService {
     courseId: number,
     name: string,
     description?: string,
-    badgeId?: number
+    badgeId?: number,
+    lessonId?: string
   ) {
     return prisma.courseQuiz.create({
       data: {
         courseId,
         name,
-        // Prisma expects `string | null` / `number | null`, not `undefined`
         description: description ?? null,
         badgeId: badgeId ?? null,
+        lessonId: lessonId ?? null,
       },
       include: {
         questions: {
@@ -36,12 +37,14 @@ export class QuizService {
     courseId: number,
     name: string,
     questionText: string,
-    answers: { answer: string; isCorrect: boolean }[]
+    answers: { answer: string; isCorrect: boolean }[],
+    lessonId?: string
   ) {
     return prisma.courseQuiz.create({
       data: {
         courseId,
         name,
+        lessonId: lessonId ?? null,
         questions: {
           create: {
             question: questionText,
@@ -172,8 +175,14 @@ export class QuizService {
     }
 
     // Calculate score percentage
-    const score = Math.round((correctAnswers / totalQuestions) * 100);
+    const score = totalQuestions > 0 ? Math.round((correctAnswers / totalQuestions) * 100) : 0;
     const isPassed = score >= 60; // 60% passing rate
+
+    // Calculate performance label
+    let performanceLabel = "Failed";
+    if (score >= 80) performanceLabel = "Excellent";
+    else if (score >= 50) performanceLabel = "Good";
+    else if (score >= 30) performanceLabel = "Fair";
 
     // Create quiz attempt
     const attempt = await prisma.quizAttempt.create({
@@ -184,9 +193,30 @@ export class QuizService {
         totalQuestions,
         correctAnswers,
         isPassed,
+        performanceLabel,
         badgeEarned: false,
       },
     });
+
+    // If quiz is linked to a lesson, update progress
+    if (quiz.lessonId) {
+      await prisma.courseProgress.upsert({
+        where: {
+          userId_lessonId: {
+            userId,
+            lessonId: quiz.lessonId,
+          },
+        },
+        create: {
+          userId,
+          lessonId: quiz.lessonId,
+          completed: true,
+        },
+        update: {
+          completed: true,
+        },
+      });
+    }
 
     let badgeEarned = null;
 
@@ -235,6 +265,7 @@ export class QuizService {
       correctAnswers,
       totalQuestions,
       isPassed,
+      performanceLabel,
       badgeEarned,
     };
   }

@@ -9,14 +9,14 @@ class QuizService {
     /**
      * Create a quiz for a course
      */
-    static async createQuiz(courseId, name, description, badgeId) {
+    static async createQuiz(courseId, name, description, badgeId, lessonId) {
         return prisma_1.default.courseQuiz.create({
             data: {
                 courseId,
                 name,
-                // Prisma expects `string | null` / `number | null`, not `undefined`
                 description: description ?? null,
                 badgeId: badgeId ?? null,
+                lessonId: lessonId ?? null,
             },
             include: {
                 questions: {
@@ -31,11 +31,12 @@ class QuizService {
     /**
      * Create a quiz with a single question and answers
      */
-    static async createOneQuestionQuiz(courseId, name, questionText, answers) {
+    static async createOneQuestionQuiz(courseId, name, questionText, answers, lessonId) {
         return prisma_1.default.courseQuiz.create({
             data: {
                 courseId,
                 name,
+                lessonId: lessonId ?? null,
                 questions: {
                     create: {
                         question: questionText,
@@ -151,8 +152,16 @@ class QuizService {
             }
         }
         // Calculate score percentage
-        const score = Math.round((correctAnswers / totalQuestions) * 100);
+        const score = totalQuestions > 0 ? Math.round((correctAnswers / totalQuestions) * 100) : 0;
         const isPassed = score >= 60; // 60% passing rate
+        // Calculate performance label
+        let performanceLabel = "Failed";
+        if (score >= 80)
+            performanceLabel = "Excellent";
+        else if (score >= 50)
+            performanceLabel = "Good";
+        else if (score >= 30)
+            performanceLabel = "Fair";
         // Create quiz attempt
         const attempt = await prisma_1.default.quizAttempt.create({
             data: {
@@ -162,9 +171,29 @@ class QuizService {
                 totalQuestions,
                 correctAnswers,
                 isPassed,
+                performanceLabel,
                 badgeEarned: false,
             },
         });
+        // If quiz is linked to a lesson, update progress
+        if (quiz.lessonId) {
+            await prisma_1.default.courseProgress.upsert({
+                where: {
+                    userId_lessonId: {
+                        userId,
+                        lessonId: quiz.lessonId,
+                    },
+                },
+                create: {
+                    userId,
+                    lessonId: quiz.lessonId,
+                    completed: true,
+                },
+                update: {
+                    completed: true,
+                },
+            });
+        }
         let badgeEarned = null;
         // Award badge if passed and quiz has a badge
         if (isPassed && quiz.badgeId && quiz.badge) {
@@ -208,6 +237,7 @@ class QuizService {
             correctAnswers,
             totalQuestions,
             isPassed,
+            performanceLabel,
             badgeEarned,
         };
     }

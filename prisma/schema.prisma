@@ -85,6 +85,7 @@ model CourseLesson {
   course    Course           @relation(fields: [courseId], references: [id], onDelete: Cascade)
   progress  CourseProgress[]
   activities UserLessonActivity[]
+  quiz      CourseQuiz?
   createdAt DateTime         @default(now())
 }
 
@@ -169,6 +170,7 @@ model TestAttempt {
   totalQuestions Int        // Total number of questions
   correctAnswers Int        // Number of correct answers
   isPassed       Boolean    @default(false)
+  performanceLabel String?    // Failed, Fair, Good, Excellent
   createdAt      DateTime   @default(now())
   updatedAt      DateTime   @updatedAt
 
@@ -202,6 +204,8 @@ model CourseQuiz {
   course      Course         @relation(fields: [courseId], references: [id], onDelete: Cascade)
   badgeId     Int?           // Badge awarded for completing this quiz
   badge       Badge?         @relation(fields: [badgeId], references: [id])
+  lessonId    String?        @unique
+  lesson      CourseLesson?  @relation(fields: [lessonId], references: [id], onDelete: Cascade)
   questions   QuizQuestion[]
   attempts    QuizAttempt[]
   createdAt   DateTime       @default(now())
@@ -248,6 +252,7 @@ model QuizAttempt {
   totalQuestions Int        // Total number of questions
   correctAnswers Int        // Number of correct answers
   isPassed       Boolean    @default(false)
+  performanceLabel String?    // Failed, Fair, Good, Excellent
   badgeEarned    Boolean    @default(false) // Whether badge was earned
   createdAt      DateTime   @default(now())
   updatedAt      DateTime   @updatedAt

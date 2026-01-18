@@ -126,11 +126,14 @@ export declare class TestService {
             totalQuestions: number;
             correctAnswers: number;
             isPassed: boolean;
+            performanceLabel: string | null;
         };
         score: number;
+        percentage: number;
         correctAnswers: number;
         totalQuestions: number;
         isPassed: boolean;
+        performanceLabel: string;
     }>;
     /**
      * Get user's test attempts
@@ -159,6 +162,7 @@ export declare class TestService {
         totalQuestions: number;
         correctAnswers: number;
         isPassed: boolean;
+        performanceLabel: string | null;
     })[]>;
     /**
      * Get user's total points from tests

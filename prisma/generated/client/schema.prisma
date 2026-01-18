@@ -84,6 +84,7 @@ model CourseLesson {
   course     Course               @relation(fields: [courseId], references: [id], onDelete: Cascade)
   progress   CourseProgress[]
   activities UserLessonActivity[]
+  quiz       CourseQuiz?
   createdAt  DateTime             @default(now())
 }
 
@@ -159,17 +160,18 @@ model TestAnswer {
 
 // Test Attempt Model - tracks user test attempts and awards points
 model TestAttempt {
-  id             Int        @id @default(autoincrement())
-  userId         Int
-  testId         Int
-  user           User       @relation(fields: [userId], references: [id], onDelete: Cascade)
-  test           CourseTest @relation(fields: [testId], references: [id], onDelete: Cascade)
-  score          Int // Points earned from this test
-  totalQuestions Int // Total number of questions
-  correctAnswers Int // Number of correct answers
-  isPassed       Boolean    @default(false)
-  createdAt      DateTime   @default(now())
-  updatedAt      DateTime   @updatedAt
+  id               Int        @id @default(autoincrement())
+  userId           Int
+  testId           Int
+  user             User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  test             CourseTest @relation(fields: [testId], references: [id], onDelete: Cascade)
+  score            Int // Points earned from this test
+  totalQuestions   Int // Total number of questions
+  correctAnswers   Int // Number of correct answers
+  isPassed         Boolean    @default(false)
+  performanceLabel String? // Failed, Fair, Good, Excellent
+  createdAt        DateTime   @default(now())
+  updatedAt        DateTime   @updatedAt
 
   @@index([userId])
   @@index([testId])
@@ -201,6 +203,8 @@ model CourseQuiz {
   course      Course         @relation(fields: [courseId], references: [id], onDelete: Cascade)
   badgeId     Int? // Badge awarded for completing this quiz
   badge       Badge?         @relation(fields: [badgeId], references: [id])
+  lessonId    String?        @unique
+  lesson      CourseLesson?  @relation(fields: [lessonId], references: [id], onDelete: Cascade)
   questions   QuizQuestion[]
   attempts    QuizAttempt[]
   createdAt   DateTime       @default(now())
@@ -238,18 +242,19 @@ model QuizAnswer {
 
 // Quiz Attempt Model - tracks user quiz attempts and awards badges
 model QuizAttempt {
-  id             Int        @id @default(autoincrement())
-  userId         Int
-  quizId         Int
-  user           User       @relation(fields: [userId], references: [id], onDelete: Cascade)
-  quiz           CourseQuiz @relation(fields: [quizId], references: [id], onDelete: Cascade)
-  score          Int // Score achieved
-  totalQuestions Int // Total number of questions
-  correctAnswers Int // Number of correct answers
-  isPassed       Boolean    @default(false)
-  badgeEarned    Boolean    @default(false) // Whether badge was earned
-  createdAt      DateTime   @default(now())
-  updatedAt      DateTime   @updatedAt
+  id               Int        @id @default(autoincrement())
+  userId           Int
+  quizId           Int
+  user             User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  quiz             CourseQuiz @relation(fields: [quizId], references: [id], onDelete: Cascade)
+  score            Int // Score achieved
+  totalQuestions   Int // Total number of questions
+  correctAnswers   Int // Number of correct answers
+  isPassed         Boolean    @default(false)
+  performanceLabel String? // Failed, Fair, Good, Excellent
+  badgeEarned      Boolean    @default(false) // Whether badge was earned
+  createdAt        DateTime   @default(now())
+  updatedAt        DateTime   @updatedAt
 
   @@index([userId])
   @@index([quizId])
