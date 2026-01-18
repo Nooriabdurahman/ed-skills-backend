@@ -5,7 +5,9 @@ import {
   createUser,
   loginUser,
   updateUser,
-  deleteUser
+  deleteUser,
+  googleLogin,
+  appleLogin
 } from '../auth/auth-services'; // مسیر باید با پروژه تو هماهنگ باشد
 import registerSchema from "../auth/validator/register.dto";
 
@@ -132,6 +134,58 @@ router.post('/users', validateRequest(registerSchema), createUser);
  *         description: Login successful
  */
 router.post('/login', loginUser);
+
+/**
+ * @swagger
+ * /users/google-login:
+ *   post:
+ *     summary: Login with Google
+ *     tags: [Users]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *               username:
+ *                 type: string
+ *               googleId:
+ *                 type: string
+ *               profilePicture:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Login successful
+ */
+router.post('/google-login', googleLogin);
+
+/**
+ * @swagger
+ * /users/apple-login:
+ *   post:
+ *     summary: Login with Apple
+ *     tags: [Users]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *               username:
+ *                 type: string
+ *               appleId:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Login successful
+ */
+router.post('/apple-login', appleLogin);
 
 /**
  * @swagger

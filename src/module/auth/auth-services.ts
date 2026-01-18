@@ -69,6 +69,11 @@ export const loginUser = async (req: Request, res: Response): Promise<void> => {
       return;
     }
 
+    if (!user.password) {
+      res.status(400).json({ error: 'This account uses social login. Please log in with Google or Apple.' });
+      return;
+    }
+
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       res.status(400).json({ error: 'Invalid email or password' });
@@ -131,5 +136,75 @@ export const deleteUser = async (req: Request, res: Response): Promise<void> => 
   } catch (error) {
     console.error('❌ Error deleting user:', error);
     res.status(500).json({ error: 'Error deleting user' });
+  }
+};
+
+export const googleLogin = async (req: Request, res: Response): Promise<void> => {
+  const { email, username, googleId, profilePicture } = req.body;
+
+  try {
+    let user = await prisma.user.findUnique({ where: { email } });
+
+    if (user) {
+      // If user exists, update their googleId if it's not set
+      if (!user.googleId) {
+        user = await prisma.user.update({
+          where: { email },
+          data: { googleId, profilePicture: user.profilePicture || profilePicture },
+        });
+      }
+    } else {
+      // Create new user if they don't exist
+      user = await prisma.user.create({
+        data: {
+          email,
+          username: username || email.split('@')[0],
+          googleId,
+          profilePicture,
+          // Since it's social login, password is null
+        },
+      });
+    }
+
+    const token = generateToken(user);
+    const { password: _, ...userWithoutPassword } = user;
+    res.json({ user: userWithoutPassword, token });
+    console.log(`✅ User ${email} logged in via Google`);
+  } catch (error) {
+    console.error('❌ Google Login failed:', error);
+    res.status(500).json({ error: 'Google Login failed' });
+  }
+};
+
+export const appleLogin = async (req: Request, res: Response): Promise<void> => {
+  const { email, username, appleId } = req.body;
+
+  try {
+    let user = await prisma.user.findUnique({ where: { email } });
+
+    if (user) {
+      if (!user.appleId) {
+        user = await prisma.user.update({
+          where: { email },
+          data: { appleId },
+        });
+      }
+    } else {
+      user = await prisma.user.create({
+        data: {
+          email,
+          username: username || email.split('@')[0],
+          appleId,
+        },
+      });
+    }
+
+    const token = generateToken(user);
+    const { password: _, ...userWithoutPassword } = user;
+    res.json({ user: userWithoutPassword, token });
+    console.log(`✅ User ${email} logged in via Apple`);
+  } catch (error) {
+    console.error('❌ Apple Login failed:', error);
+    res.status(500).json({ error: 'Apple Login failed' });
   }
 };
