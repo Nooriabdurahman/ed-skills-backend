@@ -30,6 +30,41 @@ export class QuizService {
   }
 
   /**
+   * Create a quiz with a single question and answers
+   */
+  static async createOneQuestionQuiz(
+    courseId: number,
+    name: string,
+    questionText: string,
+    answers: { answer: string; isCorrect: boolean }[]
+  ) {
+    return prisma.courseQuiz.create({
+      data: {
+        courseId,
+        name,
+        questions: {
+          create: {
+            question: questionText,
+            answers: {
+              create: answers.map((a) => ({
+                answer: a.answer,
+                isCorrect: a.isCorrect,
+              })),
+            },
+          },
+        },
+      },
+      include: {
+        questions: {
+          include: {
+            answers: true,
+          },
+        },
+      },
+    });
+  }
+
+  /**
    * Add a question to a quiz
    */
   static async addQuestion(quizId: number, question: string) {

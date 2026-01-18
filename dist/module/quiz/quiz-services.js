@@ -29,6 +29,35 @@ class QuizService {
         });
     }
     /**
+     * Create a quiz with a single question and answers
+     */
+    static async createOneQuestionQuiz(courseId, name, questionText, answers) {
+        return prisma_1.default.courseQuiz.create({
+            data: {
+                courseId,
+                name,
+                questions: {
+                    create: {
+                        question: questionText,
+                        answers: {
+                            create: answers.map((a) => ({
+                                answer: a.answer,
+                                isCorrect: a.isCorrect,
+                            })),
+                        },
+                    },
+                },
+            },
+            include: {
+                questions: {
+                    include: {
+                        answers: true,
+                    },
+                },
+            },
+        });
+    }
+    /**
      * Add a question to a quiz
      */
     static async addQuestion(quizId, question) {

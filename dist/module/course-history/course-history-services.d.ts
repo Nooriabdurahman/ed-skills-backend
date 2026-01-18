@@ -24,11 +24,14 @@ export declare class CourseHistoryService {
                 text: string | null;
                 url: string | null;
                 video: string | null;
+                fileType: string | null;
+                fileSize: number | null;
                 courseId: number;
             }[];
         } & {
             id: number;
             createdAt: Date;
+            progress: number | null;
             name: string;
             description: string;
             subject: string;
@@ -49,7 +52,6 @@ export declare class CourseHistoryService {
             materialStatusType: string;
             isCertified: boolean;
             typeImage: string | null;
-            progress: number | null;
             duration: string | null;
             updatedAt: Date;
         };

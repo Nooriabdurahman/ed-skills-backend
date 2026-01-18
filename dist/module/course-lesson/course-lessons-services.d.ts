@@ -10,6 +10,8 @@ export declare class CourseLessonService {
         text: string | null;
         url: string | null;
         video: string | null;
+        fileType: string | null;
+        fileSize: number | null;
         courseId: number;
     }>;
     static getByCourse(courseId: number): Promise<{
@@ -20,6 +22,8 @@ export declare class CourseLessonService {
         text: string | null;
         url: string | null;
         video: string | null;
+        fileType: string | null;
+        fileSize: number | null;
         courseId: number;
     }[]>;
 }

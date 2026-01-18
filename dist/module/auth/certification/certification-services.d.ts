@@ -45,6 +45,7 @@ export declare class CertificationService {
         course: {
             id: number;
             createdAt: Date;
+            progress: number | null;
             name: string;
             description: string;
             subject: string;
@@ -65,7 +66,6 @@ export declare class CertificationService {
             materialStatusType: string;
             isCertified: boolean;
             typeImage: string | null;
-            progress: number | null;
             duration: string | null;
             updatedAt: Date;
         };

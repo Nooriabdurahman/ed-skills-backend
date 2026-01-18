@@ -45,6 +45,48 @@ const router = express_1.default.Router();
 router.post("/", quiz_controller_1.QuizController.createQuiz);
 /**
  * @swagger
+ * /quizzes/one-question:
+ *   post:
+ *     summary: Create a quiz with one question and four answers
+ *     tags: [Quizzes]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - courseId
+ *               - name
+ *               - question
+ *               - answers
+ *             properties:
+ *               courseId:
+ *                 type: integer
+ *               name:
+ *                 type: string
+ *               question:
+ *                 type: string
+ *               answers:
+ *                 type: array
+ *                 items:
+ *                   type: object
+ *                   properties:
+ *                     answer:
+ *                       type: string
+ *                     isCorrect:
+ *                       type: boolean
+ *                 minItems: 4
+ *                 maxItems: 4
+ *     responses:
+ *       201:
+ *         description: Quiz created successfully
+ *       400:
+ *         description: Bad request (invalid structure or correct answer count)
+ */
+router.post("/one-question", quiz_controller_1.QuizController.createOneQuestionQuiz);
+/**
+ * @swagger
  * /quizzes/questions:
  *   post:
  *     summary: Add a question to a quiz

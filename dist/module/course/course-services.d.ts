@@ -1,6 +1,7 @@
 export declare const createCourse: (data: any) => Promise<{
     id: number;
     createdAt: Date;
+    progress: number | null;
     name: string;
     description: string;
     subject: string;
@@ -21,13 +22,13 @@ export declare const createCourse: (data: any) => Promise<{
     materialStatusType: string;
     isCertified: boolean;
     typeImage: string | null;
-    progress: number | null;
     duration: string | null;
     updatedAt: Date;
 }>;
 export declare const getAllCourses: () => Promise<{
     id: number;
     createdAt: Date;
+    progress: number | null;
     name: string;
     description: string;
     subject: string;
@@ -48,13 +49,13 @@ export declare const getAllCourses: () => Promise<{
     materialStatusType: string;
     isCertified: boolean;
     typeImage: string | null;
-    progress: number | null;
     duration: string | null;
     updatedAt: Date;
 }[]>;
 export declare const getCourseById: (id: number) => Promise<{
     id: number;
     createdAt: Date;
+    progress: number | null;
     name: string;
     description: string;
     subject: string;
@@ -75,13 +76,13 @@ export declare const getCourseById: (id: number) => Promise<{
     materialStatusType: string;
     isCertified: boolean;
     typeImage: string | null;
-    progress: number | null;
     duration: string | null;
     updatedAt: Date;
 } | null>;
 export declare const updateCourse: (id: number, data: any) => Promise<{
     id: number;
     createdAt: Date;
+    progress: number | null;
     name: string;
     description: string;
     subject: string;
@@ -102,13 +103,13 @@ export declare const updateCourse: (id: number, data: any) => Promise<{
     materialStatusType: string;
     isCertified: boolean;
     typeImage: string | null;
-    progress: number | null;
     duration: string | null;
     updatedAt: Date;
 }>;
 export declare const deleteCourse: (id: number) => Promise<{
     id: number;
     createdAt: Date;
+    progress: number | null;
     name: string;
     description: string;
     subject: string;
@@ -129,7 +130,6 @@ export declare const deleteCourse: (id: number) => Promise<{
     materialStatusType: string;
     isCertified: boolean;
     typeImage: string | null;
-    progress: number | null;
     duration: string | null;
     updatedAt: Date;
 }>;

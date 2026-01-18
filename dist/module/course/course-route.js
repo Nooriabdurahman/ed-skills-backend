@@ -224,7 +224,23 @@ router.get('/courses/:id', async (req, res) => {
  *       500:
  *         description: Server error
  */
-router.delete('/courses/:id', course_services_1.deleteCourse);
+router.delete('/courses/:id', async (req, res) => {
+    try {
+        const courseId = Number(req.params.id);
+        if (isNaN(courseId)) {
+            return res.status(400).json({ error: 'Invalid course ID' });
+        }
+        await (0, course_services_1.deleteCourse)(courseId);
+        return res.status(200).json({ message: 'Course deleted successfully' });
+    }
+    catch (err) {
+        if (err.code === 'P2025') {
+            return res.status(404).json({ error: 'Course not found' });
+        }
+        console.error(err);
+        return res.status(500).json({ error: 'Error deleting course' });
+    }
+});
 router.use('/courses/:courseId/lessons', course_lessons_routes_1.default);
 exports.default = router;
 //# sourceMappingURL=course-route.js.map

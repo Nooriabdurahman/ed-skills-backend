@@ -37,6 +37,38 @@ export declare class QuizService {
         badgeId: number | null;
     }>;
     /**
+     * Create a quiz with a single question and answers
+     */
+    static createOneQuestionQuiz(courseId: number, name: string, questionText: string, answers: {
+        answer: string;
+        isCorrect: boolean;
+    }[]): Promise<{
+        questions: ({
+            answers: {
+                id: number;
+                createdAt: Date;
+                updatedAt: Date;
+                answer: string;
+                isCorrect: boolean;
+                questionId: number;
+            }[];
+        } & {
+            id: number;
+            createdAt: Date;
+            updatedAt: Date;
+            question: string;
+            quizId: number;
+        })[];
+    } & {
+        id: number;
+        createdAt: Date;
+        name: string;
+        description: string | null;
+        updatedAt: Date;
+        courseId: number;
+        badgeId: number | null;
+    }>;
+    /**
      * Add a question to a quiz
      */
     static addQuestion(quizId: number, question: string): Promise<{

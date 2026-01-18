@@ -37,6 +37,55 @@ export class QuizController {
   }
 
   /**
+   * Create a quiz with one question and four answers
+   */
+  static async createOneQuestionQuiz(req: Request, res: Response) {
+    try {
+      const { courseId, name, question, answers } = req.body;
+
+      if (!courseId || !name || !question) {
+        return res.status(400).json({
+          success: false,
+          message: "Course ID, name, and question are required",
+        });
+      }
+
+      if (!Array.isArray(answers) || answers.length !== 4) {
+        return res.status(400).json({
+          success: false,
+          message: "Exactly 4 answers are required",
+        });
+      }
+
+      const correctCount = answers.filter((a: any) => a.isCorrect === true).length;
+      if (correctCount !== 1) {
+        return res.status(400).json({
+          success: false,
+          message: "Exactly one answer must be correct",
+        });
+      }
+
+      const quiz = await QuizService.createOneQuestionQuiz(
+        courseId,
+        name,
+        question,
+        answers
+      );
+
+      return res.status(201).json({
+        success: true,
+        data: quiz,
+      });
+    } catch (error: any) {
+      console.error("Error creating one-question quiz:", error);
+      return res.status(500).json({
+        success: false,
+        message: error.message || "Error creating quiz",
+      });
+    }
+  }
+
+  /**
    * Add a question to a quiz
    */
   static async addQuestion(req: Request, res: Response) {

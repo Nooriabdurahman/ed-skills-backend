@@ -5,6 +5,10 @@ export declare class QuizController {
      */
     static createQuiz(req: Request, res: Response): Promise<Response<any, Record<string, any>>>;
     /**
+     * Create a quiz with one question and four answers
+     */
+    static createOneQuestionQuiz(req: Request, res: Response): Promise<Response<any, Record<string, any>>>;
+    /**
      * Add a question to a quiz
      */
     static addQuestion(req: Request, res: Response): Promise<Response<any, Record<string, any>>>;

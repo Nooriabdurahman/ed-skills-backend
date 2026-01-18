@@ -4,5 +4,7 @@ export interface CreateCourseLessonDto {
     content?: string;
     text?: string;
     url?: string;
+    fileType?: string;
+    fileSize?: number;
 }
 //# sourceMappingURL=create-course-lesson.d.ts.map

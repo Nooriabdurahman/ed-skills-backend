@@ -18,6 +18,8 @@ class CourseLessonController {
             }
             let video = null;
             let file = null;
+            let fileType = null;
+            let fileSize = null;
             const files = req.files;
             if (files?.video?.[0]) {
                 const fileName = crypto_1.default.randomBytes(16).toString("hex") + path_1.default.extname(files.video[0].originalname);
@@ -35,6 +37,8 @@ class CourseLessonController {
                     addRandomSuffix: true,
                 });
                 file = result.url;
+                fileType = files.file[0].mimetype;
+                fileSize = files.file[0].size;
                 fs_1.default.unlinkSync(files.file[0].path);
             }
             const lesson = await course_lessons_services_1.CourseLessonService.create({
@@ -42,6 +46,8 @@ class CourseLessonController {
                 courseId,
                 video,
                 url: file, // ذخیره فایل اضافی در فیلد url
+                fileType: fileType ?? undefined,
+                fileSize: fileSize ?? undefined,
             });
             return res.status(201).json({ success: true, data: lesson });
         }
