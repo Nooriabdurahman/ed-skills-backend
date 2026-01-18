@@ -58,6 +58,11 @@ model Course {
   typeImage           String?  // URL or file path
   progress            Float?   // 0 to 100
   duration            String?  // e.g., "35 minutes"
+  content             String?
+  contentType         String?
+  points              String?
+  passingPoints       String?
+  type                String?
   lessons             CourseLesson[]  // ← فیلد رابطه‌ای معکوس
   tests               CourseTest[]
   quizzes             CourseQuiz[]

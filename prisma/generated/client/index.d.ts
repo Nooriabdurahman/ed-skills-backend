@@ -4454,6 +4454,11 @@ export namespace Prisma {
     typeImage: string | null
     progress: number | null
     duration: string | null
+    content: string | null
+    contentType: string | null
+    points: string | null
+    passingPoints: string | null
+    type: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -4482,6 +4487,11 @@ export namespace Prisma {
     typeImage: string | null
     progress: number | null
     duration: string | null
+    content: string | null
+    contentType: string | null
+    points: string | null
+    passingPoints: string | null
+    type: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -4510,6 +4520,11 @@ export namespace Prisma {
     typeImage: number
     progress: number
     duration: number
+    content: number
+    contentType: number
+    points: number
+    passingPoints: number
+    type: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -4554,6 +4569,11 @@ export namespace Prisma {
     typeImage?: true
     progress?: true
     duration?: true
+    content?: true
+    contentType?: true
+    points?: true
+    passingPoints?: true
+    type?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -4582,6 +4602,11 @@ export namespace Prisma {
     typeImage?: true
     progress?: true
     duration?: true
+    content?: true
+    contentType?: true
+    points?: true
+    passingPoints?: true
+    type?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -4610,6 +4635,11 @@ export namespace Prisma {
     typeImage?: true
     progress?: true
     duration?: true
+    content?: true
+    contentType?: true
+    points?: true
+    passingPoints?: true
+    type?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -4725,6 +4755,11 @@ export namespace Prisma {
     typeImage: string | null
     progress: number | null
     duration: string | null
+    content: string | null
+    contentType: string | null
+    points: string | null
+    passingPoints: string | null
+    type: string | null
     createdAt: Date
     updatedAt: Date
     _count: CourseCountAggregateOutputType | null
@@ -4772,6 +4807,11 @@ export namespace Prisma {
     typeImage?: boolean
     progress?: boolean
     duration?: boolean
+    content?: boolean
+    contentType?: boolean
+    points?: boolean
+    passingPoints?: boolean
+    type?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     lessons?: boolean | Course$lessonsArgs<ExtArgs>
@@ -4806,6 +4846,11 @@ export namespace Prisma {
     typeImage?: boolean
     progress?: boolean
     duration?: boolean
+    content?: boolean
+    contentType?: boolean
+    points?: boolean
+    passingPoints?: boolean
+    type?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["course"]>
@@ -4834,6 +4879,11 @@ export namespace Prisma {
     typeImage?: boolean
     progress?: boolean
     duration?: boolean
+    content?: boolean
+    contentType?: boolean
+    points?: boolean
+    passingPoints?: boolean
+    type?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["course"]>
@@ -4862,11 +4912,16 @@ export namespace Prisma {
     typeImage?: boolean
     progress?: boolean
     duration?: boolean
+    content?: boolean
+    contentType?: boolean
+    points?: boolean
+    passingPoints?: boolean
+    type?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type CourseOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "subject" | "trainer" | "trainerImage" | "dialog" | "nextStep" | "icon" | "picture" | "materialType" | "materialCount" | "firstRecommendation" | "secondRecommendation" | "topic" | "quizTotalScore" | "quizPassingScore" | "status" | "materialStatusType" | "isCertified" | "typeImage" | "progress" | "duration" | "createdAt" | "updatedAt", ExtArgs["result"]["course"]>
+  export type CourseOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "subject" | "trainer" | "trainerImage" | "dialog" | "nextStep" | "icon" | "picture" | "materialType" | "materialCount" | "firstRecommendation" | "secondRecommendation" | "topic" | "quizTotalScore" | "quizPassingScore" | "status" | "materialStatusType" | "isCertified" | "typeImage" | "progress" | "duration" | "content" | "contentType" | "points" | "passingPoints" | "type" | "createdAt" | "updatedAt", ExtArgs["result"]["course"]>
   export type CourseInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     lessons?: boolean | Course$lessonsArgs<ExtArgs>
     tests?: boolean | Course$testsArgs<ExtArgs>
@@ -4911,6 +4966,11 @@ export namespace Prisma {
       typeImage: string | null
       progress: number | null
       duration: string | null
+      content: string | null
+      contentType: string | null
+      points: string | null
+      passingPoints: string | null
+      type: string | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["course"]>
@@ -5364,6 +5424,11 @@ export namespace Prisma {
     readonly typeImage: FieldRef<"Course", 'String'>
     readonly progress: FieldRef<"Course", 'Float'>
     readonly duration: FieldRef<"Course", 'String'>
+    readonly content: FieldRef<"Course", 'String'>
+    readonly contentType: FieldRef<"Course", 'String'>
+    readonly points: FieldRef<"Course", 'String'>
+    readonly passingPoints: FieldRef<"Course", 'String'>
+    readonly type: FieldRef<"Course", 'String'>
     readonly createdAt: FieldRef<"Course", 'DateTime'>
     readonly updatedAt: FieldRef<"Course", 'DateTime'>
   }
@@ -26510,6 +26575,11 @@ export namespace Prisma {
     typeImage: 'typeImage',
     progress: 'progress',
     duration: 'duration',
+    content: 'content',
+    contentType: 'contentType',
+    points: 'points',
+    passingPoints: 'passingPoints',
+    type: 'type',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -26974,6 +27044,11 @@ export namespace Prisma {
     typeImage?: StringNullableFilter<"Course"> | string | null
     progress?: FloatNullableFilter<"Course"> | number | null
     duration?: StringNullableFilter<"Course"> | string | null
+    content?: StringNullableFilter<"Course"> | string | null
+    contentType?: StringNullableFilter<"Course"> | string | null
+    points?: StringNullableFilter<"Course"> | string | null
+    passingPoints?: StringNullableFilter<"Course"> | string | null
+    type?: StringNullableFilter<"Course"> | string | null
     createdAt?: DateTimeFilter<"Course"> | Date | string
     updatedAt?: DateTimeFilter<"Course"> | Date | string
     lessons?: CourseLessonListRelationFilter
@@ -27007,6 +27082,11 @@ export namespace Prisma {
     typeImage?: SortOrderInput | SortOrder
     progress?: SortOrderInput | SortOrder
     duration?: SortOrderInput | SortOrder
+    content?: SortOrderInput | SortOrder
+    contentType?: SortOrderInput | SortOrder
+    points?: SortOrderInput | SortOrder
+    passingPoints?: SortOrderInput | SortOrder
+    type?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     lessons?: CourseLessonOrderByRelationAggregateInput
@@ -27043,6 +27123,11 @@ export namespace Prisma {
     typeImage?: StringNullableFilter<"Course"> | string | null
     progress?: FloatNullableFilter<"Course"> | number | null
     duration?: StringNullableFilter<"Course"> | string | null
+    content?: StringNullableFilter<"Course"> | string | null
+    contentType?: StringNullableFilter<"Course"> | string | null
+    points?: StringNullableFilter<"Course"> | string | null
+    passingPoints?: StringNullableFilter<"Course"> | string | null
+    type?: StringNullableFilter<"Course"> | string | null
     createdAt?: DateTimeFilter<"Course"> | Date | string
     updatedAt?: DateTimeFilter<"Course"> | Date | string
     lessons?: CourseLessonListRelationFilter
@@ -27076,6 +27161,11 @@ export namespace Prisma {
     typeImage?: SortOrderInput | SortOrder
     progress?: SortOrderInput | SortOrder
     duration?: SortOrderInput | SortOrder
+    content?: SortOrderInput | SortOrder
+    contentType?: SortOrderInput | SortOrder
+    points?: SortOrderInput | SortOrder
+    passingPoints?: SortOrderInput | SortOrder
+    type?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: CourseCountOrderByAggregateInput
@@ -27112,6 +27202,11 @@ export namespace Prisma {
     typeImage?: StringNullableWithAggregatesFilter<"Course"> | string | null
     progress?: FloatNullableWithAggregatesFilter<"Course"> | number | null
     duration?: StringNullableWithAggregatesFilter<"Course"> | string | null
+    content?: StringNullableWithAggregatesFilter<"Course"> | string | null
+    contentType?: StringNullableWithAggregatesFilter<"Course"> | string | null
+    points?: StringNullableWithAggregatesFilter<"Course"> | string | null
+    passingPoints?: StringNullableWithAggregatesFilter<"Course"> | string | null
+    type?: StringNullableWithAggregatesFilter<"Course"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Course"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Course"> | Date | string
   }
@@ -28503,6 +28598,11 @@ export namespace Prisma {
     typeImage?: string | null
     progress?: number | null
     duration?: string | null
+    content?: string | null
+    contentType?: string | null
+    points?: string | null
+    passingPoints?: string | null
+    type?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     lessons?: CourseLessonCreateNestedManyWithoutCourseInput
@@ -28536,6 +28636,11 @@ export namespace Prisma {
     typeImage?: string | null
     progress?: number | null
     duration?: string | null
+    content?: string | null
+    contentType?: string | null
+    points?: string | null
+    passingPoints?: string | null
+    type?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     lessons?: CourseLessonUncheckedCreateNestedManyWithoutCourseInput
@@ -28568,6 +28673,11 @@ export namespace Prisma {
     typeImage?: NullableStringFieldUpdateOperationsInput | string | null
     progress?: NullableFloatFieldUpdateOperationsInput | number | null
     duration?: NullableStringFieldUpdateOperationsInput | string | null
+    content?: NullableStringFieldUpdateOperationsInput | string | null
+    contentType?: NullableStringFieldUpdateOperationsInput | string | null
+    points?: NullableStringFieldUpdateOperationsInput | string | null
+    passingPoints?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lessons?: CourseLessonUpdateManyWithoutCourseNestedInput
@@ -28601,6 +28711,11 @@ export namespace Prisma {
     typeImage?: NullableStringFieldUpdateOperationsInput | string | null
     progress?: NullableFloatFieldUpdateOperationsInput | number | null
     duration?: NullableStringFieldUpdateOperationsInput | string | null
+    content?: NullableStringFieldUpdateOperationsInput | string | null
+    contentType?: NullableStringFieldUpdateOperationsInput | string | null
+    points?: NullableStringFieldUpdateOperationsInput | string | null
+    passingPoints?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lessons?: CourseLessonUncheckedUpdateManyWithoutCourseNestedInput
@@ -28634,6 +28749,11 @@ export namespace Prisma {
     typeImage?: string | null
     progress?: number | null
     duration?: string | null
+    content?: string | null
+    contentType?: string | null
+    points?: string | null
+    passingPoints?: string | null
+    type?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -28661,6 +28781,11 @@ export namespace Prisma {
     typeImage?: NullableStringFieldUpdateOperationsInput | string | null
     progress?: NullableFloatFieldUpdateOperationsInput | number | null
     duration?: NullableStringFieldUpdateOperationsInput | string | null
+    content?: NullableStringFieldUpdateOperationsInput | string | null
+    contentType?: NullableStringFieldUpdateOperationsInput | string | null
+    points?: NullableStringFieldUpdateOperationsInput | string | null
+    passingPoints?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -28689,6 +28814,11 @@ export namespace Prisma {
     typeImage?: NullableStringFieldUpdateOperationsInput | string | null
     progress?: NullableFloatFieldUpdateOperationsInput | number | null
     duration?: NullableStringFieldUpdateOperationsInput | string | null
+    content?: NullableStringFieldUpdateOperationsInput | string | null
+    contentType?: NullableStringFieldUpdateOperationsInput | string | null
+    points?: NullableStringFieldUpdateOperationsInput | string | null
+    passingPoints?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -30251,6 +30381,11 @@ export namespace Prisma {
     typeImage?: SortOrder
     progress?: SortOrder
     duration?: SortOrder
+    content?: SortOrder
+    contentType?: SortOrder
+    points?: SortOrder
+    passingPoints?: SortOrder
+    type?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -30286,6 +30421,11 @@ export namespace Prisma {
     typeImage?: SortOrder
     progress?: SortOrder
     duration?: SortOrder
+    content?: SortOrder
+    contentType?: SortOrder
+    points?: SortOrder
+    passingPoints?: SortOrder
+    type?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -30314,6 +30454,11 @@ export namespace Prisma {
     typeImage?: SortOrder
     progress?: SortOrder
     duration?: SortOrder
+    content?: SortOrder
+    contentType?: SortOrder
+    points?: SortOrder
+    passingPoints?: SortOrder
+    type?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -33695,6 +33840,11 @@ export namespace Prisma {
     typeImage?: string | null
     progress?: number | null
     duration?: string | null
+    content?: string | null
+    contentType?: string | null
+    points?: string | null
+    passingPoints?: string | null
+    type?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     tests?: CourseTestCreateNestedManyWithoutCourseInput
@@ -33727,6 +33877,11 @@ export namespace Prisma {
     typeImage?: string | null
     progress?: number | null
     duration?: string | null
+    content?: string | null
+    contentType?: string | null
+    points?: string | null
+    passingPoints?: string | null
+    type?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     tests?: CourseTestUncheckedCreateNestedManyWithoutCourseInput
@@ -33824,6 +33979,11 @@ export namespace Prisma {
     typeImage?: NullableStringFieldUpdateOperationsInput | string | null
     progress?: NullableFloatFieldUpdateOperationsInput | number | null
     duration?: NullableStringFieldUpdateOperationsInput | string | null
+    content?: NullableStringFieldUpdateOperationsInput | string | null
+    contentType?: NullableStringFieldUpdateOperationsInput | string | null
+    points?: NullableStringFieldUpdateOperationsInput | string | null
+    passingPoints?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tests?: CourseTestUpdateManyWithoutCourseNestedInput
@@ -33856,6 +34016,11 @@ export namespace Prisma {
     typeImage?: NullableStringFieldUpdateOperationsInput | string | null
     progress?: NullableFloatFieldUpdateOperationsInput | number | null
     duration?: NullableStringFieldUpdateOperationsInput | string | null
+    content?: NullableStringFieldUpdateOperationsInput | string | null
+    contentType?: NullableStringFieldUpdateOperationsInput | string | null
+    points?: NullableStringFieldUpdateOperationsInput | string | null
+    passingPoints?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tests?: CourseTestUncheckedUpdateManyWithoutCourseNestedInput
@@ -34135,6 +34300,11 @@ export namespace Prisma {
     typeImage?: string | null
     progress?: number | null
     duration?: string | null
+    content?: string | null
+    contentType?: string | null
+    points?: string | null
+    passingPoints?: string | null
+    type?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     lessons?: CourseLessonCreateNestedManyWithoutCourseInput
@@ -34167,6 +34337,11 @@ export namespace Prisma {
     typeImage?: string | null
     progress?: number | null
     duration?: string | null
+    content?: string | null
+    contentType?: string | null
+    points?: string | null
+    passingPoints?: string | null
+    type?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     lessons?: CourseLessonUncheckedCreateNestedManyWithoutCourseInput
@@ -34266,6 +34441,11 @@ export namespace Prisma {
     typeImage?: NullableStringFieldUpdateOperationsInput | string | null
     progress?: NullableFloatFieldUpdateOperationsInput | number | null
     duration?: NullableStringFieldUpdateOperationsInput | string | null
+    content?: NullableStringFieldUpdateOperationsInput | string | null
+    contentType?: NullableStringFieldUpdateOperationsInput | string | null
+    points?: NullableStringFieldUpdateOperationsInput | string | null
+    passingPoints?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lessons?: CourseLessonUpdateManyWithoutCourseNestedInput
@@ -34298,6 +34478,11 @@ export namespace Prisma {
     typeImage?: NullableStringFieldUpdateOperationsInput | string | null
     progress?: NullableFloatFieldUpdateOperationsInput | number | null
     duration?: NullableStringFieldUpdateOperationsInput | string | null
+    content?: NullableStringFieldUpdateOperationsInput | string | null
+    contentType?: NullableStringFieldUpdateOperationsInput | string | null
+    points?: NullableStringFieldUpdateOperationsInput | string | null
+    passingPoints?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lessons?: CourseLessonUncheckedUpdateManyWithoutCourseNestedInput
@@ -34329,6 +34514,11 @@ export namespace Prisma {
     typeImage?: string | null
     progress?: number | null
     duration?: string | null
+    content?: string | null
+    contentType?: string | null
+    points?: string | null
+    passingPoints?: string | null
+    type?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     lessons?: CourseLessonCreateNestedManyWithoutCourseInput
@@ -34361,6 +34551,11 @@ export namespace Prisma {
     typeImage?: string | null
     progress?: number | null
     duration?: string | null
+    content?: string | null
+    contentType?: string | null
+    points?: string | null
+    passingPoints?: string | null
+    type?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     lessons?: CourseLessonUncheckedCreateNestedManyWithoutCourseInput
@@ -34464,6 +34659,11 @@ export namespace Prisma {
     typeImage?: NullableStringFieldUpdateOperationsInput | string | null
     progress?: NullableFloatFieldUpdateOperationsInput | number | null
     duration?: NullableStringFieldUpdateOperationsInput | string | null
+    content?: NullableStringFieldUpdateOperationsInput | string | null
+    contentType?: NullableStringFieldUpdateOperationsInput | string | null
+    points?: NullableStringFieldUpdateOperationsInput | string | null
+    passingPoints?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lessons?: CourseLessonUpdateManyWithoutCourseNestedInput
@@ -34496,6 +34696,11 @@ export namespace Prisma {
     typeImage?: NullableStringFieldUpdateOperationsInput | string | null
     progress?: NullableFloatFieldUpdateOperationsInput | number | null
     duration?: NullableStringFieldUpdateOperationsInput | string | null
+    content?: NullableStringFieldUpdateOperationsInput | string | null
+    contentType?: NullableStringFieldUpdateOperationsInput | string | null
+    points?: NullableStringFieldUpdateOperationsInput | string | null
+    passingPoints?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lessons?: CourseLessonUncheckedUpdateManyWithoutCourseNestedInput
@@ -34973,6 +35178,11 @@ export namespace Prisma {
     typeImage?: string | null
     progress?: number | null
     duration?: string | null
+    content?: string | null
+    contentType?: string | null
+    points?: string | null
+    passingPoints?: string | null
+    type?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     lessons?: CourseLessonCreateNestedManyWithoutCourseInput
@@ -35005,6 +35215,11 @@ export namespace Prisma {
     typeImage?: string | null
     progress?: number | null
     duration?: string | null
+    content?: string | null
+    contentType?: string | null
+    points?: string | null
+    passingPoints?: string | null
+    type?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     lessons?: CourseLessonUncheckedCreateNestedManyWithoutCourseInput
@@ -35134,6 +35349,11 @@ export namespace Prisma {
     typeImage?: NullableStringFieldUpdateOperationsInput | string | null
     progress?: NullableFloatFieldUpdateOperationsInput | number | null
     duration?: NullableStringFieldUpdateOperationsInput | string | null
+    content?: NullableStringFieldUpdateOperationsInput | string | null
+    contentType?: NullableStringFieldUpdateOperationsInput | string | null
+    points?: NullableStringFieldUpdateOperationsInput | string | null
+    passingPoints?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lessons?: CourseLessonUpdateManyWithoutCourseNestedInput
@@ -35166,6 +35386,11 @@ export namespace Prisma {
     typeImage?: NullableStringFieldUpdateOperationsInput | string | null
     progress?: NullableFloatFieldUpdateOperationsInput | number | null
     duration?: NullableStringFieldUpdateOperationsInput | string | null
+    content?: NullableStringFieldUpdateOperationsInput | string | null
+    contentType?: NullableStringFieldUpdateOperationsInput | string | null
+    points?: NullableStringFieldUpdateOperationsInput | string | null
+    passingPoints?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lessons?: CourseLessonUncheckedUpdateManyWithoutCourseNestedInput
@@ -35869,6 +36094,11 @@ export namespace Prisma {
     typeImage?: string | null
     progress?: number | null
     duration?: string | null
+    content?: string | null
+    contentType?: string | null
+    points?: string | null
+    passingPoints?: string | null
+    type?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     lessons?: CourseLessonCreateNestedManyWithoutCourseInput
@@ -35901,6 +36131,11 @@ export namespace Prisma {
     typeImage?: string | null
     progress?: number | null
     duration?: string | null
+    content?: string | null
+    contentType?: string | null
+    points?: string | null
+    passingPoints?: string | null
+    type?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     lessons?: CourseLessonUncheckedCreateNestedManyWithoutCourseInput
@@ -36000,6 +36235,11 @@ export namespace Prisma {
     typeImage?: NullableStringFieldUpdateOperationsInput | string | null
     progress?: NullableFloatFieldUpdateOperationsInput | number | null
     duration?: NullableStringFieldUpdateOperationsInput | string | null
+    content?: NullableStringFieldUpdateOperationsInput | string | null
+    contentType?: NullableStringFieldUpdateOperationsInput | string | null
+    points?: NullableStringFieldUpdateOperationsInput | string | null
+    passingPoints?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lessons?: CourseLessonUpdateManyWithoutCourseNestedInput
@@ -36032,6 +36272,11 @@ export namespace Prisma {
     typeImage?: NullableStringFieldUpdateOperationsInput | string | null
     progress?: NullableFloatFieldUpdateOperationsInput | number | null
     duration?: NullableStringFieldUpdateOperationsInput | string | null
+    content?: NullableStringFieldUpdateOperationsInput | string | null
+    contentType?: NullableStringFieldUpdateOperationsInput | string | null
+    points?: NullableStringFieldUpdateOperationsInput | string | null
+    passingPoints?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lessons?: CourseLessonUncheckedUpdateManyWithoutCourseNestedInput

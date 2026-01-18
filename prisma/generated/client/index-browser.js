@@ -157,6 +157,11 @@ exports.Prisma.CourseScalarFieldEnum = {
   typeImage: 'typeImage',
   progress: 'progress',
   duration: 'duration',
+  content: 'content',
+  contentType: 'contentType',
+  points: 'points',
+  passingPoints: 'passingPoints',
+  type: 'type',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };

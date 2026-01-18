@@ -76,12 +76,16 @@ const upload = multer({ storage });
  *       500:
  *         description: Server error
  */
-router.post('/courses', upload.fields([
-  { name: 'file', maxCount: 1 },
-  { name: 'trainerImage', maxCount: 1 },
-  { name: 'typeImage', maxCount: 1 }
-]), async (req, res) => {
+router.post('/courses', upload.any(), async (req: any, res: any) => {
   try {
+    // 1. Parsing and refinement of numeric fields
+    if (req.body.quizTotalScore === '' || req.body.quizTotalScore === 'null') {
+      delete req.body.quizTotalScore;
+    }
+    if (req.body.quizPassingScore === '' || req.body.quizPassingScore === 'null') {
+      delete req.body.quizPassingScore;
+    }
+
     const validated = validateCourse(req.body);
     if (validated?.error) {
       return res.status(400).json({ error: validated.error.details?.[0]?.message || "Invalid input" });
@@ -92,39 +96,31 @@ router.post('/courses', upload.fields([
     let trainerImageUrl: string | null = null;
     let typeImageUrl: string | null = null;
 
-    const files = req.files as { [fieldname: string]: Express.Multer.File[] };
+    // 2. Handle generic file uploads from upload.any()
+    // req.files is an array of files
+    if (req.files && Array.isArray(req.files)) {
+      for (const file of req.files) {
+        const fieldName = file.fieldname;
+        // Upload to blob
+        const fileName = crypto.randomBytes(16).toString('hex') + path.extname(file.originalname);
+        const result = await put(fileName, fs.readFileSync(file.path), {
+          access: 'public',
+          addRandomSuffix: true
+        });
 
-    // Handle course image
-    if (files && files.file && files.file[0]) {
-      const fileName = crypto.randomBytes(16).toString('hex') + path.extname(files.file[0].originalname);
-      const result = await put(fileName, fs.readFileSync(files.file[0].path), {
-        access: 'public',
-        addRandomSuffix: true
-      });
-      fileUrl = result.url;
-      fs.unlinkSync(files.file[0].path);
-    }
+        // Map common field names to our specific URL variables
+        if (fieldName === 'file' || fieldName === 'courseImage' || fieldName === 'picture') {
+          fileUrl = result.url;
+        } else if (fieldName === 'trainerImage' || fieldName === 'trainer') {
+          // careful: 'trainer' might be text field too, but here we process files
+          trainerImageUrl = result.url;
+        } else if (fieldName === 'typeImage') {
+          typeImageUrl = result.url;
+        }
 
-    // Handle trainer image
-    if (files && files.trainerImage && files.trainerImage[0]) {
-      const fileName = crypto.randomBytes(16).toString('hex') + path.extname(files.trainerImage[0].originalname);
-      const result = await put(fileName, fs.readFileSync(files.trainerImage[0].path), {
-        access: 'public',
-        addRandomSuffix: true
-      });
-      trainerImageUrl = result.url;
-      fs.unlinkSync(files.trainerImage[0].path);
-    }
-
-    // Handle type image
-    if (files && files.typeImage && files.typeImage[0]) {
-      const fileName = crypto.randomBytes(16).toString('hex') + path.extname(files.typeImage[0].originalname);
-      const result = await put(fileName, fs.readFileSync(files.typeImage[0].path), {
-        access: 'public',
-        addRandomSuffix: true
-      });
-      typeImageUrl = result.url;
-      fs.unlinkSync(files.typeImage[0].path);
+        // Clean up local file
+        fs.unlinkSync(file.path);
+      }
     }
 
     const course = await createCourse({
@@ -136,7 +132,7 @@ router.post('/courses', upload.fields([
 
     return res.status(201).json({ course });
   } catch (err) {
-    console.error(err);
+    console.error("Error creating course:", err);
     return res.status(500).json({ error: 'Error creating course' });
   }
 });
