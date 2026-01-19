@@ -1,6 +1,8 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
+import session from 'express-session';
+import passport from './common/config/passport';
 import userRoutes from "./module/auth/auth-route";
 import profileRoutes from './module/profile/profile-route';
 import courseRoutes from './module/course/course-route';
@@ -16,12 +18,27 @@ import userPerformanceRoutes from './module/user-performance/user-performance-ro
 
 const app = express();
 app.use(cors({
-  origin: "*", 
+  origin: "*",
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
 }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET || 'ed-skills-secret',
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      secure: process.env.NODE_ENV === 'production',
+      maxAge: 24 * 60 * 60 * 1000, // 24 hours
+    },
+  })
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 
 app.use('/users', userRoutes);

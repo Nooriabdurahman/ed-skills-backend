@@ -144,13 +144,18 @@ const googleLogin = async (req, res) => {
     try {
         let user = await prisma_1.default.user.findUnique({ where: { email } });
         if (user) {
-            // If user exists, update their googleId if it's not set
-            if (!user.googleId) {
-                user = await prisma_1.default.user.update({
-                    where: { email },
-                    data: { googleId, profilePicture: user.profilePicture || profilePicture },
-                });
+            // If user exists, update their googleId, username (if placeholder), and profilePicture
+            const updatedData = {
+                googleId,
+                profilePicture: user.profilePicture || profilePicture,
+            };
+            if (!user.username || user.username.includes('@')) {
+                updatedData.username = username || user.username || email.split('@')[0];
             }
+            user = await prisma_1.default.user.update({
+                where: { email },
+                data: updatedData,
+            });
         }
         else {
             // Create new user if they don't exist

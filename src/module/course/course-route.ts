@@ -4,7 +4,7 @@ import crypto from 'crypto';
 import path from 'path';
 import fs from 'fs';
 import { put } from '@vercel/blob';
-import { createCourse, deleteCourse, getAllCourses, getCourseById } from './course-services';
+import { createCourse, deleteCourse, getAllCourses, getCourseById, updateCourse, duplicateCourse } from './course-services';
 import { validateCourse } from './validate/course-validate';
 import courseLessonsRoutes from '../course-lesson/course-lessons-routes';
 
@@ -248,6 +248,126 @@ router.delete('/courses/:id', async (req, res) => {
   }
 });
 
+
+/**
+ * @swagger
+ * /courses/courses/update/{id}:
+ *   put:
+ *     summary: Update an existing course
+ *     tags: [Courses]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: The course ID
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *               description:
+ *                 type: string
+ *               subject:
+ *                 type: string
+ *               file:
+ *                 type: string
+ *                 format: binary
+ *     responses:
+ *       200:
+ *         description: Course updated successfully
+ *       400:
+ *         description: Bad request
+ *       404:
+ *         description: Course not found
+ *       500:
+ *         description: Server error
+ */
+router.put('/courses/update/:id', upload.any(), async (req: any, res: any) => {
+  try {
+    const courseId = Number(req.params.id);
+    if (isNaN(courseId)) {
+      return res.status(400).json({ error: 'Invalid course ID' });
+    }
+
+    let updateData = { ...req.body };
+
+    // Handle generic file uploads
+    if (req.files && Array.isArray(req.files)) {
+      for (const file of req.files) {
+        const fieldName = file.fieldname;
+        const fileName = crypto.randomBytes(16).toString('hex') + path.extname(file.originalname);
+        const result = await put(fileName, fs.readFileSync(file.path), {
+          access: 'public',
+          addRandomSuffix: true
+        });
+
+        if (fieldName === 'file' || fieldName === 'courseImage' || fieldName === 'picture') {
+          updateData.picture = result.url;
+        } else if (fieldName === 'trainerImage' || fieldName === 'trainer') {
+          updateData.trainerImage = result.url;
+        } else if (fieldName === 'typeImage') {
+          updateData.typeImage = result.url;
+        }
+        fs.unlinkSync(file.path);
+      }
+    }
+
+    const course = await updateCourse(courseId, updateData);
+    return res.status(200).json({ course });
+  } catch (err: any) {
+    if (err.code === 'P2025') {
+      return res.status(404).json({ error: 'Course not found' });
+    }
+    console.error("Error updating course:", err);
+    return res.status(500).json({ error: 'Error updating course' });
+  }
+});
+
+/**
+ * @swagger
+ * /courses/courses/duplicate/{id}:
+ *   post:
+ *     summary: Duplicate an existing course
+ *     tags: [Courses]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: The course ID to duplicate
+ *     responses:
+ *       201:
+ *         description: Course duplicated successfully
+ *       404:
+ *         description: Course not found
+ *       500:
+ *         description: Server error
+ */
+router.post('/courses/duplicate/:id', async (req, res) => {
+  try {
+    const courseId = Number(req.params.id);
+    if (isNaN(courseId)) {
+      return res.status(400).json({ error: 'Invalid course ID' });
+    }
+
+    const newCourse = await duplicateCourse(courseId);
+    if (!newCourse) {
+      return res.status(404).json({ error: 'Course not found' });
+    }
+
+    return res.status(201).json({ course: newCourse });
+  } catch (err) {
+    console.error("Error duplicating course:", err);
+    return res.status(500).json({ error: 'Error duplicating course' });
+  }
+});
 
 router.use('/courses/:courseId/lessons', courseLessonsRoutes);
 

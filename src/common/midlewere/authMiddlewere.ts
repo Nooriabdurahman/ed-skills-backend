@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 
 export interface AuthRequest extends Request {
-  user?: { id: number; email: string };
+  user?: { id: number; email?: string } | undefined;
 }
 
 export const authMiddleware = (req: AuthRequest, res: Response, next: NextFunction): void | Response => {
@@ -13,7 +13,7 @@ export const authMiddleware = (req: AuthRequest, res: Response, next: NextFuncti
   if (!token) return res.status(401).json({ error: 'Invalid token format' });
 
   const secret = process.env.JWT_SECRET ?? 'your-secret-key';
-  
+
   try {
     const decoded = jwt.verify(token, secret) as any;
     req.user = { id: decoded.id, email: decoded.email };

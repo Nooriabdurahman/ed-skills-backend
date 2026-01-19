@@ -158,4 +158,36 @@ export declare const deleteCourse: (id: number) => Promise<{
     type: string | null;
     updatedAt: Date;
 }>;
+export declare const duplicateCourse: (id: number) => Promise<{
+    id: number;
+    createdAt: Date;
+    points: string | null;
+    progress: number | null;
+    name: string;
+    description: string;
+    subject: string;
+    trainer: string | null;
+    trainerImage: string | null;
+    dialog: string | null;
+    nextStep: string | null;
+    icon: string | null;
+    picture: string | null;
+    materialType: string;
+    materialCount: string | null;
+    firstRecommendation: string | null;
+    secondRecommendation: string | null;
+    topic: string | null;
+    quizTotalScore: number | null;
+    quizPassingScore: number | null;
+    status: string;
+    materialStatusType: string;
+    isCertified: boolean;
+    typeImage: string | null;
+    duration: string | null;
+    content: string | null;
+    contentType: string | null;
+    passingPoints: string | null;
+    type: string | null;
+    updatedAt: Date;
+} | null>;
 //# sourceMappingURL=course-services.d.ts.map

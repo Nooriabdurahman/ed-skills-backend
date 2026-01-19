@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken';
 export interface AuthRequest extends Request {
   user?: {
     id: number;
-  };
+  } | undefined;
 }
 
 export const auth = (
@@ -20,7 +20,7 @@ export const auth = (
   }
 
   const token = authHeader.split(' ')[1];
-  
+
   if (!token) {
     res.status(401).json({ error: 'No token provided' });
     return;
@@ -35,7 +35,7 @@ export const auth = (
 
   try {
     const decoded = jwt.verify(token, jwtSecret);
-    
+
     if (typeof decoded === 'object' && decoded !== null && 'id' in decoded) {
       const payload = decoded as { id: number };
       req.user = { id: payload.id }; // ✅ userId from token

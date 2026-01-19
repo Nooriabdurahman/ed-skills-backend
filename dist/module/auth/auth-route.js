@@ -4,8 +4,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const auth_services_1 = require("../auth/auth-services"); // مسیر باید با پروژه تو هماهنگ باشد
+const auth_services_1 = require("../auth/auth-services");
+const passport_1 = __importDefault(require("../../common/config/passport"));
 const register_dto_1 = __importDefault(require("../auth/validator/register.dto"));
+const generateToken_1 = __importDefault(require("../../common/utils/generateToken"));
 const router = express_1.default.Router();
 // Validation middleware
 const validateRequest = (schema) => {
@@ -173,6 +175,37 @@ router.post('/google-login', auth_services_1.googleLogin);
  *         description: Login successful
  */
 router.post('/apple-login', auth_services_1.appleLogin);
+/**
+ * @swagger
+ * /users/auth/google:
+ *   get:
+ *     summary: Initiate Google OAuth login
+ *     tags: [Users]
+ *     responses:
+ *       302:
+ *         description: Redirects to Google login page
+ */
+router.get('/auth/google', passport_1.default.authenticate('google', {
+    scope: ['profile', 'email', 'https://www.googleapis.com/auth/user.birthday.read']
+}));
+/**
+ * @swagger
+ * /users/auth/google/callback:
+ *   get:
+ *     summary: Google OAuth callback
+ *     tags: [Users]
+ *     responses:
+ *       302:
+ *         description: Redirects to frontend with token and user data
+ */
+router.get('/auth/google/callback', passport_1.default.authenticate('google', { failureRedirect: '/login' }), (req, res) => {
+    // Successful authentication, generate token and redirect or send response
+    const user = req.user;
+    const token = (0, generateToken_1.default)(user);
+    // Redirect to frontend with token (you might want to adjust this URL)
+    const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:3000';
+    res.redirect(`${frontendUrl}/auth-success?token=${token}&user=${encodeURIComponent(JSON.stringify(user))}`);
+});
 /**
  * @swagger
  * /users/users/{id}:

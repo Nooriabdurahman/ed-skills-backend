@@ -8,8 +8,10 @@ import {
   deleteUser,
   googleLogin,
   appleLogin
-} from '../auth/auth-services'; // مسیر باید با پروژه تو هماهنگ باشد
+} from '../auth/auth-services';
+import passport from '../../common/config/passport';
 import registerSchema from "../auth/validator/register.dto";
+import generateToken from '../../common/utils/generateToken';
 
 const router = express.Router();
 
@@ -186,6 +188,43 @@ router.post('/google-login', googleLogin);
  *         description: Login successful
  */
 router.post('/apple-login', appleLogin);
+
+/**
+ * @swagger
+ * /users/auth/google:
+ *   get:
+ *     summary: Initiate Google OAuth login
+ *     tags: [Users]
+ *     responses:
+ *       302:
+ *         description: Redirects to Google login page
+ */
+router.get('/auth/google', passport.authenticate('google', {
+  scope: ['profile', 'email', 'https://www.googleapis.com/auth/user.birthday.read']
+}));
+
+/**
+ * @swagger
+ * /users/auth/google/callback:
+ *   get:
+ *     summary: Google OAuth callback
+ *     tags: [Users]
+ *     responses:
+ *       302:
+ *         description: Redirects to frontend with token and user data
+ */
+router.get('/auth/google/callback',
+  passport.authenticate('google', { failureRedirect: '/login' }),
+  (req, res) => {
+    // Successful authentication, generate token and redirect or send response
+    const user = req.user as any;
+    const token = generateToken(user);
+
+    // Redirect to frontend with token (you might want to adjust this URL)
+    const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:3000';
+    res.redirect(`${frontendUrl}/auth-success?token=${token}&user=${encodeURIComponent(JSON.stringify(user))}`);
+  }
+);
 
 /**
  * @swagger

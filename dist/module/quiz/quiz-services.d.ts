@@ -184,12 +184,12 @@ export declare class QuizService {
             createdAt: Date;
             userId: number;
             updatedAt: Date;
+            quizId: number;
             score: number;
             totalQuestions: number;
             correctAnswers: number;
             isPassed: boolean;
             performanceLabel: string | null;
-            quizId: number;
             badgeEarned: boolean;
         };
         score: number;
@@ -238,12 +238,12 @@ export declare class QuizService {
         createdAt: Date;
         userId: number;
         updatedAt: Date;
+        quizId: number;
         score: number;
         totalQuestions: number;
         correctAnswers: number;
         isPassed: boolean;
         performanceLabel: string | null;
-        quizId: number;
         badgeEarned: boolean;
     })[]>;
     /**
