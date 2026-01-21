@@ -91,5 +91,27 @@ router.put('/update', profile_services_1.updateProfile);
  *         description: File upload error
  */
 router.post('/upload-picture', authMiddlewere_1.authMiddleware, upload.single('file'), profile_services_1.uploadProfilePicture);
+/**
+ * @swagger
+ * /profile/activity-time:
+ *   post:
+ *     summary: Update user activity time
+ *     tags: [Profile]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               duration:
+ *                 type: integer
+ *     responses:
+ *       200:
+ *         description: Activity time updated
+ */
+router.post('/activity-time', authMiddlewere_1.authMiddleware, profile_services_1.updateActivityTime);
 exports.default = router;
 //# sourceMappingURL=profile-route.js.map

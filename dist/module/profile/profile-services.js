@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getProfileByUser = exports.updateProfile = exports.uploadProfilePicture = void 0;
+exports.updateActivityTime = exports.getProfileByUser = exports.updateProfile = exports.uploadProfilePicture = void 0;
 const prisma_1 = __importDefault(require("../../common/config/database/prisma"));
 const blob_1 = require("@vercel/blob");
 const crypto_1 = __importDefault(require("crypto"));
@@ -81,4 +81,29 @@ const getProfileByUser = async (req, res) => {
     }
 };
 exports.getProfileByUser = getProfileByUser;
+// Update user activity time
+const updateActivityTime = async (req, res) => {
+    const userId = req.user?.id;
+    const { duration } = req.body; // duration in seconds
+    if (!userId)
+        return res.status(401).json({ error: 'Unauthorized' });
+    if (!duration || typeof duration !== 'number')
+        return res.status(400).json({ error: 'Invalid duration' });
+    try {
+        const user = await prisma_1.default.user.update({
+            where: { id: userId },
+            data: {
+                totalActivityTime: {
+                    increment: duration
+                }
+            }
+        });
+        return res.json({ success: true, totalActivityTime: user.totalActivityTime });
+    }
+    catch (err) {
+        console.error(err);
+        return res.status(500).json({ error: 'Failed to update activity time' });
+    }
+};
+exports.updateActivityTime = updateActivityTime;
 //# sourceMappingURL=profile-services.js.map

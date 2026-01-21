@@ -9,12 +9,25 @@ class TestService {
     /**
      * Create a test for a course
      */
-    static async createTest(courseId, name, description) {
+    /**
+     * Create a test for a course
+     */
+    static async createTest(courseId, name, description, trainer, trainerImage, icon, picture, topic, materialType, status, type, points, passingPoints) {
         return prisma_1.default.courseTest.create({
             data: {
                 courseId,
                 name,
                 description: description ?? null,
+                trainer: trainer ?? null,
+                trainerImage: trainerImage ?? null,
+                icon: icon ?? null,
+                picture: picture ?? null,
+                topic: topic ?? null,
+                materialType: materialType ?? null,
+                status: status ?? null,
+                type: type ?? null,
+                points: points ?? null,
+                passingPoints: passingPoints ?? null,
             },
             include: {
                 questions: {
@@ -117,9 +130,10 @@ class TestService {
         }
         // Calculate percentage score for labeling
         const percentage = totalQuestions > 0 ? Math.round((correctAnswers / totalQuestions) * 100) : 0;
-        // Calculate points (e.g., 10 points per correct answer)
-        const pointsPerQuestion = 10;
-        const pointsEarned = correctAnswers * pointsPerQuestion;
+        // Calculate points (Total 20 points for the test, distributed successfully)
+        const pointsPerQuestion = totalQuestions > 0 ? (20 / totalQuestions) : 0;
+        const pointsEarned = Math.round(correctAnswers * pointsPerQuestion);
+        // Passing logic: usually 60% of the max score (20) -> 12 points, or simply use percentage
         const isPassed = percentage >= 60; // 60% passing rate
         // Calculate performance label
         let performanceLabel = "Failed";

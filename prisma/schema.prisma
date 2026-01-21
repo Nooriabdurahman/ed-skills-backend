@@ -123,15 +123,25 @@ model CourseHistory {
 
 // Course Test Model - for tests within a course
 model CourseTest {
-  id          Int            @id @default(autoincrement())
-  name        String
-  description String?
-  courseId    Int
-  course      Course         @relation(fields: [courseId], references: [id], onDelete: Cascade)
-  questions   TestQuestion[]
-  attempts    TestAttempt[]
-  createdAt   DateTime       @default(now())
-  updatedAt   DateTime       @updatedAt
+  id                  Int            @id @default(autoincrement())
+  name                String
+  description         String?
+  trainer             String?         // NEW
+  trainerImage        String?         // NEW
+  icon                String?         // NEW
+  picture             String?         // NEW
+  topic               String?         // NEW
+  materialType        String?         // NEW
+  status              String?         // NEW
+  type                String?         // NEW
+  points              Int?            // NEW
+  passingPoints       Int?            // NEW
+  courseId            Int
+  course              Course         @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  questions           TestQuestion[]
+  attempts            TestAttempt[]
+  createdAt           DateTime       @default(now())
+  updatedAt           DateTime       @updatedAt
 
   @@index([courseId])
 }

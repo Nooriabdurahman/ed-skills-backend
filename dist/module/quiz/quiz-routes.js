@@ -36,6 +36,8 @@ const router = express_1.default.Router();
  *                 type: string
  *               badgeId:
  *                 type: integer
+ *               lessonId:
+ *                 type: string
  *     responses:
  *       201:
  *         description: Quiz created successfully
@@ -64,6 +66,8 @@ router.post("/", quiz_controller_1.QuizController.createQuiz);
  *               courseId:
  *                 type: integer
  *               name:
+ *                 type: string
+ *               lessonId:
  *                 type: string
  *               question:
  *                 type: string
@@ -105,6 +109,12 @@ router.post("/one-question", quiz_controller_1.QuizController.createOneQuestionQ
  *                 type: integer
  *               question:
  *                 type: string
+ *               type:
+ *                 type: string
+ *                 description: multiple_choice, true_false, or drag_drop
+ *               score:
+ *                 type: integer
+ *                 description: Points for this question
  *     responses:
  *       201:
  *         description: Question added successfully
@@ -133,6 +143,9 @@ router.post("/questions", quiz_controller_1.QuizController.addQuestion);
  *                 type: string
  *               isCorrect:
  *                 type: boolean
+ *               order:
+ *                 type: integer
+ *                 description: Order for drag and drop answers
  *     responses:
  *       201:
  *         description: Answer added successfully
@@ -202,6 +215,12 @@ router.get("/course/:courseId", quiz_controller_1.QuizController.getQuizzesByCou
  *                       type: integer
  *                     answerId:
  *                       type: integer
+ *                       description: For single choice questions
+ *                     answerIds:
+ *                       type: array
+ *                       items:
+ *                         type: integer
+ *                       description: For drag and drop questions (ordered)
  *     responses:
  *       200:
  *         description: Quiz submitted successfully, badge awarded if passed

@@ -24,12 +24,15 @@ export declare class CourseLessonService {
                     answer: string;
                     isCorrect: boolean;
                     questionId: number;
+                    order: number | null;
                 }[];
             } & {
                 id: number;
                 createdAt: Date;
+                type: string;
                 updatedAt: Date;
                 question: string;
+                score: number;
                 quizId: number;
             })[];
         } & {

@@ -5,7 +5,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const test_controller_1 = require("./test-controller");
+const multer_1 = __importDefault(require("multer"));
 const router = express_1.default.Router();
+const upload = (0, multer_1.default)({ dest: 'tmp/' });
 /**
  * @swagger
  * tags:
@@ -21,7 +23,7 @@ const router = express_1.default.Router();
  *     requestBody:
  *       required: true
  *       content:
- *         application/json:
+ *         multipart/form-data:
  *           schema:
  *             type: object
  *             required:
@@ -34,13 +36,35 @@ const router = express_1.default.Router();
  *                 type: string
  *               description:
  *                 type: string
+ *               trainer:
+ *                 type: string
+ *               trainerImage:
+ *                 type: string
+ *                 format: binary
+ *               icon:
+ *                 type: string
+ *               picture:
+ *                 type: string
+ *                 format: binary
+ *               topic:
+ *                 type: string
+ *               materialType:
+ *                 type: string
+ *               status:
+ *                 type: string
+ *               type:
+ *                 type: string
+ *               points:
+ *                 type: integer
+ *               passingPoints:
+ *                 type: integer
  *     responses:
  *       201:
  *         description: Test created successfully
  *       400:
  *         description: Bad request
  */
-router.post("/", test_controller_1.TestController.createTest);
+router.post("/", upload.fields([{ name: 'picture', maxCount: 1 }, { name: 'trainerImage', maxCount: 1 }]), test_controller_1.TestController.createTest);
 /**
  * @swagger
  * /tests/questions:

@@ -1,7 +1,9 @@
 import express from "express";
 import { TestController } from "./test-controller";
+import multer from 'multer';
 
 const router = express.Router();
+const upload = multer({ dest: 'tmp/' });
 
 /**
  * @swagger
@@ -19,7 +21,7 @@ const router = express.Router();
  *     requestBody:
  *       required: true
  *       content:
- *         application/json:
+ *         multipart/form-data:
  *           schema:
  *             type: object
  *             required:
@@ -32,13 +34,35 @@ const router = express.Router();
  *                 type: string
  *               description:
  *                 type: string
+ *               trainer:
+ *                 type: string
+ *               trainerImage:
+ *                 type: string
+ *                 format: binary
+ *               icon:
+ *                 type: string
+ *               picture:
+ *                 type: string
+ *                 format: binary
+ *               topic:
+ *                 type: string
+ *               materialType:
+ *                 type: string
+ *               status:
+ *                 type: string
+ *               type:
+ *                 type: string
+ *               points:
+ *                 type: integer
+ *               passingPoints:
+ *                 type: integer
  *     responses:
  *       201:
  *         description: Test created successfully
  *       400:
  *         description: Bad request
  */
-router.post("/", TestController.createTest);
+router.post("/", upload.fields([{ name: 'picture', maxCount: 1 }, { name: 'trainerImage', maxCount: 1 }]), TestController.createTest);
 
 /**
  * @swagger

@@ -1,5 +1,9 @@
 import { Request, Response } from "express";
 import { TestService } from "./test-services";
+import { put } from '@vercel/blob';
+import crypto from 'crypto';
+import path from 'path';
+import fs from 'fs';
 
 export class TestController {
   /**
@@ -7,7 +11,11 @@ export class TestController {
    */
   static async createTest(req: Request, res: Response) {
     try {
-      const { courseId, name, description } = req.body;
+      const {
+        courseId, name, description,
+        trainer, icon,
+        topic, materialType, status, type, points, passingPoints
+      } = req.body;
 
       if (!courseId || !name) {
         return res.status(400).json({
@@ -16,7 +24,35 @@ export class TestController {
         });
       }
 
-      const test = await TestService.createTest(courseId, name, description);
+      // Handle file uploads
+      let pictureUrl = req.body.picture;
+      let trainerImageUrl = req.body.trainerImage;
+
+      const files = (req as any).files;
+
+      if (files) {
+        if (files.picture && files.picture[0]) {
+          const file = files.picture[0];
+          const fileName = crypto.randomBytes(16).toString('hex') + path.extname(file.originalname);
+          const result = await put(fileName, fs.readFileSync(file.path), { access: 'public', addRandomSuffix: true });
+          pictureUrl = result.url;
+          fs.unlinkSync(file.path); // Clean up
+        }
+
+        if (files.trainerImage && files.trainerImage[0]) {
+          const file = files.trainerImage[0];
+          const fileName = crypto.randomBytes(16).toString('hex') + path.extname(file.originalname);
+          const result = await put(fileName, fs.readFileSync(file.path), { access: 'public', addRandomSuffix: true });
+          trainerImageUrl = result.url;
+          fs.unlinkSync(file.path); // Clean up
+        }
+      }
+
+      const test = await TestService.createTest(
+        Number(courseId), name, description,
+        trainer, trainerImageUrl, icon, pictureUrl,
+        topic, materialType, status, type, Number(points), Number(passingPoints)
+      );
 
       return res.status(201).json({
         success: true,

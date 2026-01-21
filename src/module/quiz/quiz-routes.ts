@@ -34,6 +34,8 @@ const router = express.Router();
  *                 type: string
  *               badgeId:
  *                 type: integer
+ *               lessonId:
+ *                 type: string
  *     responses:
  *       201:
  *         description: Quiz created successfully
@@ -63,6 +65,8 @@ router.post("/", QuizController.createQuiz);
  *               courseId:
  *                 type: integer
  *               name:
+ *                 type: string
+ *               lessonId:
  *                 type: string
  *               question:
  *                 type: string

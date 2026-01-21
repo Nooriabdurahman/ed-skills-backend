@@ -73,14 +73,14 @@ class QuizController {
      */
     static async addQuestion(req, res) {
         try {
-            const { quizId, question } = req.body;
+            const { quizId, question, type, score } = req.body;
             if (!quizId || !question) {
                 return res.status(400).json({
                     success: false,
                     message: "Quiz ID and question are required",
                 });
             }
-            const questionRecord = await quiz_services_1.QuizService.addQuestion(quizId, question);
+            const questionRecord = await quiz_services_1.QuizService.addQuestion(quizId, question, type, score);
             return res.status(201).json({
                 success: true,
                 data: questionRecord,
@@ -99,14 +99,14 @@ class QuizController {
      */
     static async addAnswer(req, res) {
         try {
-            const { questionId, answer, isCorrect } = req.body;
+            const { questionId, answer, isCorrect, order } = req.body;
             if (!questionId || !answer || typeof isCorrect !== "boolean") {
                 return res.status(400).json({
                     success: false,
                     message: "Question ID, answer, and isCorrect are required",
                 });
             }
-            const answerRecord = await quiz_services_1.QuizService.addAnswer(questionId, answer, isCorrect);
+            const answerRecord = await quiz_services_1.QuizService.addAnswer(questionId, answer, isCorrect, order);
             return res.status(201).json({
                 success: true,
                 data: answerRecord,

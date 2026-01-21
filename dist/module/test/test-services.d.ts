@@ -2,7 +2,10 @@ export declare class TestService {
     /**
      * Create a test for a course
      */
-    static createTest(courseId: number, name: string, description?: string): Promise<{
+    /**
+     * Create a test for a course
+     */
+    static createTest(courseId: number, name: string, description?: string, trainer?: string, trainerImage?: string, icon?: string, picture?: string, topic?: string, materialType?: string, status?: string, type?: string, points?: number, passingPoints?: number): Promise<{
         questions: ({
             answers: {
                 id: number;
@@ -22,8 +25,18 @@ export declare class TestService {
     } & {
         id: number;
         createdAt: Date;
+        points: number | null;
         name: string;
         description: string | null;
+        trainer: string | null;
+        trainerImage: string | null;
+        icon: string | null;
+        picture: string | null;
+        materialType: string | null;
+        topic: string | null;
+        status: string | null;
+        passingPoints: number | null;
+        type: string | null;
         updatedAt: Date;
         courseId: number;
     }>;
@@ -75,8 +88,18 @@ export declare class TestService {
     } & {
         id: number;
         createdAt: Date;
+        points: number | null;
         name: string;
         description: string | null;
+        trainer: string | null;
+        trainerImage: string | null;
+        icon: string | null;
+        picture: string | null;
+        materialType: string | null;
+        topic: string | null;
+        status: string | null;
+        passingPoints: number | null;
+        type: string | null;
         updatedAt: Date;
         courseId: number;
     }) | null>;
@@ -103,8 +126,18 @@ export declare class TestService {
     } & {
         id: number;
         createdAt: Date;
+        points: number | null;
         name: string;
         description: string | null;
+        trainer: string | null;
+        trainerImage: string | null;
+        icon: string | null;
+        picture: string | null;
+        materialType: string | null;
+        topic: string | null;
+        status: string | null;
+        passingPoints: number | null;
+        type: string | null;
         updatedAt: Date;
         courseId: number;
     })[]>;
@@ -147,8 +180,18 @@ export declare class TestService {
         } & {
             id: number;
             createdAt: Date;
+            points: number | null;
             name: string;
             description: string | null;
+            trainer: string | null;
+            trainerImage: string | null;
+            icon: string | null;
+            picture: string | null;
+            materialType: string | null;
+            topic: string | null;
+            status: string | null;
+            passingPoints: number | null;
+            type: string | null;
             updatedAt: Date;
             courseId: number;
         };

@@ -36,8 +36,8 @@ export declare class QuizHistoryService {
         createdAt: Date;
         userId: number;
         updatedAt: Date;
-        quizId: number;
         score: number;
+        quizId: number;
         totalQuestions: number;
         correctAnswers: number;
         isPassed: boolean;
@@ -86,8 +86,8 @@ export declare class QuizHistoryService {
         createdAt: Date;
         userId: number;
         updatedAt: Date;
-        quizId: number;
         score: number;
+        quizId: number;
         totalQuestions: number;
         correctAnswers: number;
         isPassed: boolean;
@@ -108,8 +108,8 @@ export declare class QuizHistoryService {
         createdAt: Date;
         userId: number;
         updatedAt: Date;
-        quizId: number;
         score: number;
+        quizId: number;
         totalQuestions: number;
         correctAnswers: number;
         isPassed: boolean;
@@ -134,8 +134,8 @@ export declare class QuizHistoryService {
         createdAt: Date;
         userId: number;
         updatedAt: Date;
-        quizId: number;
         score: number;
+        quizId: number;
         totalQuestions: number;
         correctAnswers: number;
         isPassed: boolean;

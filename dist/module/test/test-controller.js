@@ -1,21 +1,48 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TestController = void 0;
 const test_services_1 = require("./test-services");
+const blob_1 = require("@vercel/blob");
+const crypto_1 = __importDefault(require("crypto"));
+const path_1 = __importDefault(require("path"));
+const fs_1 = __importDefault(require("fs"));
 class TestController {
     /**
      * Create a new test for a course
      */
     static async createTest(req, res) {
         try {
-            const { courseId, name, description } = req.body;
+            const { courseId, name, description, trainer, icon, topic, materialType, status, type, points, passingPoints } = req.body;
             if (!courseId || !name) {
                 return res.status(400).json({
                     success: false,
                     message: "Course ID and test name are required",
                 });
             }
-            const test = await test_services_1.TestService.createTest(courseId, name, description);
+            // Handle file uploads
+            let pictureUrl = req.body.picture;
+            let trainerImageUrl = req.body.trainerImage;
+            const files = req.files;
+            if (files) {
+                if (files.picture && files.picture[0]) {
+                    const file = files.picture[0];
+                    const fileName = crypto_1.default.randomBytes(16).toString('hex') + path_1.default.extname(file.originalname);
+                    const result = await (0, blob_1.put)(fileName, fs_1.default.readFileSync(file.path), { access: 'public', addRandomSuffix: true });
+                    pictureUrl = result.url;
+                    fs_1.default.unlinkSync(file.path); // Clean up
+                }
+                if (files.trainerImage && files.trainerImage[0]) {
+                    const file = files.trainerImage[0];
+                    const fileName = crypto_1.default.randomBytes(16).toString('hex') + path_1.default.extname(file.originalname);
+                    const result = await (0, blob_1.put)(fileName, fs_1.default.readFileSync(file.path), { access: 'public', addRandomSuffix: true });
+                    trainerImageUrl = result.url;
+                    fs_1.default.unlinkSync(file.path); // Clean up
+                }
+            }
+            const test = await test_services_1.TestService.createTest(Number(courseId), name, description, trainer, trainerImageUrl, icon, pictureUrl, topic, materialType, status, type, Number(points), Number(passingPoints));
             return res.status(201).json({
                 success: true,
                 data: test,

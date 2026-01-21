@@ -11,12 +11,15 @@ export declare class QuizService {
                 answer: string;
                 isCorrect: boolean;
                 questionId: number;
+                order: number | null;
             }[];
         } & {
             id: number;
             createdAt: Date;
+            type: string;
             updatedAt: Date;
             question: string;
+            score: number;
             quizId: number;
         })[];
         badge: {
@@ -52,12 +55,15 @@ export declare class QuizService {
                 answer: string;
                 isCorrect: boolean;
                 questionId: number;
+                order: number | null;
             }[];
         } & {
             id: number;
             createdAt: Date;
+            type: string;
             updatedAt: Date;
             question: string;
+            score: number;
             quizId: number;
         })[];
     } & {
@@ -73,23 +79,32 @@ export declare class QuizService {
     /**
      * Add a question to a quiz
      */
-    static addQuestion(quizId: number, question: string): Promise<{
+    /**
+     * Add a question to a quiz
+     */
+    static addQuestion(quizId: number, question: string, type?: string, score?: number): Promise<{
         id: number;
         createdAt: Date;
+        type: string;
         updatedAt: Date;
         question: string;
+        score: number;
         quizId: number;
     }>;
     /**
      * Add an answer to a quiz question
      */
-    static addAnswer(questionId: number, answer: string, isCorrect: boolean): Promise<{
+    /**
+     * Add an answer to a quiz question
+     */
+    static addAnswer(questionId: number, answer: string, isCorrect: boolean, order?: number): Promise<{
         id: number;
         createdAt: Date;
         updatedAt: Date;
         answer: string;
         isCorrect: boolean;
         questionId: number;
+        order: number | null;
     }>;
     /**
      * Get quiz by ID with questions and answers
@@ -107,12 +122,15 @@ export declare class QuizService {
                 answer: string;
                 isCorrect: boolean;
                 questionId: number;
+                order: number | null;
             }[];
         } & {
             id: number;
             createdAt: Date;
+            type: string;
             updatedAt: Date;
             question: string;
+            score: number;
             quizId: number;
         })[];
         badge: {
@@ -145,12 +163,15 @@ export declare class QuizService {
                 answer: string;
                 isCorrect: boolean;
                 questionId: number;
+                order: number | null;
             }[];
         } & {
             id: number;
             createdAt: Date;
+            type: string;
             updatedAt: Date;
             question: string;
+            score: number;
             quizId: number;
         })[];
         badge: {
@@ -175,17 +196,22 @@ export declare class QuizService {
      * Submit quiz answers and award badge if passed
      * Returns score and badge earned (if applicable)
      */
+    /**
+     * Submit quiz answers and award badge if passed
+     * Returns score and badge earned (if applicable)
+     */
     static submitQuiz(userId: number, quizId: number, answers: {
         questionId: number;
-        answerId: number;
+        answerId?: number;
+        answerIds?: number[];
     }[]): Promise<{
         attempt: {
             id: number;
             createdAt: Date;
             userId: number;
             updatedAt: Date;
-            quizId: number;
             score: number;
+            quizId: number;
             totalQuestions: number;
             correctAnswers: number;
             isPassed: boolean;
@@ -193,6 +219,8 @@ export declare class QuizService {
             badgeEarned: boolean;
         };
         score: number;
+        earnedPoints: number;
+        totalPossiblePoints: number;
         correctAnswers: number;
         totalQuestions: number;
         isPassed: boolean;
@@ -238,8 +266,8 @@ export declare class QuizService {
         createdAt: Date;
         userId: number;
         updatedAt: Date;
-        quizId: number;
         score: number;
+        quizId: number;
         totalQuestions: number;
         correctAnswers: number;
         isPassed: boolean;

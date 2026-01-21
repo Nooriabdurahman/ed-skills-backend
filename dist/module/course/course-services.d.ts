@@ -4,6 +4,7 @@ export declare const createCourse: (data: any) => Promise<{
     points: string | null;
     progress: number | null;
     name: string;
+    duration: string | null;
     description: string;
     subject: string;
     trainer: string | null;
@@ -23,7 +24,6 @@ export declare const createCourse: (data: any) => Promise<{
     materialStatusType: string;
     isCertified: boolean;
     typeImage: string | null;
-    duration: string | null;
     content: string | null;
     contentType: string | null;
     passingPoints: string | null;
@@ -36,6 +36,7 @@ export declare const getAllCourses: () => Promise<{
     points: string | null;
     progress: number | null;
     name: string;
+    duration: string | null;
     description: string;
     subject: string;
     trainer: string | null;
@@ -55,7 +56,6 @@ export declare const getAllCourses: () => Promise<{
     materialStatusType: string;
     isCertified: boolean;
     typeImage: string | null;
-    duration: string | null;
     content: string | null;
     contentType: string | null;
     passingPoints: string | null;
@@ -68,6 +68,7 @@ export declare const getCourseById: (id: number) => Promise<{
     points: string | null;
     progress: number | null;
     name: string;
+    duration: string | null;
     description: string;
     subject: string;
     trainer: string | null;
@@ -87,7 +88,6 @@ export declare const getCourseById: (id: number) => Promise<{
     materialStatusType: string;
     isCertified: boolean;
     typeImage: string | null;
-    duration: string | null;
     content: string | null;
     contentType: string | null;
     passingPoints: string | null;
@@ -100,6 +100,7 @@ export declare const updateCourse: (id: number, data: any) => Promise<{
     points: string | null;
     progress: number | null;
     name: string;
+    duration: string | null;
     description: string;
     subject: string;
     trainer: string | null;
@@ -119,7 +120,6 @@ export declare const updateCourse: (id: number, data: any) => Promise<{
     materialStatusType: string;
     isCertified: boolean;
     typeImage: string | null;
-    duration: string | null;
     content: string | null;
     contentType: string | null;
     passingPoints: string | null;
@@ -132,6 +132,7 @@ export declare const deleteCourse: (id: number) => Promise<{
     points: string | null;
     progress: number | null;
     name: string;
+    duration: string | null;
     description: string;
     subject: string;
     trainer: string | null;
@@ -151,7 +152,6 @@ export declare const deleteCourse: (id: number) => Promise<{
     materialStatusType: string;
     isCertified: boolean;
     typeImage: string | null;
-    duration: string | null;
     content: string | null;
     contentType: string | null;
     passingPoints: string | null;
@@ -164,6 +164,7 @@ export declare const duplicateCourse: (id: number) => Promise<{
     points: string | null;
     progress: number | null;
     name: string;
+    duration: string | null;
     description: string;
     subject: string;
     trainer: string | null;
@@ -183,7 +184,6 @@ export declare const duplicateCourse: (id: number) => Promise<{
     materialStatusType: string;
     isCertified: boolean;
     typeImage: string | null;
-    duration: string | null;
     content: string | null;
     contentType: string | null;
     passingPoints: string | null;
