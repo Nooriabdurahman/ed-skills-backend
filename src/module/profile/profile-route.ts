@@ -4,6 +4,7 @@ import {
   uploadProfilePicture,
   updateProfile,
   getProfileByUser,
+  updateActivityTime,
 } from './profile-services';
 import { authMiddleware } from '../../common/midlewere/authMiddlewere';
 
@@ -96,5 +97,28 @@ router.put('/update', updateProfile);
  *         description: File upload error
  */
 router.post('/upload-picture', authMiddleware, upload.single('file'), uploadProfilePicture);
+
+/**
+ * @swagger
+ * /profile/activity-time:
+ *   post:
+ *     summary: Update user activity time
+ *     tags: [Profile]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               duration:
+ *                 type: integer
+ *     responses:
+ *       200:
+ *         description: Activity time updated
+ */
+router.post('/activity-time', authMiddleware, updateActivityTime);
 
 export default router;

@@ -263,6 +263,32 @@ class QuizController {
             });
         }
     }
+    /**
+     * Delete a quiz
+     */
+    static async deleteQuiz(req, res) {
+        try {
+            const quizId = Number(req.params.quizId);
+            if (isNaN(quizId)) {
+                return res.status(400).json({
+                    success: false,
+                    message: "Invalid quiz ID",
+                });
+            }
+            await quiz_services_1.QuizService.deleteQuiz(quizId);
+            return res.status(200).json({
+                success: true,
+                message: "Quiz deleted successfully",
+            });
+        }
+        catch (error) {
+            console.error("Error deleting quiz:", error);
+            return res.status(500).json({
+                success: false,
+                message: error.message || "Error deleting quiz",
+            });
+        }
+    }
 }
 exports.QuizController = QuizController;
 //# sourceMappingURL=quiz-controller.js.map

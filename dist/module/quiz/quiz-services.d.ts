@@ -266,5 +266,18 @@ export declare class QuizService {
         badgeId: number;
         earnedAt: Date;
     })[]>;
+    /**
+     * Delete a quiz by ID
+     */
+    static deleteQuiz(quizId: number): Promise<{
+        id: number;
+        createdAt: Date;
+        name: string;
+        description: string | null;
+        updatedAt: Date;
+        courseId: number;
+        badgeId: number | null;
+        lessonId: string | null;
+    }>;
 }
 //# sourceMappingURL=quiz-services.d.ts.map

@@ -9,29 +9,30 @@ datasource db {
 }
 
 model User {
-  id               Int                  @id @default(autoincrement())
-  email            String               @unique
-  username         String
-  password         String?
-  googleId         String?              @unique
-  appleId          String?              @unique
-  age              Int?
-  profilePicture   String?
-  bio              String?
-  interests        String[]
-  skills           String? // اضافه ک
-  courseHistory    CourseHistory[]
+  id                Int                  @id @default(autoincrement())
+  email             String               @unique
+  username          String
+  password          String?
+  googleId          String?              @unique
+  appleId           String?              @unique
+  age               Int?
+  profilePicture    String?
+  bio               String?
+  interests         String[]
+  skills            String? // اضافه ک
+  totalActivityTime Int                  @default(0) // זמן פעילות כולל בשניות
+  courseHistory     CourseHistory[]
   // Relations for tests & points
-  testAttempts     TestAttempt[]
-  points           UserPoint[]
+  testAttempts      TestAttempt[]
+  points            UserPoint[]
   // Relations for badges, quizzes & certifications
-  quizAttempts     QuizAttempt[]
-  badges           UserBadge[]
-  certifications   Certification[]
-  medals           UserMedal[]
-  lessonActivities UserLessonActivity[]
-  progress         CourseProgress[]
-  createdAt        DateTime             @default(now())
+  quizAttempts      QuizAttempt[]
+  badges            UserBadge[]
+  certifications    Certification[]
+  medals            UserMedal[]
+  lessonActivities  UserLessonActivity[]
+  progress          CourseProgress[]
+  createdAt         DateTime             @default(now())
 }
 
 model Course {
@@ -220,6 +221,8 @@ model CourseQuiz {
 model QuizQuestion {
   id        Int          @id @default(autoincrement())
   question  String
+  type      String       @default("multiple_choice") // multiple_choice, true_false, drag_drop
+  score     Int          @default(1)
   quizId    Int
   quiz      CourseQuiz   @relation(fields: [quizId], references: [id], onDelete: Cascade)
   answers   QuizAnswer[]
@@ -234,6 +237,7 @@ model QuizAnswer {
   id         Int          @id @default(autoincrement())
   answer     String
   isCorrect  Boolean      @default(false)
+  order      Int? // For drag_drop ordering
   questionId Int
   question   QuizQuestion @relation(fields: [questionId], references: [id], onDelete: Cascade)
   createdAt  DateTime     @default(now())

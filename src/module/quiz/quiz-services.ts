@@ -70,11 +70,16 @@ export class QuizService {
   /**
    * Add a question to a quiz
    */
-  static async addQuestion(quizId: number, question: string) {
+  /**
+   * Add a question to a quiz
+   */
+  static async addQuestion(quizId: number, question: string, type: string = "multiple_choice", score: number = 10) {
     return prisma.quizQuestion.create({
       data: {
         quizId,
         question,
+        type,
+        score,
       },
     });
   }
@@ -82,12 +87,16 @@ export class QuizService {
   /**
    * Add an answer to a quiz question
    */
-  static async addAnswer(questionId: number, answer: string, isCorrect: boolean) {
+  /**
+   * Add an answer to a quiz question
+   */
+  static async addAnswer(questionId: number, answer: string, isCorrect: boolean, order?: number) {
     return prisma.quizAnswer.create({
       data: {
         questionId,
         answer,
         isCorrect,
+        order: order ?? null,
       },
     });
   }
@@ -136,10 +145,14 @@ export class QuizService {
    * Submit quiz answers and award badge if passed
    * Returns score and badge earned (if applicable)
    */
+  /**
+   * Submit quiz answers and award badge if passed
+   * Returns score and badge earned (if applicable)
+   */
   static async submitQuiz(
     userId: number,
     quizId: number,
-    answers: { questionId: number; answerId: number }[]
+    answers: { questionId: number; answerId?: number; answerIds?: number[] }[]
   ) {
     // Get quiz with all answers
     const quiz = await prisma.courseQuiz.findUnique({
@@ -159,39 +172,70 @@ export class QuizService {
     }
 
     // Calculate score
-    let correctAnswers = 0;
+    let correctAnswersCount = 0;
+    let earnedPoints = 0;
+    let totalPossiblePoints = 0;
     const totalQuestions = quiz.questions.length;
 
-    for (const userAnswer of answers) {
-      const question = quiz.questions.find((q) => q.id === userAnswer.questionId);
-      if (question) {
-        const selectedAnswer = question.answers.find(
-          (a) => a.id === userAnswer.answerId
-        );
-        if (selectedAnswer && selectedAnswer.isCorrect) {
-          correctAnswers++;
+    for (const question of quiz.questions) {
+      totalPossiblePoints += question.score || 1;
+      const userAnswer = answers.find((a) => a.questionId === question.id);
+
+      if (!userAnswer) continue;
+
+      if (question.type === "drag_drop") {
+        // Validation for drag and drop (checking order)
+        if (userAnswer.answerIds && Array.isArray(userAnswer.answerIds)) {
+          // Get correct order of answer IDs
+          const correctOrderIds = question.answers
+            .sort((a, b) => (a.order || 0) - (b.order || 0))
+            .map(a => a.id);
+
+          // Check if user's order matches correct order
+          const isCorrectOrder =
+            userAnswer.answerIds.length === correctOrderIds.length &&
+            userAnswer.answerIds.every((val, index) => val === correctOrderIds[index]);
+
+          if (isCorrectOrder) {
+            correctAnswersCount++;
+            earnedPoints += question.score || 1;
+          }
+        }
+      } else {
+        // Standard multiple choice / true false
+        if (userAnswer.answerId) {
+          const selectedAnswer = question.answers.find(
+            (a) => a.id === userAnswer.answerId
+          );
+          if (selectedAnswer && selectedAnswer.isCorrect) {
+            correctAnswersCount++;
+            earnedPoints += question.score || 1;
+          }
         }
       }
     }
 
     // Calculate score percentage
-    const score = totalQuestions > 0 ? Math.round((correctAnswers / totalQuestions) * 100) : 0;
-    const isPassed = score >= 60; // 60% passing rate
+    const scorePercentage = totalPossiblePoints > 0
+      ? Math.round((earnedPoints / totalPossiblePoints) * 100)
+      : 0;
+
+    const isPassed = scorePercentage >= 60; // 60% passing rate
 
     // Calculate performance label
     let performanceLabel = "Failed";
-    if (score >= 80) performanceLabel = "Excellent";
-    else if (score >= 50) performanceLabel = "Good";
-    else if (score >= 30) performanceLabel = "Fair";
+    if (scorePercentage >= 80) performanceLabel = "Excellent";
+    else if (scorePercentage >= 50) performanceLabel = "Good";
+    else if (scorePercentage >= 30) performanceLabel = "Fair";
 
     // Create quiz attempt
     const attempt = await prisma.quizAttempt.create({
       data: {
         userId,
         quizId,
-        score,
+        score: scorePercentage, // Store percentage for compatibility
         totalQuestions,
-        correctAnswers,
+        correctAnswers: correctAnswersCount,
         isPassed,
         performanceLabel,
         badgeEarned: false,
@@ -261,8 +305,10 @@ export class QuizService {
 
     return {
       attempt,
-      score,
-      correctAnswers,
+      score: scorePercentage,
+      earnedPoints,
+      totalPossiblePoints,
+      correctAnswers: correctAnswersCount,
       totalQuestions,
       isPassed,
       performanceLabel,
@@ -307,6 +353,14 @@ export class QuizService {
       orderBy: {
         earnedAt: "desc",
       },
+    });
+  }
+  /**
+   * Delete a quiz by ID
+   */
+  static async deleteQuiz(quizId: number) {
+    return prisma.courseQuiz.delete({
+      where: { id: quizId },
     });
   }
 }

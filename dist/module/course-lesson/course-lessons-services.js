@@ -17,6 +17,17 @@ class CourseLessonService {
     static async getByCourse(courseId) {
         return prisma_1.default.courseLesson.findMany({
             where: { courseId },
+            include: {
+                quiz: {
+                    include: {
+                        questions: {
+                            include: {
+                                answers: true,
+                            },
+                        },
+                    },
+                },
+            },
             orderBy: [{ createdAt: "asc" }],
         });
     }

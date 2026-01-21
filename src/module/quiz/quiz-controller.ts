@@ -92,7 +92,7 @@ export class QuizController {
    */
   static async addQuestion(req: Request, res: Response) {
     try {
-      const { quizId, question } = req.body;
+      const { quizId, question, type, score } = req.body;
 
       if (!quizId || !question) {
         return res.status(400).json({
@@ -101,7 +101,7 @@ export class QuizController {
         });
       }
 
-      const questionRecord = await QuizService.addQuestion(quizId, question);
+      const questionRecord = await QuizService.addQuestion(quizId, question, type, score);
 
       return res.status(201).json({
         success: true,
@@ -121,7 +121,7 @@ export class QuizController {
    */
   static async addAnswer(req: Request, res: Response) {
     try {
-      const { questionId, answer, isCorrect } = req.body;
+      const { questionId, answer, isCorrect, order } = req.body;
 
       if (!questionId || !answer || typeof isCorrect !== "boolean") {
         return res.status(400).json({
@@ -133,7 +133,8 @@ export class QuizController {
       const answerRecord = await QuizService.addAnswer(
         questionId,
         answer,
-        isCorrect
+        isCorrect,
+        order
       );
 
       return res.status(201).json({
@@ -305,6 +306,34 @@ export class QuizController {
       return res.status(500).json({
         success: false,
         message: error.message || "Error fetching badges",
+      });
+    }
+  }
+  /**
+   * Delete a quiz
+   */
+  static async deleteQuiz(req: Request, res: Response) {
+    try {
+      const quizId = Number(req.params.quizId);
+
+      if (isNaN(quizId)) {
+        return res.status(400).json({
+          success: false,
+          message: "Invalid quiz ID",
+        });
+      }
+
+      await QuizService.deleteQuiz(quizId);
+
+      return res.status(200).json({
+        success: true,
+        message: "Quiz deleted successfully",
+      });
+    } catch (error: any) {
+      console.error("Error deleting quiz:", error);
+      return res.status(500).json({
+        success: false,
+        message: error.message || "Error deleting quiz",
       });
     }
   }

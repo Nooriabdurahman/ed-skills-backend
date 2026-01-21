@@ -241,5 +241,24 @@ router.get("/user/:userId/attempts", quiz_controller_1.QuizController.getUserQui
  *         description: List of user badges
  */
 router.get("/user/:userId/badges", quiz_controller_1.QuizController.getUserBadges);
+/**
+ * @swagger
+ * /quizzes/{quizId}:
+ *   delete:
+ *     summary: Delete a quiz by ID
+ *     tags: [Quizzes]
+ *     parameters:
+ *       - in: path
+ *         name: quizId
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Quiz deleted successfully
+ *       404:
+ *         description: Quiz not found
+ */
+router.delete("/:quizId", quiz_controller_1.QuizController.deleteQuiz);
 exports.default = router;
 //# sourceMappingURL=quiz-routes.js.map

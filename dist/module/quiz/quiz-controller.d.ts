@@ -36,5 +36,9 @@ export declare class QuizController {
      * Get user's badges
      */
     static getUserBadges(req: Request, res: Response): Promise<Response<any, Record<string, any>>>;
+    /**
+     * Delete a quiz
+     */
+    static deleteQuiz(req: Request, res: Response): Promise<Response<any, Record<string, any>>>;
 }
 //# sourceMappingURL=quiz-controller.d.ts.map

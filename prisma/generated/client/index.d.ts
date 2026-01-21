@@ -3026,11 +3026,13 @@ export namespace Prisma {
   export type UserAvgAggregateOutputType = {
     id: number | null
     age: number | null
+    totalActivityTime: number | null
   }
 
   export type UserSumAggregateOutputType = {
     id: number | null
     age: number | null
+    totalActivityTime: number | null
   }
 
   export type UserMinAggregateOutputType = {
@@ -3044,6 +3046,7 @@ export namespace Prisma {
     profilePicture: string | null
     bio: string | null
     skills: string | null
+    totalActivityTime: number | null
     createdAt: Date | null
   }
 
@@ -3058,6 +3061,7 @@ export namespace Prisma {
     profilePicture: string | null
     bio: string | null
     skills: string | null
+    totalActivityTime: number | null
     createdAt: Date | null
   }
 
@@ -3073,6 +3077,7 @@ export namespace Prisma {
     bio: number
     interests: number
     skills: number
+    totalActivityTime: number
     createdAt: number
     _all: number
   }
@@ -3081,11 +3086,13 @@ export namespace Prisma {
   export type UserAvgAggregateInputType = {
     id?: true
     age?: true
+    totalActivityTime?: true
   }
 
   export type UserSumAggregateInputType = {
     id?: true
     age?: true
+    totalActivityTime?: true
   }
 
   export type UserMinAggregateInputType = {
@@ -3099,6 +3106,7 @@ export namespace Prisma {
     profilePicture?: true
     bio?: true
     skills?: true
+    totalActivityTime?: true
     createdAt?: true
   }
 
@@ -3113,6 +3121,7 @@ export namespace Prisma {
     profilePicture?: true
     bio?: true
     skills?: true
+    totalActivityTime?: true
     createdAt?: true
   }
 
@@ -3128,6 +3137,7 @@ export namespace Prisma {
     bio?: true
     interests?: true
     skills?: true
+    totalActivityTime?: true
     createdAt?: true
     _all?: true
   }
@@ -3230,6 +3240,7 @@ export namespace Prisma {
     bio: string | null
     interests: string[]
     skills: string | null
+    totalActivityTime: number
     createdAt: Date
     _count: UserCountAggregateOutputType | null
     _avg: UserAvgAggregateOutputType | null
@@ -3264,6 +3275,7 @@ export namespace Prisma {
     bio?: boolean
     interests?: boolean
     skills?: boolean
+    totalActivityTime?: boolean
     createdAt?: boolean
     courseHistory?: boolean | User$courseHistoryArgs<ExtArgs>
     testAttempts?: boolean | User$testAttemptsArgs<ExtArgs>
@@ -3289,6 +3301,7 @@ export namespace Prisma {
     bio?: boolean
     interests?: boolean
     skills?: boolean
+    totalActivityTime?: boolean
     createdAt?: boolean
   }, ExtArgs["result"]["user"]>
 
@@ -3304,6 +3317,7 @@ export namespace Prisma {
     bio?: boolean
     interests?: boolean
     skills?: boolean
+    totalActivityTime?: boolean
     createdAt?: boolean
   }, ExtArgs["result"]["user"]>
 
@@ -3319,10 +3333,11 @@ export namespace Prisma {
     bio?: boolean
     interests?: boolean
     skills?: boolean
+    totalActivityTime?: boolean
     createdAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "username" | "password" | "googleId" | "appleId" | "age" | "profilePicture" | "bio" | "interests" | "skills" | "createdAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "username" | "password" | "googleId" | "appleId" | "age" | "profilePicture" | "bio" | "interests" | "skills" | "totalActivityTime" | "createdAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     courseHistory?: boolean | User$courseHistoryArgs<ExtArgs>
     testAttempts?: boolean | User$testAttemptsArgs<ExtArgs>
@@ -3363,6 +3378,7 @@ export namespace Prisma {
       bio: string | null
       interests: string[]
       skills: string | null
+      totalActivityTime: number
       createdAt: Date
     }, ExtArgs["result"]["user"]>
     composites: {}
@@ -3807,6 +3823,7 @@ export namespace Prisma {
     readonly bio: FieldRef<"User", 'String'>
     readonly interests: FieldRef<"User", 'String[]'>
     readonly skills: FieldRef<"User", 'String'>
+    readonly totalActivityTime: FieldRef<"User", 'Int'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
   }
     
@@ -16458,17 +16475,21 @@ export namespace Prisma {
 
   export type QuizQuestionAvgAggregateOutputType = {
     id: number | null
+    score: number | null
     quizId: number | null
   }
 
   export type QuizQuestionSumAggregateOutputType = {
     id: number | null
+    score: number | null
     quizId: number | null
   }
 
   export type QuizQuestionMinAggregateOutputType = {
     id: number | null
     question: string | null
+    type: string | null
+    score: number | null
     quizId: number | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -16477,6 +16498,8 @@ export namespace Prisma {
   export type QuizQuestionMaxAggregateOutputType = {
     id: number | null
     question: string | null
+    type: string | null
+    score: number | null
     quizId: number | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -16485,6 +16508,8 @@ export namespace Prisma {
   export type QuizQuestionCountAggregateOutputType = {
     id: number
     question: number
+    type: number
+    score: number
     quizId: number
     createdAt: number
     updatedAt: number
@@ -16494,17 +16519,21 @@ export namespace Prisma {
 
   export type QuizQuestionAvgAggregateInputType = {
     id?: true
+    score?: true
     quizId?: true
   }
 
   export type QuizQuestionSumAggregateInputType = {
     id?: true
+    score?: true
     quizId?: true
   }
 
   export type QuizQuestionMinAggregateInputType = {
     id?: true
     question?: true
+    type?: true
+    score?: true
     quizId?: true
     createdAt?: true
     updatedAt?: true
@@ -16513,6 +16542,8 @@ export namespace Prisma {
   export type QuizQuestionMaxAggregateInputType = {
     id?: true
     question?: true
+    type?: true
+    score?: true
     quizId?: true
     createdAt?: true
     updatedAt?: true
@@ -16521,6 +16552,8 @@ export namespace Prisma {
   export type QuizQuestionCountAggregateInputType = {
     id?: true
     question?: true
+    type?: true
+    score?: true
     quizId?: true
     createdAt?: true
     updatedAt?: true
@@ -16616,6 +16649,8 @@ export namespace Prisma {
   export type QuizQuestionGroupByOutputType = {
     id: number
     question: string
+    type: string
+    score: number
     quizId: number
     createdAt: Date
     updatedAt: Date
@@ -16643,6 +16678,8 @@ export namespace Prisma {
   export type QuizQuestionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     question?: boolean
+    type?: boolean
+    score?: boolean
     quizId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -16654,6 +16691,8 @@ export namespace Prisma {
   export type QuizQuestionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     question?: boolean
+    type?: boolean
+    score?: boolean
     quizId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -16663,6 +16702,8 @@ export namespace Prisma {
   export type QuizQuestionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     question?: boolean
+    type?: boolean
+    score?: boolean
     quizId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -16672,12 +16713,14 @@ export namespace Prisma {
   export type QuizQuestionSelectScalar = {
     id?: boolean
     question?: boolean
+    type?: boolean
+    score?: boolean
     quizId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type QuizQuestionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "question" | "quizId" | "createdAt" | "updatedAt", ExtArgs["result"]["quizQuestion"]>
+  export type QuizQuestionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "question" | "type" | "score" | "quizId" | "createdAt" | "updatedAt", ExtArgs["result"]["quizQuestion"]>
   export type QuizQuestionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     quiz?: boolean | CourseQuizDefaultArgs<ExtArgs>
     answers?: boolean | QuizQuestion$answersArgs<ExtArgs>
@@ -16699,6 +16742,8 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: number
       question: string
+      type: string
+      score: number
       quizId: number
       createdAt: Date
       updatedAt: Date
@@ -17129,6 +17174,8 @@ export namespace Prisma {
   interface QuizQuestionFieldRefs {
     readonly id: FieldRef<"QuizQuestion", 'Int'>
     readonly question: FieldRef<"QuizQuestion", 'String'>
+    readonly type: FieldRef<"QuizQuestion", 'String'>
+    readonly score: FieldRef<"QuizQuestion", 'Int'>
     readonly quizId: FieldRef<"QuizQuestion", 'Int'>
     readonly createdAt: FieldRef<"QuizQuestion", 'DateTime'>
     readonly updatedAt: FieldRef<"QuizQuestion", 'DateTime'>
@@ -17584,11 +17631,13 @@ export namespace Prisma {
 
   export type QuizAnswerAvgAggregateOutputType = {
     id: number | null
+    order: number | null
     questionId: number | null
   }
 
   export type QuizAnswerSumAggregateOutputType = {
     id: number | null
+    order: number | null
     questionId: number | null
   }
 
@@ -17596,6 +17645,7 @@ export namespace Prisma {
     id: number | null
     answer: string | null
     isCorrect: boolean | null
+    order: number | null
     questionId: number | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -17605,6 +17655,7 @@ export namespace Prisma {
     id: number | null
     answer: string | null
     isCorrect: boolean | null
+    order: number | null
     questionId: number | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -17614,6 +17665,7 @@ export namespace Prisma {
     id: number
     answer: number
     isCorrect: number
+    order: number
     questionId: number
     createdAt: number
     updatedAt: number
@@ -17623,11 +17675,13 @@ export namespace Prisma {
 
   export type QuizAnswerAvgAggregateInputType = {
     id?: true
+    order?: true
     questionId?: true
   }
 
   export type QuizAnswerSumAggregateInputType = {
     id?: true
+    order?: true
     questionId?: true
   }
 
@@ -17635,6 +17689,7 @@ export namespace Prisma {
     id?: true
     answer?: true
     isCorrect?: true
+    order?: true
     questionId?: true
     createdAt?: true
     updatedAt?: true
@@ -17644,6 +17699,7 @@ export namespace Prisma {
     id?: true
     answer?: true
     isCorrect?: true
+    order?: true
     questionId?: true
     createdAt?: true
     updatedAt?: true
@@ -17653,6 +17709,7 @@ export namespace Prisma {
     id?: true
     answer?: true
     isCorrect?: true
+    order?: true
     questionId?: true
     createdAt?: true
     updatedAt?: true
@@ -17749,6 +17806,7 @@ export namespace Prisma {
     id: number
     answer: string
     isCorrect: boolean
+    order: number | null
     questionId: number
     createdAt: Date
     updatedAt: Date
@@ -17777,6 +17835,7 @@ export namespace Prisma {
     id?: boolean
     answer?: boolean
     isCorrect?: boolean
+    order?: boolean
     questionId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -17787,6 +17846,7 @@ export namespace Prisma {
     id?: boolean
     answer?: boolean
     isCorrect?: boolean
+    order?: boolean
     questionId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -17797,6 +17857,7 @@ export namespace Prisma {
     id?: boolean
     answer?: boolean
     isCorrect?: boolean
+    order?: boolean
     questionId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -17807,12 +17868,13 @@ export namespace Prisma {
     id?: boolean
     answer?: boolean
     isCorrect?: boolean
+    order?: boolean
     questionId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type QuizAnswerOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "answer" | "isCorrect" | "questionId" | "createdAt" | "updatedAt", ExtArgs["result"]["quizAnswer"]>
+  export type QuizAnswerOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "answer" | "isCorrect" | "order" | "questionId" | "createdAt" | "updatedAt", ExtArgs["result"]["quizAnswer"]>
   export type QuizAnswerInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     question?: boolean | QuizQuestionDefaultArgs<ExtArgs>
   }
@@ -17832,6 +17894,7 @@ export namespace Prisma {
       id: number
       answer: string
       isCorrect: boolean
+      order: number | null
       questionId: number
       createdAt: Date
       updatedAt: Date
@@ -18262,6 +18325,7 @@ export namespace Prisma {
     readonly id: FieldRef<"QuizAnswer", 'Int'>
     readonly answer: FieldRef<"QuizAnswer", 'String'>
     readonly isCorrect: FieldRef<"QuizAnswer", 'Boolean'>
+    readonly order: FieldRef<"QuizAnswer", 'Int'>
     readonly questionId: FieldRef<"QuizAnswer", 'Int'>
     readonly createdAt: FieldRef<"QuizAnswer", 'DateTime'>
     readonly updatedAt: FieldRef<"QuizAnswer", 'DateTime'>
@@ -26662,6 +26726,7 @@ export namespace Prisma {
     bio: 'bio',
     interests: 'interests',
     skills: 'skills',
+    totalActivityTime: 'totalActivityTime',
     createdAt: 'createdAt'
   };
 
@@ -26826,6 +26891,8 @@ export namespace Prisma {
   export const QuizQuestionScalarFieldEnum: {
     id: 'id',
     question: 'question',
+    type: 'type',
+    score: 'score',
     quizId: 'quizId',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
@@ -26838,6 +26905,7 @@ export namespace Prisma {
     id: 'id',
     answer: 'answer',
     isCorrect: 'isCorrect',
+    order: 'order',
     questionId: 'questionId',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
@@ -27046,6 +27114,7 @@ export namespace Prisma {
     bio?: StringNullableFilter<"User"> | string | null
     interests?: StringNullableListFilter<"User">
     skills?: StringNullableFilter<"User"> | string | null
+    totalActivityTime?: IntFilter<"User"> | number
     createdAt?: DateTimeFilter<"User"> | Date | string
     courseHistory?: CourseHistoryListRelationFilter
     testAttempts?: TestAttemptListRelationFilter
@@ -27070,6 +27139,7 @@ export namespace Prisma {
     bio?: SortOrderInput | SortOrder
     interests?: SortOrder
     skills?: SortOrderInput | SortOrder
+    totalActivityTime?: SortOrder
     createdAt?: SortOrder
     courseHistory?: CourseHistoryOrderByRelationAggregateInput
     testAttempts?: TestAttemptOrderByRelationAggregateInput
@@ -27097,6 +27167,7 @@ export namespace Prisma {
     bio?: StringNullableFilter<"User"> | string | null
     interests?: StringNullableListFilter<"User">
     skills?: StringNullableFilter<"User"> | string | null
+    totalActivityTime?: IntFilter<"User"> | number
     createdAt?: DateTimeFilter<"User"> | Date | string
     courseHistory?: CourseHistoryListRelationFilter
     testAttempts?: TestAttemptListRelationFilter
@@ -27121,6 +27192,7 @@ export namespace Prisma {
     bio?: SortOrderInput | SortOrder
     interests?: SortOrder
     skills?: SortOrderInput | SortOrder
+    totalActivityTime?: SortOrder
     createdAt?: SortOrder
     _count?: UserCountOrderByAggregateInput
     _avg?: UserAvgOrderByAggregateInput
@@ -27144,6 +27216,7 @@ export namespace Prisma {
     bio?: StringNullableWithAggregatesFilter<"User"> | string | null
     interests?: StringNullableListFilter<"User">
     skills?: StringNullableWithAggregatesFilter<"User"> | string | null
+    totalActivityTime?: IntWithAggregatesFilter<"User"> | number
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
   }
 
@@ -28001,6 +28074,8 @@ export namespace Prisma {
     NOT?: QuizQuestionWhereInput | QuizQuestionWhereInput[]
     id?: IntFilter<"QuizQuestion"> | number
     question?: StringFilter<"QuizQuestion"> | string
+    type?: StringFilter<"QuizQuestion"> | string
+    score?: IntFilter<"QuizQuestion"> | number
     quizId?: IntFilter<"QuizQuestion"> | number
     createdAt?: DateTimeFilter<"QuizQuestion"> | Date | string
     updatedAt?: DateTimeFilter<"QuizQuestion"> | Date | string
@@ -28011,6 +28086,8 @@ export namespace Prisma {
   export type QuizQuestionOrderByWithRelationInput = {
     id?: SortOrder
     question?: SortOrder
+    type?: SortOrder
+    score?: SortOrder
     quizId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -28024,6 +28101,8 @@ export namespace Prisma {
     OR?: QuizQuestionWhereInput[]
     NOT?: QuizQuestionWhereInput | QuizQuestionWhereInput[]
     question?: StringFilter<"QuizQuestion"> | string
+    type?: StringFilter<"QuizQuestion"> | string
+    score?: IntFilter<"QuizQuestion"> | number
     quizId?: IntFilter<"QuizQuestion"> | number
     createdAt?: DateTimeFilter<"QuizQuestion"> | Date | string
     updatedAt?: DateTimeFilter<"QuizQuestion"> | Date | string
@@ -28034,6 +28113,8 @@ export namespace Prisma {
   export type QuizQuestionOrderByWithAggregationInput = {
     id?: SortOrder
     question?: SortOrder
+    type?: SortOrder
+    score?: SortOrder
     quizId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -28050,6 +28131,8 @@ export namespace Prisma {
     NOT?: QuizQuestionScalarWhereWithAggregatesInput | QuizQuestionScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"QuizQuestion"> | number
     question?: StringWithAggregatesFilter<"QuizQuestion"> | string
+    type?: StringWithAggregatesFilter<"QuizQuestion"> | string
+    score?: IntWithAggregatesFilter<"QuizQuestion"> | number
     quizId?: IntWithAggregatesFilter<"QuizQuestion"> | number
     createdAt?: DateTimeWithAggregatesFilter<"QuizQuestion"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"QuizQuestion"> | Date | string
@@ -28062,6 +28145,7 @@ export namespace Prisma {
     id?: IntFilter<"QuizAnswer"> | number
     answer?: StringFilter<"QuizAnswer"> | string
     isCorrect?: BoolFilter<"QuizAnswer"> | boolean
+    order?: IntNullableFilter<"QuizAnswer"> | number | null
     questionId?: IntFilter<"QuizAnswer"> | number
     createdAt?: DateTimeFilter<"QuizAnswer"> | Date | string
     updatedAt?: DateTimeFilter<"QuizAnswer"> | Date | string
@@ -28072,6 +28156,7 @@ export namespace Prisma {
     id?: SortOrder
     answer?: SortOrder
     isCorrect?: SortOrder
+    order?: SortOrderInput | SortOrder
     questionId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -28085,6 +28170,7 @@ export namespace Prisma {
     NOT?: QuizAnswerWhereInput | QuizAnswerWhereInput[]
     answer?: StringFilter<"QuizAnswer"> | string
     isCorrect?: BoolFilter<"QuizAnswer"> | boolean
+    order?: IntNullableFilter<"QuizAnswer"> | number | null
     questionId?: IntFilter<"QuizAnswer"> | number
     createdAt?: DateTimeFilter<"QuizAnswer"> | Date | string
     updatedAt?: DateTimeFilter<"QuizAnswer"> | Date | string
@@ -28095,6 +28181,7 @@ export namespace Prisma {
     id?: SortOrder
     answer?: SortOrder
     isCorrect?: SortOrder
+    order?: SortOrderInput | SortOrder
     questionId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -28112,6 +28199,7 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"QuizAnswer"> | number
     answer?: StringWithAggregatesFilter<"QuizAnswer"> | string
     isCorrect?: BoolWithAggregatesFilter<"QuizAnswer"> | boolean
+    order?: IntNullableWithAggregatesFilter<"QuizAnswer"> | number | null
     questionId?: IntWithAggregatesFilter<"QuizAnswer"> | number
     createdAt?: DateTimeWithAggregatesFilter<"QuizAnswer"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"QuizAnswer"> | Date | string
@@ -28613,6 +28701,7 @@ export namespace Prisma {
     bio?: string | null
     interests?: UserCreateinterestsInput | string[]
     skills?: string | null
+    totalActivityTime?: number
     createdAt?: Date | string
     courseHistory?: CourseHistoryCreateNestedManyWithoutUserInput
     testAttempts?: TestAttemptCreateNestedManyWithoutUserInput
@@ -28637,6 +28726,7 @@ export namespace Prisma {
     bio?: string | null
     interests?: UserCreateinterestsInput | string[]
     skills?: string | null
+    totalActivityTime?: number
     createdAt?: Date | string
     courseHistory?: CourseHistoryUncheckedCreateNestedManyWithoutUserInput
     testAttempts?: TestAttemptUncheckedCreateNestedManyWithoutUserInput
@@ -28660,6 +28750,7 @@ export namespace Prisma {
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     interests?: UserUpdateinterestsInput | string[]
     skills?: NullableStringFieldUpdateOperationsInput | string | null
+    totalActivityTime?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     courseHistory?: CourseHistoryUpdateManyWithoutUserNestedInput
     testAttempts?: TestAttemptUpdateManyWithoutUserNestedInput
@@ -28684,6 +28775,7 @@ export namespace Prisma {
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     interests?: UserUpdateinterestsInput | string[]
     skills?: NullableStringFieldUpdateOperationsInput | string | null
+    totalActivityTime?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     courseHistory?: CourseHistoryUncheckedUpdateManyWithoutUserNestedInput
     testAttempts?: TestAttemptUncheckedUpdateManyWithoutUserNestedInput
@@ -28708,6 +28800,7 @@ export namespace Prisma {
     bio?: string | null
     interests?: UserCreateinterestsInput | string[]
     skills?: string | null
+    totalActivityTime?: number
     createdAt?: Date | string
   }
 
@@ -28722,6 +28815,7 @@ export namespace Prisma {
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     interests?: UserUpdateinterestsInput | string[]
     skills?: NullableStringFieldUpdateOperationsInput | string | null
+    totalActivityTime?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -28737,6 +28831,7 @@ export namespace Prisma {
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     interests?: UserUpdateinterestsInput | string[]
     skills?: NullableStringFieldUpdateOperationsInput | string | null
+    totalActivityTime?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -29628,6 +29723,8 @@ export namespace Prisma {
 
   export type QuizQuestionCreateInput = {
     question: string
+    type?: string
+    score?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     quiz: CourseQuizCreateNestedOneWithoutQuestionsInput
@@ -29637,6 +29734,8 @@ export namespace Prisma {
   export type QuizQuestionUncheckedCreateInput = {
     id?: number
     question: string
+    type?: string
+    score?: number
     quizId: number
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -29645,6 +29744,8 @@ export namespace Prisma {
 
   export type QuizQuestionUpdateInput = {
     question?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    score?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     quiz?: CourseQuizUpdateOneRequiredWithoutQuestionsNestedInput
@@ -29654,6 +29755,8 @@ export namespace Prisma {
   export type QuizQuestionUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     question?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    score?: IntFieldUpdateOperationsInput | number
     quizId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -29663,6 +29766,8 @@ export namespace Prisma {
   export type QuizQuestionCreateManyInput = {
     id?: number
     question: string
+    type?: string
+    score?: number
     quizId: number
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -29670,6 +29775,8 @@ export namespace Prisma {
 
   export type QuizQuestionUpdateManyMutationInput = {
     question?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    score?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -29677,6 +29784,8 @@ export namespace Prisma {
   export type QuizQuestionUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     question?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    score?: IntFieldUpdateOperationsInput | number
     quizId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -29685,6 +29794,7 @@ export namespace Prisma {
   export type QuizAnswerCreateInput = {
     answer: string
     isCorrect?: boolean
+    order?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     question: QuizQuestionCreateNestedOneWithoutAnswersInput
@@ -29694,6 +29804,7 @@ export namespace Prisma {
     id?: number
     answer: string
     isCorrect?: boolean
+    order?: number | null
     questionId: number
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -29702,6 +29813,7 @@ export namespace Prisma {
   export type QuizAnswerUpdateInput = {
     answer?: StringFieldUpdateOperationsInput | string
     isCorrect?: BoolFieldUpdateOperationsInput | boolean
+    order?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     question?: QuizQuestionUpdateOneRequiredWithoutAnswersNestedInput
@@ -29711,6 +29823,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     answer?: StringFieldUpdateOperationsInput | string
     isCorrect?: BoolFieldUpdateOperationsInput | boolean
+    order?: NullableIntFieldUpdateOperationsInput | number | null
     questionId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -29720,6 +29833,7 @@ export namespace Prisma {
     id?: number
     answer: string
     isCorrect?: boolean
+    order?: number | null
     questionId: number
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -29728,6 +29842,7 @@ export namespace Prisma {
   export type QuizAnswerUpdateManyMutationInput = {
     answer?: StringFieldUpdateOperationsInput | string
     isCorrect?: BoolFieldUpdateOperationsInput | boolean
+    order?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -29736,6 +29851,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     answer?: StringFieldUpdateOperationsInput | string
     isCorrect?: BoolFieldUpdateOperationsInput | boolean
+    order?: NullableIntFieldUpdateOperationsInput | number | null
     questionId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -30383,12 +30499,14 @@ export namespace Prisma {
     bio?: SortOrder
     interests?: SortOrder
     skills?: SortOrder
+    totalActivityTime?: SortOrder
     createdAt?: SortOrder
   }
 
   export type UserAvgOrderByAggregateInput = {
     id?: SortOrder
     age?: SortOrder
+    totalActivityTime?: SortOrder
   }
 
   export type UserMaxOrderByAggregateInput = {
@@ -30402,6 +30520,7 @@ export namespace Prisma {
     profilePicture?: SortOrder
     bio?: SortOrder
     skills?: SortOrder
+    totalActivityTime?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -30416,12 +30535,14 @@ export namespace Prisma {
     profilePicture?: SortOrder
     bio?: SortOrder
     skills?: SortOrder
+    totalActivityTime?: SortOrder
     createdAt?: SortOrder
   }
 
   export type UserSumOrderByAggregateInput = {
     id?: SortOrder
     age?: SortOrder
+    totalActivityTime?: SortOrder
   }
 
   export type IntWithAggregatesFilter<$PrismaModel = never> = {
@@ -31169,6 +31290,8 @@ export namespace Prisma {
   export type QuizQuestionCountOrderByAggregateInput = {
     id?: SortOrder
     question?: SortOrder
+    type?: SortOrder
+    score?: SortOrder
     quizId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -31176,12 +31299,15 @@ export namespace Prisma {
 
   export type QuizQuestionAvgOrderByAggregateInput = {
     id?: SortOrder
+    score?: SortOrder
     quizId?: SortOrder
   }
 
   export type QuizQuestionMaxOrderByAggregateInput = {
     id?: SortOrder
     question?: SortOrder
+    type?: SortOrder
+    score?: SortOrder
     quizId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -31190,6 +31316,8 @@ export namespace Prisma {
   export type QuizQuestionMinOrderByAggregateInput = {
     id?: SortOrder
     question?: SortOrder
+    type?: SortOrder
+    score?: SortOrder
     quizId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -31197,6 +31325,7 @@ export namespace Prisma {
 
   export type QuizQuestionSumOrderByAggregateInput = {
     id?: SortOrder
+    score?: SortOrder
     quizId?: SortOrder
   }
 
@@ -31209,6 +31338,7 @@ export namespace Prisma {
     id?: SortOrder
     answer?: SortOrder
     isCorrect?: SortOrder
+    order?: SortOrder
     questionId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -31216,6 +31346,7 @@ export namespace Prisma {
 
   export type QuizAnswerAvgOrderByAggregateInput = {
     id?: SortOrder
+    order?: SortOrder
     questionId?: SortOrder
   }
 
@@ -31223,6 +31354,7 @@ export namespace Prisma {
     id?: SortOrder
     answer?: SortOrder
     isCorrect?: SortOrder
+    order?: SortOrder
     questionId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -31232,6 +31364,7 @@ export namespace Prisma {
     id?: SortOrder
     answer?: SortOrder
     isCorrect?: SortOrder
+    order?: SortOrder
     questionId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -31239,6 +31372,7 @@ export namespace Prisma {
 
   export type QuizAnswerSumOrderByAggregateInput = {
     id?: SortOrder
+    order?: SortOrder
     questionId?: SortOrder
   }
 
@@ -31732,6 +31866,14 @@ export namespace Prisma {
     push?: string | string[]
   }
 
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
   export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string
   }
@@ -31860,14 +32002,6 @@ export namespace Prisma {
     update?: CourseProgressUpdateWithWhereUniqueWithoutUserInput | CourseProgressUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: CourseProgressUpdateManyWithWhereWithoutUserInput | CourseProgressUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: CourseProgressScalarWhereInput | CourseProgressScalarWhereInput[]
-  }
-
-  export type IntFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
   }
 
   export type CourseHistoryUncheckedUpdateManyWithoutUserNestedInput = {
@@ -34407,6 +34541,7 @@ export namespace Prisma {
     bio?: string | null
     interests?: UserCreateinterestsInput | string[]
     skills?: string | null
+    totalActivityTime?: number
     createdAt?: Date | string
     courseHistory?: CourseHistoryCreateNestedManyWithoutUserInput
     testAttempts?: TestAttemptCreateNestedManyWithoutUserInput
@@ -34430,6 +34565,7 @@ export namespace Prisma {
     bio?: string | null
     interests?: UserCreateinterestsInput | string[]
     skills?: string | null
+    totalActivityTime?: number
     createdAt?: Date | string
     courseHistory?: CourseHistoryUncheckedCreateNestedManyWithoutUserInput
     testAttempts?: TestAttemptUncheckedCreateNestedManyWithoutUserInput
@@ -34503,6 +34639,7 @@ export namespace Prisma {
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     interests?: UserUpdateinterestsInput | string[]
     skills?: NullableStringFieldUpdateOperationsInput | string | null
+    totalActivityTime?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     courseHistory?: CourseHistoryUpdateManyWithoutUserNestedInput
     testAttempts?: TestAttemptUpdateManyWithoutUserNestedInput
@@ -34526,6 +34663,7 @@ export namespace Prisma {
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     interests?: UserUpdateinterestsInput | string[]
     skills?: NullableStringFieldUpdateOperationsInput | string | null
+    totalActivityTime?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     courseHistory?: CourseHistoryUncheckedUpdateManyWithoutUserNestedInput
     testAttempts?: TestAttemptUncheckedUpdateManyWithoutUserNestedInput
@@ -34589,6 +34727,7 @@ export namespace Prisma {
     bio?: string | null
     interests?: UserCreateinterestsInput | string[]
     skills?: string | null
+    totalActivityTime?: number
     createdAt?: Date | string
     testAttempts?: TestAttemptCreateNestedManyWithoutUserInput
     points?: UserPointCreateNestedManyWithoutUserInput
@@ -34612,6 +34751,7 @@ export namespace Prisma {
     bio?: string | null
     interests?: UserCreateinterestsInput | string[]
     skills?: string | null
+    totalActivityTime?: number
     createdAt?: Date | string
     testAttempts?: TestAttemptUncheckedCreateNestedManyWithoutUserInput
     points?: UserPointUncheckedCreateNestedManyWithoutUserInput
@@ -34728,6 +34868,7 @@ export namespace Prisma {
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     interests?: UserUpdateinterestsInput | string[]
     skills?: NullableStringFieldUpdateOperationsInput | string | null
+    totalActivityTime?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     testAttempts?: TestAttemptUpdateManyWithoutUserNestedInput
     points?: UserPointUpdateManyWithoutUserNestedInput
@@ -34751,6 +34892,7 @@ export namespace Prisma {
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     interests?: UserUpdateinterestsInput | string[]
     skills?: NullableStringFieldUpdateOperationsInput | string | null
+    totalActivityTime?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     testAttempts?: TestAttemptUncheckedUpdateManyWithoutUserNestedInput
     points?: UserPointUncheckedUpdateManyWithoutUserNestedInput
@@ -35273,6 +35415,7 @@ export namespace Prisma {
     bio?: string | null
     interests?: UserCreateinterestsInput | string[]
     skills?: string | null
+    totalActivityTime?: number
     createdAt?: Date | string
     courseHistory?: CourseHistoryCreateNestedManyWithoutUserInput
     points?: UserPointCreateNestedManyWithoutUserInput
@@ -35296,6 +35439,7 @@ export namespace Prisma {
     bio?: string | null
     interests?: UserCreateinterestsInput | string[]
     skills?: string | null
+    totalActivityTime?: number
     createdAt?: Date | string
     courseHistory?: CourseHistoryUncheckedCreateNestedManyWithoutUserInput
     points?: UserPointUncheckedCreateNestedManyWithoutUserInput
@@ -35358,6 +35502,7 @@ export namespace Prisma {
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     interests?: UserUpdateinterestsInput | string[]
     skills?: NullableStringFieldUpdateOperationsInput | string | null
+    totalActivityTime?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     courseHistory?: CourseHistoryUpdateManyWithoutUserNestedInput
     points?: UserPointUpdateManyWithoutUserNestedInput
@@ -35381,6 +35526,7 @@ export namespace Prisma {
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     interests?: UserUpdateinterestsInput | string[]
     skills?: NullableStringFieldUpdateOperationsInput | string | null
+    totalActivityTime?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     courseHistory?: CourseHistoryUncheckedUpdateManyWithoutUserNestedInput
     points?: UserPointUncheckedUpdateManyWithoutUserNestedInput
@@ -35433,6 +35579,7 @@ export namespace Prisma {
     bio?: string | null
     interests?: UserCreateinterestsInput | string[]
     skills?: string | null
+    totalActivityTime?: number
     createdAt?: Date | string
     courseHistory?: CourseHistoryCreateNestedManyWithoutUserInput
     testAttempts?: TestAttemptCreateNestedManyWithoutUserInput
@@ -35456,6 +35603,7 @@ export namespace Prisma {
     bio?: string | null
     interests?: UserCreateinterestsInput | string[]
     skills?: string | null
+    totalActivityTime?: number
     createdAt?: Date | string
     courseHistory?: CourseHistoryUncheckedCreateNestedManyWithoutUserInput
     testAttempts?: TestAttemptUncheckedCreateNestedManyWithoutUserInput
@@ -35494,6 +35642,7 @@ export namespace Prisma {
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     interests?: UserUpdateinterestsInput | string[]
     skills?: NullableStringFieldUpdateOperationsInput | string | null
+    totalActivityTime?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     courseHistory?: CourseHistoryUpdateManyWithoutUserNestedInput
     testAttempts?: TestAttemptUpdateManyWithoutUserNestedInput
@@ -35517,6 +35666,7 @@ export namespace Prisma {
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     interests?: UserUpdateinterestsInput | string[]
     skills?: NullableStringFieldUpdateOperationsInput | string | null
+    totalActivityTime?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     courseHistory?: CourseHistoryUncheckedUpdateManyWithoutUserNestedInput
     testAttempts?: TestAttemptUncheckedUpdateManyWithoutUserNestedInput
@@ -35667,6 +35817,8 @@ export namespace Prisma {
 
   export type QuizQuestionCreateWithoutQuizInput = {
     question: string
+    type?: string
+    score?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     answers?: QuizAnswerCreateNestedManyWithoutQuestionInput
@@ -35675,6 +35827,8 @@ export namespace Prisma {
   export type QuizQuestionUncheckedCreateWithoutQuizInput = {
     id?: number
     question: string
+    type?: string
+    score?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     answers?: QuizAnswerUncheckedCreateNestedManyWithoutQuestionInput
@@ -35902,6 +36056,8 @@ export namespace Prisma {
     NOT?: QuizQuestionScalarWhereInput | QuizQuestionScalarWhereInput[]
     id?: IntFilter<"QuizQuestion"> | number
     question?: StringFilter<"QuizQuestion"> | string
+    type?: StringFilter<"QuizQuestion"> | string
+    score?: IntFilter<"QuizQuestion"> | number
     quizId?: IntFilter<"QuizQuestion"> | number
     createdAt?: DateTimeFilter<"QuizQuestion"> | Date | string
     updatedAt?: DateTimeFilter<"QuizQuestion"> | Date | string
@@ -35954,6 +36110,7 @@ export namespace Prisma {
   export type QuizAnswerCreateWithoutQuestionInput = {
     answer: string
     isCorrect?: boolean
+    order?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -35962,6 +36119,7 @@ export namespace Prisma {
     id?: number
     answer: string
     isCorrect?: boolean
+    order?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -36033,6 +36191,7 @@ export namespace Prisma {
     id?: IntFilter<"QuizAnswer"> | number
     answer?: StringFilter<"QuizAnswer"> | string
     isCorrect?: BoolFilter<"QuizAnswer"> | boolean
+    order?: IntNullableFilter<"QuizAnswer"> | number | null
     questionId?: IntFilter<"QuizAnswer"> | number
     createdAt?: DateTimeFilter<"QuizAnswer"> | Date | string
     updatedAt?: DateTimeFilter<"QuizAnswer"> | Date | string
@@ -36040,6 +36199,8 @@ export namespace Prisma {
 
   export type QuizQuestionCreateWithoutAnswersInput = {
     question: string
+    type?: string
+    score?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     quiz: CourseQuizCreateNestedOneWithoutQuestionsInput
@@ -36048,6 +36209,8 @@ export namespace Prisma {
   export type QuizQuestionUncheckedCreateWithoutAnswersInput = {
     id?: number
     question: string
+    type?: string
+    score?: number
     quizId: number
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -36071,6 +36234,8 @@ export namespace Prisma {
 
   export type QuizQuestionUpdateWithoutAnswersInput = {
     question?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    score?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     quiz?: CourseQuizUpdateOneRequiredWithoutQuestionsNestedInput
@@ -36079,6 +36244,8 @@ export namespace Prisma {
   export type QuizQuestionUncheckedUpdateWithoutAnswersInput = {
     id?: IntFieldUpdateOperationsInput | number
     question?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    score?: IntFieldUpdateOperationsInput | number
     quizId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -36095,6 +36262,7 @@ export namespace Prisma {
     bio?: string | null
     interests?: UserCreateinterestsInput | string[]
     skills?: string | null
+    totalActivityTime?: number
     createdAt?: Date | string
     courseHistory?: CourseHistoryCreateNestedManyWithoutUserInput
     testAttempts?: TestAttemptCreateNestedManyWithoutUserInput
@@ -36118,6 +36286,7 @@ export namespace Prisma {
     bio?: string | null
     interests?: UserCreateinterestsInput | string[]
     skills?: string | null
+    totalActivityTime?: number
     createdAt?: Date | string
     courseHistory?: CourseHistoryUncheckedCreateNestedManyWithoutUserInput
     testAttempts?: TestAttemptUncheckedCreateNestedManyWithoutUserInput
@@ -36184,6 +36353,7 @@ export namespace Prisma {
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     interests?: UserUpdateinterestsInput | string[]
     skills?: NullableStringFieldUpdateOperationsInput | string | null
+    totalActivityTime?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     courseHistory?: CourseHistoryUpdateManyWithoutUserNestedInput
     testAttempts?: TestAttemptUpdateManyWithoutUserNestedInput
@@ -36207,6 +36377,7 @@ export namespace Prisma {
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     interests?: UserUpdateinterestsInput | string[]
     skills?: NullableStringFieldUpdateOperationsInput | string | null
+    totalActivityTime?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     courseHistory?: CourseHistoryUncheckedUpdateManyWithoutUserNestedInput
     testAttempts?: TestAttemptUncheckedUpdateManyWithoutUserNestedInput
@@ -36353,6 +36524,7 @@ export namespace Prisma {
     bio?: string | null
     interests?: UserCreateinterestsInput | string[]
     skills?: string | null
+    totalActivityTime?: number
     createdAt?: Date | string
     courseHistory?: CourseHistoryCreateNestedManyWithoutUserInput
     testAttempts?: TestAttemptCreateNestedManyWithoutUserInput
@@ -36376,6 +36548,7 @@ export namespace Prisma {
     bio?: string | null
     interests?: UserCreateinterestsInput | string[]
     skills?: string | null
+    totalActivityTime?: number
     createdAt?: Date | string
     courseHistory?: CourseHistoryUncheckedCreateNestedManyWithoutUserInput
     testAttempts?: TestAttemptUncheckedCreateNestedManyWithoutUserInput
@@ -36438,6 +36611,7 @@ export namespace Prisma {
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     interests?: UserUpdateinterestsInput | string[]
     skills?: NullableStringFieldUpdateOperationsInput | string | null
+    totalActivityTime?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     courseHistory?: CourseHistoryUpdateManyWithoutUserNestedInput
     testAttempts?: TestAttemptUpdateManyWithoutUserNestedInput
@@ -36461,6 +36635,7 @@ export namespace Prisma {
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     interests?: UserUpdateinterestsInput | string[]
     skills?: NullableStringFieldUpdateOperationsInput | string | null
+    totalActivityTime?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     courseHistory?: CourseHistoryUncheckedUpdateManyWithoutUserNestedInput
     testAttempts?: TestAttemptUncheckedUpdateManyWithoutUserNestedInput
@@ -36513,6 +36688,7 @@ export namespace Prisma {
     bio?: string | null
     interests?: UserCreateinterestsInput | string[]
     skills?: string | null
+    totalActivityTime?: number
     createdAt?: Date | string
     courseHistory?: CourseHistoryCreateNestedManyWithoutUserInput
     testAttempts?: TestAttemptCreateNestedManyWithoutUserInput
@@ -36536,6 +36712,7 @@ export namespace Prisma {
     bio?: string | null
     interests?: UserCreateinterestsInput | string[]
     skills?: string | null
+    totalActivityTime?: number
     createdAt?: Date | string
     courseHistory?: CourseHistoryUncheckedCreateNestedManyWithoutUserInput
     testAttempts?: TestAttemptUncheckedCreateNestedManyWithoutUserInput
@@ -36652,6 +36829,7 @@ export namespace Prisma {
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     interests?: UserUpdateinterestsInput | string[]
     skills?: NullableStringFieldUpdateOperationsInput | string | null
+    totalActivityTime?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     courseHistory?: CourseHistoryUpdateManyWithoutUserNestedInput
     testAttempts?: TestAttemptUpdateManyWithoutUserNestedInput
@@ -36675,6 +36853,7 @@ export namespace Prisma {
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     interests?: UserUpdateinterestsInput | string[]
     skills?: NullableStringFieldUpdateOperationsInput | string | null
+    totalActivityTime?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     courseHistory?: CourseHistoryUncheckedUpdateManyWithoutUserNestedInput
     testAttempts?: TestAttemptUncheckedUpdateManyWithoutUserNestedInput
@@ -36822,6 +37001,7 @@ export namespace Prisma {
     bio?: string | null
     interests?: UserCreateinterestsInput | string[]
     skills?: string | null
+    totalActivityTime?: number
     createdAt?: Date | string
     courseHistory?: CourseHistoryCreateNestedManyWithoutUserInput
     testAttempts?: TestAttemptCreateNestedManyWithoutUserInput
@@ -36845,6 +37025,7 @@ export namespace Prisma {
     bio?: string | null
     interests?: UserCreateinterestsInput | string[]
     skills?: string | null
+    totalActivityTime?: number
     createdAt?: Date | string
     courseHistory?: CourseHistoryUncheckedCreateNestedManyWithoutUserInput
     testAttempts?: TestAttemptUncheckedCreateNestedManyWithoutUserInput
@@ -36905,6 +37086,7 @@ export namespace Prisma {
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     interests?: UserUpdateinterestsInput | string[]
     skills?: NullableStringFieldUpdateOperationsInput | string | null
+    totalActivityTime?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     courseHistory?: CourseHistoryUpdateManyWithoutUserNestedInput
     testAttempts?: TestAttemptUpdateManyWithoutUserNestedInput
@@ -36928,6 +37110,7 @@ export namespace Prisma {
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     interests?: UserUpdateinterestsInput | string[]
     skills?: NullableStringFieldUpdateOperationsInput | string | null
+    totalActivityTime?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     courseHistory?: CourseHistoryUncheckedUpdateManyWithoutUserNestedInput
     testAttempts?: TestAttemptUncheckedUpdateManyWithoutUserNestedInput
@@ -36978,6 +37161,7 @@ export namespace Prisma {
     bio?: string | null
     interests?: UserCreateinterestsInput | string[]
     skills?: string | null
+    totalActivityTime?: number
     createdAt?: Date | string
     courseHistory?: CourseHistoryCreateNestedManyWithoutUserInput
     testAttempts?: TestAttemptCreateNestedManyWithoutUserInput
@@ -37001,6 +37185,7 @@ export namespace Prisma {
     bio?: string | null
     interests?: UserCreateinterestsInput | string[]
     skills?: string | null
+    totalActivityTime?: number
     createdAt?: Date | string
     courseHistory?: CourseHistoryUncheckedCreateNestedManyWithoutUserInput
     testAttempts?: TestAttemptUncheckedCreateNestedManyWithoutUserInput
@@ -37074,6 +37259,7 @@ export namespace Prisma {
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     interests?: UserUpdateinterestsInput | string[]
     skills?: NullableStringFieldUpdateOperationsInput | string | null
+    totalActivityTime?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     courseHistory?: CourseHistoryUpdateManyWithoutUserNestedInput
     testAttempts?: TestAttemptUpdateManyWithoutUserNestedInput
@@ -37097,6 +37283,7 @@ export namespace Prisma {
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     interests?: UserUpdateinterestsInput | string[]
     skills?: NullableStringFieldUpdateOperationsInput | string | null
+    totalActivityTime?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     courseHistory?: CourseHistoryUncheckedUpdateManyWithoutUserNestedInput
     testAttempts?: TestAttemptUncheckedUpdateManyWithoutUserNestedInput
@@ -37846,6 +38033,8 @@ export namespace Prisma {
   export type QuizQuestionCreateManyQuizInput = {
     id?: number
     question: string
+    type?: string
+    score?: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -37865,6 +38054,8 @@ export namespace Prisma {
 
   export type QuizQuestionUpdateWithoutQuizInput = {
     question?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    score?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     answers?: QuizAnswerUpdateManyWithoutQuestionNestedInput
@@ -37873,6 +38064,8 @@ export namespace Prisma {
   export type QuizQuestionUncheckedUpdateWithoutQuizInput = {
     id?: IntFieldUpdateOperationsInput | number
     question?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    score?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     answers?: QuizAnswerUncheckedUpdateManyWithoutQuestionNestedInput
@@ -37881,6 +38074,8 @@ export namespace Prisma {
   export type QuizQuestionUncheckedUpdateManyWithoutQuizInput = {
     id?: IntFieldUpdateOperationsInput | number
     question?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    score?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -37927,6 +38122,7 @@ export namespace Prisma {
     id?: number
     answer: string
     isCorrect?: boolean
+    order?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -37934,6 +38130,7 @@ export namespace Prisma {
   export type QuizAnswerUpdateWithoutQuestionInput = {
     answer?: StringFieldUpdateOperationsInput | string
     isCorrect?: BoolFieldUpdateOperationsInput | boolean
+    order?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -37942,6 +38139,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     answer?: StringFieldUpdateOperationsInput | string
     isCorrect?: BoolFieldUpdateOperationsInput | boolean
+    order?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -37950,6 +38148,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     answer?: StringFieldUpdateOperationsInput | string
     isCorrect?: BoolFieldUpdateOperationsInput | boolean
+    order?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

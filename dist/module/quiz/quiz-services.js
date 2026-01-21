@@ -279,6 +279,14 @@ class QuizService {
             },
         });
     }
+    /**
+     * Delete a quiz by ID
+     */
+    static async deleteQuiz(quizId) {
+        return prisma_1.default.courseQuiz.delete({
+            where: { id: quizId },
+        });
+    }
 }
 exports.QuizService = QuizService;
 //# sourceMappingURL=quiz-services.js.map

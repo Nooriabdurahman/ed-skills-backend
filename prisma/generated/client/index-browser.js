@@ -132,6 +132,7 @@ exports.Prisma.UserScalarFieldEnum = {
   bio: 'bio',
   interests: 'interests',
   skills: 'skills',
+  totalActivityTime: 'totalActivityTime',
   createdAt: 'createdAt'
 };
 
@@ -263,6 +264,8 @@ exports.Prisma.CourseQuizScalarFieldEnum = {
 exports.Prisma.QuizQuestionScalarFieldEnum = {
   id: 'id',
   question: 'question',
+  type: 'type',
+  score: 'score',
   quizId: 'quizId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -272,6 +275,7 @@ exports.Prisma.QuizAnswerScalarFieldEnum = {
   id: 'id',
   answer: 'answer',
   isCorrect: 'isCorrect',
+  order: 'order',
   questionId: 'questionId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'

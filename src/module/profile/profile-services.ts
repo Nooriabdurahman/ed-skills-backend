@@ -82,3 +82,27 @@ export const getProfileByUser = async (req: Request, res: Response): Promise<Res
     return res.status(500).json({ error: 'خطا در گرفتن پروفایل' });
   }
 };
+// Update user activity time
+export const updateActivityTime = async (req: AuthRequest, res: Response) => {
+  const userId = req.user?.id;
+  const { duration } = req.body; // duration in seconds
+
+  if (!userId) return res.status(401).json({ error: 'Unauthorized' });
+  if (!duration || typeof duration !== 'number') return res.status(400).json({ error: 'Invalid duration' });
+
+  try {
+    const user = await prisma.user.update({
+      where: { id: userId },
+      data: {
+        totalActivityTime: {
+          increment: duration
+        }
+      }
+    });
+
+    return res.json({ success: true, totalActivityTime: user.totalActivityTime });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: 'Failed to update activity time' });
+  }
+};

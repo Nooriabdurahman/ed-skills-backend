@@ -105,6 +105,12 @@ router.post("/one-question", QuizController.createOneQuestionQuiz);
  *                 type: integer
  *               question:
  *                 type: string
+ *               type:
+ *                 type: string
+ *                 description: multiple_choice, true_false, or drag_drop
+ *               score:
+ *                 type: integer
+ *                 description: Points for this question
  *     responses:
  *       201:
  *         description: Question added successfully
@@ -134,6 +140,9 @@ router.post("/questions", QuizController.addQuestion);
  *                 type: string
  *               isCorrect:
  *                 type: boolean
+ *               order:
+ *                 type: integer
+ *                 description: Order for drag and drop answers
  *     responses:
  *       201:
  *         description: Answer added successfully
@@ -206,6 +215,12 @@ router.get("/course/:courseId", QuizController.getQuizzesByCourse);
  *                       type: integer
  *                     answerId:
  *                       type: integer
+ *                       description: For single choice questions
+ *                     answerIds:
+ *                       type: array
+ *                       items:
+ *                         type: integer
+ *                       description: For drag and drop questions (ordered)
  *     responses:
  *       200:
  *         description: Quiz submitted successfully, badge awarded if passed
@@ -247,6 +262,26 @@ router.get("/user/:userId/attempts", QuizController.getUserQuizAttempts);
  *         description: List of user badges
  */
 router.get("/user/:userId/badges", QuizController.getUserBadges);
+
+/**
+ * @swagger
+ * /quizzes/{quizId}:
+ *   delete:
+ *     summary: Delete a quiz by ID
+ *     tags: [Quizzes]
+ *     parameters:
+ *       - in: path
+ *         name: quizId
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Quiz deleted successfully
+ *       404:
+ *         description: Quiz not found
+ */
+router.delete("/:quizId", QuizController.deleteQuiz);
 
 export default router;
 
