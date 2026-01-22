@@ -62,7 +62,7 @@ const upload = multer({ dest: 'tmp/' });
  *       400:
  *         description: Bad request
  */
-router.post("/", upload.fields([{ name: 'picture', maxCount: 1 }, { name: 'trainerImage', maxCount: 1 }]), TestController.createTest);
+router.post("/", upload.fields([{ name: 'picture', maxCount: 1 }, { name: 'trainerImage', maxCount: 1 }, { name: 'testFile', maxCount: 1 }]), TestController.createTest);
 
 /**
  * @swagger

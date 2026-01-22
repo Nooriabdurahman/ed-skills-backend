@@ -39,6 +39,10 @@ export const uploadProfilePicture = async (req: AuthRequest, res: Response) => {
 export const updateProfile = async (req: Request, res: Response) => {
   const { userId, bio, interests } = req.body;
 
+  if (!userId || isNaN(Number(userId))) {
+    return res.status(400).json({ error: 'شناسه کاربر نامعتبر است' });
+  }
+
   try {
     const user = await prisma.user.update({
       where: { id: Number(userId) },
@@ -48,16 +52,20 @@ export const updateProfile = async (req: Request, res: Response) => {
       },
     });
 
-    res.json({ user });
+    return res.json({ user });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: 'به‌روزرسانی پروفایل موفق نبود' });
+    return res.status(500).json({ error: 'به‌روزرسانی پروفایل موفق نبود' });
   }
 };
 
 // گرفتن پروفایل یک کاربر
 export const getProfileByUser = async (req: Request, res: Response): Promise<Response | void> => {
   const { userId } = req.params;
+
+  if (!userId || isNaN(Number(userId))) {
+    return res.status(400).json({ error: 'شناسه کاربر نامعتبر است' });
+  }
 
   try {
     const user = await prisma.user.findUnique({

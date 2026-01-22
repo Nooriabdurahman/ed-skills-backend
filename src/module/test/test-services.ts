@@ -15,12 +15,14 @@ export class TestService {
     trainerImage?: string,
     icon?: string,
     picture?: string,
+    url?: string,
     topic?: string,
     materialType?: string,
     status?: string,
     type?: string,
     points?: number,
-    passingPoints?: number
+    passingPoints?: number,
+    lessonId?: string
   ) {
     return prisma.courseTest.create({
       data: {
@@ -31,12 +33,14 @@ export class TestService {
         trainerImage: trainerImage ?? null,
         icon: icon ?? null,
         picture: picture ?? null,
+        url: url ?? null,
         topic: topic ?? null,
         materialType: materialType ?? null,
         status: status ?? null,
         type: type ?? null,
         points: points ?? null,
         passingPoints: passingPoints ?? null,
+        lessonId: lessonId ?? null
       },
       include: {
         questions: {
@@ -51,11 +55,12 @@ export class TestService {
   /**
    * Add a question to a test
    */
-  static async addQuestion(testId: number, question: string) {
+  static async addQuestion(testId: number, question: string, type: string = "multiple_choice") {
     return prisma.testQuestion.create({
       data: {
         testId,
         question,
+        type,
       },
     });
   }

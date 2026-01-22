@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auth Module | Ed-Skills Documentation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0b0e14;
+            --primary: #10b981;
+            --card: #161b22;
+            --text: #e6edf3;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            padding: 50px;
+        }
+
+        .back-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: bold;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        .section {
+            background: var(--card);
+            border: 1px solid #30363d;
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .method {
+            font-weight: bold;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-right: 10px;
+        }
+
+        .get {
+            background: #2ea043;
+            color: white;
+        }
+
+        .post {
+            background: #a371f7;
+            color: white;
+        }
+
+        pre {
+            background: #000;
+            padding: 20px;
+            border-radius: 12px;
+            color: #d1d5db;
+            font-size: 0.9rem;
+            border: 1px solid #222;
+            overflow-x: auto;
+        }
+
+        .farsi {
+            direction: rtl;
+            text-align: right;
+            color: #8b949e;
+            margin-top: 10px;
+            border-right: 3px solid var(--primary);
+            padding-right: 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <a href="index.html" class="back-link">← Back to Portal</a>
+
+    <div class="section">
+        <h1>🔐 Auth & Identity</h1>
+        <p>Manages User accounts, secure Login (JWT), and Social ID providers (Google/Apple).</p>
+        <div class="farsi">مدیریت حساب‌های کاربری، ورود امن با توکن JWT و ورود با گوگل و اپل.</div>
+    </div>
+
+    <div class="section">
+        <h2>🚀 API Routes</h2>
+
+        <div style="margin-bottom: 30px;">
+            <h3><span class="method post">POST</span> /users/users</h3>
+            <p>Registration route with Joi validation (Username, Email, Password, Age).</p>
+        </div>
+
+        <div style="margin-bottom: 30px;">
+            <h3><span class="method post">POST</span> /users/login</h3>
+            <p>Traditional login. Returns a JWT signed with user metadata.</p>
+        </div>
+
+        <div style="margin-bottom: 30px;">
+            <h3><span class="method get">GET</span> /users/auth/google</h3>
+            <p>Triggers Passport.js Google Strategy for OAuth 2.0 flow.</p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>👤 User Profile Relations</h2>
+        <ul>
+            <li><strong>Points:</strong> Cumulative from <code>UserPoint</code></li>
+            <li><strong>Time:</strong> Sum of <code>totalActivityTime</code> (calculated from ActivityLogs)</li>
+            <li><strong>Badges:</strong> Collection in <code>UserBadge</code></li>
+            <li><strong>Certificate:</strong> Generated upon Course completion.</li>
+        </ul>
+    </div>
+</body>
+
+</html>

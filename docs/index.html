@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Backend Documentation Portal | Ed-Skills</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <style>
+        :root {
+            --bg: #050505;
+            --card: #111111;
+            --primary: #6366f1;
+            --border: #222222;
+            --text: #ffffff;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            padding: 50px;
+            line-height: 1.6;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            background: linear-gradient(to right, #818cf8, #c084fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .diagram-section {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            margin-bottom: 50px;
+        }
+
+        .module-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .module-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            padding: 30px;
+            border-radius: 20px;
+            text-decoration: none;
+            color: white;
+            transition: 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .module-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+            background: #161616;
+        }
+
+        .module-card h2 {
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+
+        .module-card p {
+            font-size: 0.9rem;
+            color: #888;
+            margin-bottom: 20px;
+        }
+
+        .module-card .btn {
+            font-size: 0.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--primary);
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 100px;
+            color: #444;
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="header">
+        <p style="color: #666; letter-spacing: 5px; text-transform: uppercase;">Technical Operations Center</p>
+        <h1>BACKEND SYSTEM PORTAL</h1>
+        <p style="color: #888;">Select a module to see its internal logic, routes, and data relations.</p>
+    </div>
+
+    <div class="diagram-section">
+        <div class="mermaid">
+            graph TD
+            Root[User Hub] --> A[Authentication]
+            Root --> B[Education Path]
+            Root --> C[Progress & Tracking]
+            Root --> D[Gamification]
+
+            B --> B1[Courses]
+            B1 --> B2[Lessons]
+            B2 --> B3[Quizzes]
+            B1 --> B4[Tests]
+
+            C --> C1[Course History]
+            C --> C2[Course Progress]
+            C --> C3[Quiz History]
+
+            D --> D1[Badges]
+            D --> D2[Certifications]
+            D --> D3[User Performance]
+        </div>
+    </div>
+
+    <div class="module-grid">
+        <a href="auth.html" class="module-card">
+            <h2>🔐 Auth & Identity</h2>
+            <p>Registration, JWT Login, Google/Apple OAuth, and Profile Management.</p>
+            <span class="btn">View Logic →</span>
+        </a>
+
+        <a href="courses.html" class="module-card">
+            <h2>📚 Courses</h2>
+            <p>Main course library, categorization, and trainer management.</p>
+            <span class="btn">View Logic →</span>
+        </a>
+
+        <a href="lessons.html" class="module-card">
+            <h2>🎥 Lessons</h2>
+            <p>Video streaming, content delivery, and file attachments (Vercel Blob).</p>
+            <span class="btn">View Logic →</span>
+        </a>
+
+        <a href="quizzes.html" class="module-card">
+            <h2>🧩 Quizzes</h2>
+            <p>Lesson-based knowledge checks. Logic for awarding Badges.</p>
+            <span class="btn">View Logic →</span>
+        </a>
+
+        <a href="tests.html" class="module-card">
+            <h2>📝 Tests</h2>
+            <p>Advanced Course-level exams. Scoring logic for User Points.</p>
+            <span class="btn">View Logic →</span>
+        </a>
+
+        <a href="progress.html" class="module-card">
+            <h2>📈 Progress</h2>
+            <p>Completion tracking, progress bars, and historical timestamps.</p>
+            <span class="btn">View Logic →</span>
+        </a>
+
+        <a href="gamification.html" class="module-card">
+            <h2>🏆 Gamification</h2>
+            <p>Badges, Certifications, Points system, and User Performance levels.</p>
+            <span class="btn">View Logic →</span>
+        </a>
+    </div>
+
+    <div class="footer">
+        &copy; 2026 ED-SKILLS Framework - Internal Documentation Site
+    </div>
+
+    <script>
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
+</body>
+
+</html>

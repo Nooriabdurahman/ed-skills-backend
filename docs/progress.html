@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Progress Module | Ed-Skills Documentation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0b0e14;
+            --primary: #06b6d4;
+            --card: #161b22;
+            --text: #e6edf3;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            padding: 50px;
+        }
+
+        .back-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: bold;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        .section {
+            background: var(--card);
+            border: 1px solid #30363d;
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .method {
+            font-weight: bold;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-right: 10px;
+        }
+
+        .get {
+            background: #2ea043;
+            color: white;
+        }
+
+        .post {
+            background: #a371f7;
+            color: white;
+        }
+
+        pre {
+            background: #000;
+            padding: 20px;
+            border-radius: 12px;
+            color: #d1d5db;
+            font-size: 0.9rem;
+            border: 1px solid #222;
+            overflow-x: auto;
+        }
+
+        .farsi {
+            direction: rtl;
+            text-align: right;
+            color: #8b949e;
+            margin-top: 10px;
+            border-right: 3px solid var(--primary);
+            padding-right: 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <a href="index.html" class="back-link">← Back to Portal</a>
+
+    <div class="section">
+        <h1>📈 Progress & Tracking</h1>
+        <p>Monitors user activity and course completion status. Crucial for the "Student Dashboard".</p>
+        <div class="farsi">رهگیری پیشرفت کاربر و وضعیت تکمیل دوره‌ها؛ حیاتی برای داشبورد دانشجو.</div>
+    </div>
+
+    <div class="section">
+        <h2>🛠 How Progress Works</h2>
+        <p>Every time a lesson is finished, a record is created or updated in <code>CourseProgress</code>.</p>
+        <ul>
+            <li><strong>Calculation:</strong> Percentage = (Finished Lessons / Total Lessons) * 100.</li>
+            <li><strong>Upsert:</strong> Logic ensures no duplicate records for the same User + Lesson pair.</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>🚀 API Routes</h2>
+
+        <div style="margin-bottom: 30px;">
+            <h3><span class="method post">POST</span> /courses/progress</h3>
+            <p>Marks a specific lesson as completed for the user.</p>
+            <pre>
+{
+  "userId": 1,
+  "lessonId": "uuid-here"
+}</pre>
+        </div>
+
+        <div style="margin-bottom: 30px;">
+            <h3><span class="method get">GET</span> /courses/progress/:userId</h3>
+            <p>Fetches the full list of completed lessons for a user to render progress bars.</p>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quizzes Module | Ed-Skills Documentation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0b0e14;
+            --primary: #f43f5e;
+            --card: #161b22;
+            --text: #e6edf3;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            padding: 50px;
+        }
+
+        .back-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: bold;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        .section {
+            background: var(--card);
+            border: 1px solid #30363d;
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .method {
+            font-weight: bold;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-right: 10px;
+        }
+
+        .get {
+            background: #2ea043;
+            color: white;
+        }
+
+        .post {
+            background: #a371f7;
+            color: white;
+        }
+
+        pre {
+            background: #000;
+            padding: 20px;
+            border-radius: 12px;
+            color: #d1d5db;
+            font-size: 0.9rem;
+            border: 1px solid #222;
+            overflow-x: auto;
+        }
+
+        .farsi {
+            direction: rtl;
+            text-align: right;
+            color: #8b949e;
+            margin-top: 10px;
+            border-right: 3px solid var(--primary);
+            padding-right: 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <a href="index.html" class="back-link">← Back to Portal</a>
+
+    <div class="section">
+        <h1>🧩 Quizzes Module</h1>
+        <p>Short knowledge checks directly tied to <strong>Lessons</strong>. Primary goal: User verification & Badges.
+        </p>
+        <div class="farsi">کوییزهای کوتاه برای سنجش یادگیری در انتهای هر درس؛ هدف اصلی اعطای نشان افتخار است.</div>
+    </div>
+
+    <div class="section">
+        <h2>🛠 Internal Structure</h2>
+        <p>Quiz → QuizQuestion → QuizAnswer</p>
+        <ul>
+            <li><strong>Types:</strong> multiple_choice, true_false, drag_drop.</li>
+            <li><strong>Outcome:</strong> If successful, high likelihood of awarding a <code>Badge</code>.</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>🚀 API Routes</h2>
+
+        <div style="margin-bottom: 30px;">
+            <h3><span class="method post">POST</span> /quizzes/submit</h3>
+            <p>Submits answers for a specific user and quiz. Logic checks score against passing requirements.</p>
+            <pre>
+{
+  "userId": 1,
+  "quizId": 10,
+  "answers": [
+    { "questionId": 101, "answerId": 501 }
+  ]
+}</pre>
+        </div>
+
+        <div style="margin-bottom: 30px;">
+            <h3><span class="method get">GET</span> /quizzes/course/:courseId</h3>
+            <p>Fetches all quizzes belonging to lessons within a specific course.</p>
+        </div>
+    </div>
+</body>
+
+</html>

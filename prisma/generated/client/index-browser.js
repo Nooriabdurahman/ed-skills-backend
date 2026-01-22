@@ -125,15 +125,15 @@ exports.Prisma.UserScalarFieldEnum = {
   email: 'email',
   username: 'username',
   password: 'password',
-  googleId: 'googleId',
-  appleId: 'appleId',
   age: 'age',
-  profilePicture: 'profilePicture',
-  bio: 'bio',
   interests: 'interests',
+  createdAt: 'createdAt',
+  bio: 'bio',
+  profilePicture: 'profilePicture',
   skills: 'skills',
-  totalActivityTime: 'totalActivityTime',
-  createdAt: 'createdAt'
+  appleId: 'appleId',
+  googleId: 'googleId',
+  totalActivityTime: 'totalActivityTime'
 };
 
 exports.Prisma.CourseScalarFieldEnum = {
@@ -141,17 +141,12 @@ exports.Prisma.CourseScalarFieldEnum = {
   name: 'name',
   description: 'description',
   subject: 'subject',
-  trainer: 'trainer',
-  trainerImage: 'trainerImage',
-  dialog: 'dialog',
-  nextStep: 'nextStep',
   icon: 'icon',
   picture: 'picture',
   materialType: 'materialType',
   materialCount: 'materialCount',
   firstRecommendation: 'firstRecommendation',
   secondRecommendation: 'secondRecommendation',
-  topic: 'topic',
   quizTotalScore: 'quizTotalScore',
   quizPassingScore: 'quizPassingScore',
   status: 'status',
@@ -160,13 +155,18 @@ exports.Prisma.CourseScalarFieldEnum = {
   typeImage: 'typeImage',
   progress: 'progress',
   duration: 'duration',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  dialog: 'dialog',
+  nextStep: 'nextStep',
+  topic: 'topic',
+  trainer: 'trainer',
+  trainerImage: 'trainerImage',
   content: 'content',
   contentType: 'contentType',
-  points: 'points',
   passingPoints: 'passingPoints',
-  type: 'type',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  points: 'points',
+  type: 'type'
 };
 
 exports.Prisma.CourseLessonScalarFieldEnum = {
@@ -175,11 +175,11 @@ exports.Prisma.CourseLessonScalarFieldEnum = {
   content: 'content',
   text: 'text',
   url: 'url',
-  video: 'video',
-  fileType: 'fileType',
-  fileSize: 'fileSize',
   courseId: 'courseId',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  video: 'video',
+  fileSize: 'fileSize',
+  fileType: 'fileType'
 };
 
 exports.Prisma.CourseProgressScalarFieldEnum = {
@@ -204,24 +204,27 @@ exports.Prisma.CourseTestScalarFieldEnum = {
   id: 'id',
   name: 'name',
   description: 'description',
-  trainer: 'trainer',
-  trainerImage: 'trainerImage',
-  icon: 'icon',
-  picture: 'picture',
-  topic: 'topic',
-  materialType: 'materialType',
-  status: 'status',
-  type: 'type',
-  points: 'points',
-  passingPoints: 'passingPoints',
   courseId: 'courseId',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  icon: 'icon',
+  materialType: 'materialType',
+  passingPoints: 'passingPoints',
+  picture: 'picture',
+  points: 'points',
+  status: 'status',
+  topic: 'topic',
+  trainer: 'trainer',
+  trainerImage: 'trainerImage',
+  url: 'url',
+  type: 'type',
+  lessonId: 'lessonId'
 };
 
 exports.Prisma.TestQuestionScalarFieldEnum = {
   id: 'id',
   question: 'question',
+  type: 'type',
   testId: 'testId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -244,9 +247,9 @@ exports.Prisma.TestAttemptScalarFieldEnum = {
   totalQuestions: 'totalQuestions',
   correctAnswers: 'correctAnswers',
   isPassed: 'isPassed',
-  performanceLabel: 'performanceLabel',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  performanceLabel: 'performanceLabel'
 };
 
 exports.Prisma.UserPointScalarFieldEnum = {
@@ -266,29 +269,29 @@ exports.Prisma.CourseQuizScalarFieldEnum = {
   description: 'description',
   courseId: 'courseId',
   badgeId: 'badgeId',
-  lessonId: 'lessonId',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  lessonId: 'lessonId'
 };
 
 exports.Prisma.QuizQuestionScalarFieldEnum = {
   id: 'id',
   question: 'question',
-  type: 'type',
-  score: 'score',
   quizId: 'quizId',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  score: 'score',
+  type: 'type'
 };
 
 exports.Prisma.QuizAnswerScalarFieldEnum = {
   id: 'id',
   answer: 'answer',
   isCorrect: 'isCorrect',
-  order: 'order',
   questionId: 'questionId',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  order: 'order'
 };
 
 exports.Prisma.QuizAttemptScalarFieldEnum = {
@@ -299,10 +302,10 @@ exports.Prisma.QuizAttemptScalarFieldEnum = {
   totalQuestions: 'totalQuestions',
   correctAnswers: 'correctAnswers',
   isPassed: 'isPassed',
-  performanceLabel: 'performanceLabel',
   badgeEarned: 'badgeEarned',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  performanceLabel: 'performanceLabel'
 };
 
 exports.Prisma.BadgeScalarFieldEnum = {

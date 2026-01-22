@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courses Module | Ed-Skills Documentation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0b0e14;
+            --primary: #3b82f6;
+            --card: #161b22;
+            --text: #e6edf3;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            padding: 50px;
+        }
+
+        .back-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: bold;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        .section {
+            background: var(--card);
+            border: 1px solid #30363d;
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .method {
+            font-weight: bold;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-right: 10px;
+        }
+
+        .get {
+            background: #2ea043;
+            color: white;
+        }
+
+        .post {
+            background: #a371f7;
+            color: white;
+        }
+
+        pre {
+            background: #000;
+            padding: 20px;
+            border-radius: 12px;
+            color: #d1d5db;
+            font-size: 0.9rem;
+            border: 1px solid #222;
+            overflow-x: auto;
+        }
+
+        .farsi {
+            direction: rtl;
+            text-align: right;
+            color: #8b949e;
+            margin-top: 10px;
+            border-right: 3px solid var(--primary);
+            padding-right: 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <a href="index.html" class="back-link">← Back to Portal</a>
+
+    <div class="section">
+        <h1>📚 Courses Module</h1>
+        <p>The core container for all educational content. Courses handle meta-information and organization.</p>
+
+        <div class="farsi">ماژول اصلی برای مدیریت دوره‌های آموزشی، اطلاعات مربی و دسته‌بندی‌ها.</div>
+    </div>
+
+    <div class="section">
+        <h2>🛠 Relations</h2>
+        <ul>
+            <li><strong>Lessons:</strong> 1-to-Many (Course has many CourseLesson)</li>
+            <li><strong>Tests:</strong> 1-to-Many (Course has many CourseTest)</li>
+            <li><strong>Quizzes:</strong> 1-to-Many (Course has many CourseQuiz)</li>
+            <li><strong>History:</strong> Tracks user views via <code>CourseHistory</code></li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>🚀 Primary Routes</h2>
+
+        <div style="margin-bottom: 30px;">
+            <h3><span class="method get">GET</span> /courses/courses</h3>
+            <p>Fetches all courses including trainer info, pictures, and subjects.</p>
+            <div class="farsi">دریافت لیست تمامی دوره‌ها همراه با اطلاعات مربی و تصاویر.</div>
+        </div>
+
+        <div style="margin-bottom: 30px;">
+            <h3><span class="method post">POST</span> /courses/courses</h3>
+            <p>Creates a new course. Inputs using Multipart/Form-Data.</p>
+            <pre>
+{
+  "name": "Course Title",
+  "subject": "Programming",
+  "file": (Image Binary),
+  "trainer": "Ali Noori"
+}</pre>
+        </div>
+
+        <div style="margin-bottom: 30px;">
+            <h3><span class="method post">POST</span> /courses/courses/duplicate/:id</h3>
+            <p>Deep-clones a course and all its lessons into a new entry.</p>
+            <div class="farsi">کپی کامل یک دوره همراه با تمامی درس‌های زیرمجموعه آن.</div>
+        </div>
+    </div>
+</body>
+
+</html>
