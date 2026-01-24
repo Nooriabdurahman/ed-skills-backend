@@ -16,11 +16,11 @@ export declare class QuizService {
         } & {
             id: number;
             createdAt: Date;
-            type: string;
             updatedAt: Date;
+            type: string;
             question: string;
-            score: number;
             quizId: number;
+            score: number;
         })[];
         badge: {
             id: number;
@@ -37,8 +37,8 @@ export declare class QuizService {
         description: string | null;
         updatedAt: Date;
         courseId: number;
-        badgeId: number | null;
         lessonId: string | null;
+        badgeId: number | null;
     }>;
     /**
      * Create a quiz with a single question and answers
@@ -60,11 +60,11 @@ export declare class QuizService {
         } & {
             id: number;
             createdAt: Date;
-            type: string;
             updatedAt: Date;
+            type: string;
             question: string;
-            score: number;
             quizId: number;
+            score: number;
         })[];
     } & {
         id: number;
@@ -73,8 +73,8 @@ export declare class QuizService {
         description: string | null;
         updatedAt: Date;
         courseId: number;
-        badgeId: number | null;
         lessonId: string | null;
+        badgeId: number | null;
     }>;
     /**
      * Add a question to a quiz
@@ -85,11 +85,11 @@ export declare class QuizService {
     static addQuestion(quizId: number, question: string, type?: string, score?: number): Promise<{
         id: number;
         createdAt: Date;
-        type: string;
         updatedAt: Date;
+        type: string;
         question: string;
-        score: number;
         quizId: number;
+        score: number;
     }>;
     /**
      * Add an answer to a quiz question
@@ -127,11 +127,11 @@ export declare class QuizService {
         } & {
             id: number;
             createdAt: Date;
-            type: string;
             updatedAt: Date;
+            type: string;
             question: string;
-            score: number;
             quizId: number;
+            score: number;
         })[];
         badge: {
             id: number;
@@ -148,8 +148,8 @@ export declare class QuizService {
         description: string | null;
         updatedAt: Date;
         courseId: number;
-        badgeId: number | null;
         lessonId: string | null;
+        badgeId: number | null;
     }) | null>;
     /**
      * Get all quizzes for a course
@@ -168,11 +168,11 @@ export declare class QuizService {
         } & {
             id: number;
             createdAt: Date;
-            type: string;
             updatedAt: Date;
+            type: string;
             question: string;
-            score: number;
             quizId: number;
+            score: number;
         })[];
         badge: {
             id: number;
@@ -189,8 +189,8 @@ export declare class QuizService {
         description: string | null;
         updatedAt: Date;
         courseId: number;
-        badgeId: number | null;
         lessonId: string | null;
+        badgeId: number | null;
     })[]>;
     /**
      * Submit quiz answers and award badge if passed
@@ -210,8 +210,8 @@ export declare class QuizService {
             createdAt: Date;
             userId: number;
             updatedAt: Date;
-            score: number;
             quizId: number;
+            score: number;
             totalQuestions: number;
             correctAnswers: number;
             isPassed: boolean;
@@ -258,16 +258,16 @@ export declare class QuizService {
             description: string | null;
             updatedAt: Date;
             courseId: number;
-            badgeId: number | null;
             lessonId: string | null;
+            badgeId: number | null;
         };
     } & {
         id: number;
         createdAt: Date;
         userId: number;
         updatedAt: Date;
-        score: number;
         quizId: number;
+        score: number;
         totalQuestions: number;
         correctAnswers: number;
         isPassed: boolean;
@@ -304,8 +304,8 @@ export declare class QuizService {
         description: string | null;
         updatedAt: Date;
         courseId: number;
-        badgeId: number | null;
         lessonId: string | null;
+        badgeId: number | null;
     }>;
 }
 //# sourceMappingURL=quiz-services.d.ts.map

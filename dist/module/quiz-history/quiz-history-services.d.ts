@@ -9,6 +9,10 @@ export declare class QuizHistoryService {
                 name: string;
                 subject: string;
             };
+            lesson: {
+                id: string;
+                name: string;
+            } | null;
             badge: {
                 id: number;
                 createdAt: Date;
@@ -17,10 +21,6 @@ export declare class QuizHistoryService {
                 icon: string | null;
                 updatedAt: Date;
             } | null;
-            lesson: {
-                id: string;
-                name: string;
-            } | null;
         } & {
             id: number;
             createdAt: Date;
@@ -28,16 +28,16 @@ export declare class QuizHistoryService {
             description: string | null;
             updatedAt: Date;
             courseId: number;
-            badgeId: number | null;
             lessonId: string | null;
+            badgeId: number | null;
         };
     } & {
         id: number;
         createdAt: Date;
         userId: number;
         updatedAt: Date;
-        score: number;
         quizId: number;
+        score: number;
         totalQuestions: number;
         correctAnswers: number;
         isPassed: boolean;
@@ -59,6 +59,10 @@ export declare class QuizHistoryService {
                 name: string;
                 subject: string;
             };
+            lesson: {
+                id: string;
+                name: string;
+            } | null;
             badge: {
                 id: number;
                 createdAt: Date;
@@ -67,10 +71,6 @@ export declare class QuizHistoryService {
                 icon: string | null;
                 updatedAt: Date;
             } | null;
-            lesson: {
-                id: string;
-                name: string;
-            } | null;
         } & {
             id: number;
             createdAt: Date;
@@ -78,16 +78,16 @@ export declare class QuizHistoryService {
             description: string | null;
             updatedAt: Date;
             courseId: number;
-            badgeId: number | null;
             lessonId: string | null;
+            badgeId: number | null;
         };
     } & {
         id: number;
         createdAt: Date;
         userId: number;
         updatedAt: Date;
-        score: number;
         quizId: number;
+        score: number;
         totalQuestions: number;
         correctAnswers: number;
         isPassed: boolean;
@@ -108,8 +108,8 @@ export declare class QuizHistoryService {
         createdAt: Date;
         userId: number;
         updatedAt: Date;
-        score: number;
         quizId: number;
+        score: number;
         totalQuestions: number;
         correctAnswers: number;
         isPassed: boolean;
@@ -134,8 +134,8 @@ export declare class QuizHistoryService {
         createdAt: Date;
         userId: number;
         updatedAt: Date;
-        score: number;
         quizId: number;
+        score: number;
         totalQuestions: number;
         correctAnswers: number;
         isPassed: boolean;

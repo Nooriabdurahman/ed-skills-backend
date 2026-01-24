@@ -12,7 +12,7 @@ class TestService {
     /**
      * Create a test for a course
      */
-    static async createTest(courseId, name, description, trainer, trainerImage, icon, picture, topic, materialType, status, type, points, passingPoints) {
+    static async createTest(courseId, name, description, trainer, trainerImage, icon, picture, url, topic, materialType, status, type, points, passingPoints, lessonId) {
         return prisma_1.default.courseTest.create({
             data: {
                 courseId,
@@ -22,12 +22,14 @@ class TestService {
                 trainerImage: trainerImage ?? null,
                 icon: icon ?? null,
                 picture: picture ?? null,
+                url: url ?? null,
                 topic: topic ?? null,
                 materialType: materialType ?? null,
                 status: status ?? null,
                 type: type ?? null,
                 points: points ?? null,
                 passingPoints: passingPoints ?? null,
+                lessonId: lessonId ?? null
             },
             include: {
                 questions: {
@@ -41,11 +43,12 @@ class TestService {
     /**
      * Add a question to a test
      */
-    static async addQuestion(testId, question) {
+    static async addQuestion(testId, question, type = "multiple_choice") {
         return prisma_1.default.testQuestion.create({
             data: {
                 testId,
                 question,
+                type,
             },
         });
     }

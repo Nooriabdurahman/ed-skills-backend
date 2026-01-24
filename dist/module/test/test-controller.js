@@ -15,7 +15,7 @@ class TestController {
      */
     static async createTest(req, res) {
         try {
-            const { courseId, name, description, trainer, icon, topic, materialType, status, type, points, passingPoints } = req.body;
+            const { courseId, name, description, trainer, icon, topic, materialType, status, type, points, passingPoints, lessonId } = req.body;
             if (!courseId || !name) {
                 return res.status(400).json({
                     success: false,
@@ -25,6 +25,7 @@ class TestController {
             // Handle file uploads
             let pictureUrl = req.body.picture;
             let trainerImageUrl = req.body.trainerImage;
+            let testFileUrl = req.body.url;
             const files = req.files;
             if (files) {
                 if (files.picture && files.picture[0]) {
@@ -41,8 +42,15 @@ class TestController {
                     trainerImageUrl = result.url;
                     fs_1.default.unlinkSync(file.path); // Clean up
                 }
+                if (files.testFile && files.testFile[0]) {
+                    const file = files.testFile[0];
+                    const fileName = crypto_1.default.randomBytes(16).toString('hex') + path_1.default.extname(file.originalname);
+                    const result = await (0, blob_1.put)(fileName, fs_1.default.readFileSync(file.path), { access: 'public', addRandomSuffix: true });
+                    testFileUrl = result.url;
+                    fs_1.default.unlinkSync(file.path); // Clean up
+                }
             }
-            const test = await test_services_1.TestService.createTest(Number(courseId), name, description, trainer, trainerImageUrl, icon, pictureUrl, topic, materialType, status, type, Number(points), Number(passingPoints));
+            const test = await test_services_1.TestService.createTest(Number(courseId), name, description, trainer, trainerImageUrl, icon, pictureUrl, testFileUrl, topic, materialType, status, type, Number(points), Number(passingPoints), lessonId);
             return res.status(201).json({
                 success: true,
                 data: test,
@@ -61,14 +69,21 @@ class TestController {
      */
     static async addQuestion(req, res) {
         try {
-            const { testId, question } = req.body;
+            const { testId, question, type } = req.body;
             if (!testId || !question) {
                 return res.status(400).json({
                     success: false,
                     message: "Test ID and question are required",
                 });
             }
-            const questionRecord = await test_services_1.TestService.addQuestion(testId, question);
+            const numericTestId = Number(testId);
+            if (isNaN(numericTestId)) {
+                return res.status(400).json({
+                    success: false,
+                    message: "Invalid test ID",
+                });
+            }
+            const questionRecord = await test_services_1.TestService.addQuestion(numericTestId, question, type);
             return res.status(201).json({
                 success: true,
                 data: questionRecord,

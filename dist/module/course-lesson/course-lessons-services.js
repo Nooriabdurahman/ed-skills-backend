@@ -27,6 +27,15 @@ class CourseLessonService {
                         },
                     },
                 },
+                test: {
+                    include: {
+                        questions: {
+                            include: {
+                                answers: true,
+                            },
+                        },
+                    },
+                },
             },
             orderBy: [{ createdAt: "asc" }],
         });

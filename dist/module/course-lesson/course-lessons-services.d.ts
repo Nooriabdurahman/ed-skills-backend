@@ -9,10 +9,10 @@ export declare class CourseLessonService {
         content: string | null;
         text: string | null;
         url: string | null;
-        video: string | null;
-        fileType: string | null;
-        fileSize: number | null;
         courseId: number;
+        video: string | null;
+        fileSize: number | null;
+        fileType: string | null;
     }>;
     static getByCourse(courseId: number): Promise<({
         quiz: ({
@@ -29,11 +29,11 @@ export declare class CourseLessonService {
             } & {
                 id: number;
                 createdAt: Date;
-                type: string;
                 updatedAt: Date;
+                type: string;
                 question: string;
-                score: number;
                 quizId: number;
+                score: number;
             })[];
         } & {
             id: number;
@@ -42,7 +42,45 @@ export declare class CourseLessonService {
             description: string | null;
             updatedAt: Date;
             courseId: number;
+            lessonId: string | null;
             badgeId: number | null;
+        }) | null;
+        test: ({
+            questions: ({
+                answers: {
+                    id: number;
+                    createdAt: Date;
+                    updatedAt: Date;
+                    answer: string;
+                    isCorrect: boolean;
+                    questionId: number;
+                }[];
+            } & {
+                id: number;
+                createdAt: Date;
+                updatedAt: Date;
+                type: string;
+                question: string;
+                testId: number;
+            })[];
+        } & {
+            id: number;
+            createdAt: Date;
+            points: number | null;
+            name: string;
+            description: string | null;
+            icon: string | null;
+            picture: string | null;
+            materialType: string | null;
+            status: string | null;
+            updatedAt: Date;
+            topic: string | null;
+            trainer: string | null;
+            trainerImage: string | null;
+            passingPoints: number | null;
+            type: string | null;
+            url: string | null;
+            courseId: number;
             lessonId: string | null;
         }) | null;
     } & {
@@ -52,10 +90,10 @@ export declare class CourseLessonService {
         content: string | null;
         text: string | null;
         url: string | null;
-        video: string | null;
-        fileType: string | null;
-        fileSize: number | null;
         courseId: number;
+        video: string | null;
+        fileSize: number | null;
+        fileType: string | null;
     })[]>;
 }
 //# sourceMappingURL=course-lessons-services.d.ts.map

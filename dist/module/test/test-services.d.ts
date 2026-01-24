@@ -5,7 +5,7 @@ export declare class TestService {
     /**
      * Create a test for a course
      */
-    static createTest(courseId: number, name: string, description?: string, trainer?: string, trainerImage?: string, icon?: string, picture?: string, topic?: string, materialType?: string, status?: string, type?: string, points?: number, passingPoints?: number): Promise<{
+    static createTest(courseId: number, name: string, description?: string, trainer?: string, trainerImage?: string, icon?: string, picture?: string, url?: string, topic?: string, materialType?: string, status?: string, type?: string, points?: number, passingPoints?: number, lessonId?: string): Promise<{
         questions: ({
             answers: {
                 id: number;
@@ -19,6 +19,7 @@ export declare class TestService {
             id: number;
             createdAt: Date;
             updatedAt: Date;
+            type: string;
             question: string;
             testId: number;
         })[];
@@ -28,25 +29,28 @@ export declare class TestService {
         points: number | null;
         name: string;
         description: string | null;
-        trainer: string | null;
-        trainerImage: string | null;
         icon: string | null;
         picture: string | null;
         materialType: string | null;
-        topic: string | null;
         status: string | null;
+        updatedAt: Date;
+        topic: string | null;
+        trainer: string | null;
+        trainerImage: string | null;
         passingPoints: number | null;
         type: string | null;
-        updatedAt: Date;
+        url: string | null;
         courseId: number;
+        lessonId: string | null;
     }>;
     /**
      * Add a question to a test
      */
-    static addQuestion(testId: number, question: string): Promise<{
+    static addQuestion(testId: number, question: string, type?: string): Promise<{
         id: number;
         createdAt: Date;
         updatedAt: Date;
+        type: string;
         question: string;
         testId: number;
     }>;
@@ -82,6 +86,7 @@ export declare class TestService {
             id: number;
             createdAt: Date;
             updatedAt: Date;
+            type: string;
             question: string;
             testId: number;
         })[];
@@ -91,17 +96,19 @@ export declare class TestService {
         points: number | null;
         name: string;
         description: string | null;
-        trainer: string | null;
-        trainerImage: string | null;
         icon: string | null;
         picture: string | null;
         materialType: string | null;
-        topic: string | null;
         status: string | null;
+        updatedAt: Date;
+        topic: string | null;
+        trainer: string | null;
+        trainerImage: string | null;
         passingPoints: number | null;
         type: string | null;
-        updatedAt: Date;
+        url: string | null;
         courseId: number;
+        lessonId: string | null;
     }) | null>;
     /**
      * Get all tests for a course
@@ -120,6 +127,7 @@ export declare class TestService {
             id: number;
             createdAt: Date;
             updatedAt: Date;
+            type: string;
             question: string;
             testId: number;
         })[];
@@ -129,17 +137,19 @@ export declare class TestService {
         points: number | null;
         name: string;
         description: string | null;
-        trainer: string | null;
-        trainerImage: string | null;
         icon: string | null;
         picture: string | null;
         materialType: string | null;
-        topic: string | null;
         status: string | null;
+        updatedAt: Date;
+        topic: string | null;
+        trainer: string | null;
+        trainerImage: string | null;
         passingPoints: number | null;
         type: string | null;
-        updatedAt: Date;
+        url: string | null;
         courseId: number;
+        lessonId: string | null;
     })[]>;
     /**
      * Submit test answers and calculate score
@@ -183,17 +193,19 @@ export declare class TestService {
             points: number | null;
             name: string;
             description: string | null;
-            trainer: string | null;
-            trainerImage: string | null;
             icon: string | null;
             picture: string | null;
             materialType: string | null;
-            topic: string | null;
             status: string | null;
+            updatedAt: Date;
+            topic: string | null;
+            trainer: string | null;
+            trainerImage: string | null;
             passingPoints: number | null;
             type: string | null;
-            updatedAt: Date;
+            url: string | null;
             courseId: number;
+            lessonId: string | null;
         };
     } & {
         id: number;
