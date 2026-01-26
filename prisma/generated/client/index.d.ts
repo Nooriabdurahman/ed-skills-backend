@@ -9517,23 +9517,22 @@ export namespace Prisma {
 
   export type CourseTestAvgAggregateOutputType = {
     id: number | null
-    courseId: number | null
     passingPoints: number | null
     points: number | null
+    courseId: number | null
   }
 
   export type CourseTestSumAggregateOutputType = {
     id: number | null
-    courseId: number | null
     passingPoints: number | null
     points: number | null
+    courseId: number | null
   }
 
   export type CourseTestMinAggregateOutputType = {
     id: number | null
     name: string | null
     description: string | null
-    courseId: number | null
     createdAt: Date | null
     updatedAt: Date | null
     icon: string | null
@@ -9548,13 +9547,13 @@ export namespace Prisma {
     url: string | null
     type: string | null
     lessonId: string | null
+    courseId: number | null
   }
 
   export type CourseTestMaxAggregateOutputType = {
     id: number | null
     name: string | null
     description: string | null
-    courseId: number | null
     createdAt: Date | null
     updatedAt: Date | null
     icon: string | null
@@ -9569,13 +9568,13 @@ export namespace Prisma {
     url: string | null
     type: string | null
     lessonId: string | null
+    courseId: number | null
   }
 
   export type CourseTestCountAggregateOutputType = {
     id: number
     name: number
     description: number
-    courseId: number
     createdAt: number
     updatedAt: number
     icon: number
@@ -9590,29 +9589,29 @@ export namespace Prisma {
     url: number
     type: number
     lessonId: number
+    courseId: number
     _all: number
   }
 
 
   export type CourseTestAvgAggregateInputType = {
     id?: true
-    courseId?: true
     passingPoints?: true
     points?: true
+    courseId?: true
   }
 
   export type CourseTestSumAggregateInputType = {
     id?: true
-    courseId?: true
     passingPoints?: true
     points?: true
+    courseId?: true
   }
 
   export type CourseTestMinAggregateInputType = {
     id?: true
     name?: true
     description?: true
-    courseId?: true
     createdAt?: true
     updatedAt?: true
     icon?: true
@@ -9627,13 +9626,13 @@ export namespace Prisma {
     url?: true
     type?: true
     lessonId?: true
+    courseId?: true
   }
 
   export type CourseTestMaxAggregateInputType = {
     id?: true
     name?: true
     description?: true
-    courseId?: true
     createdAt?: true
     updatedAt?: true
     icon?: true
@@ -9648,13 +9647,13 @@ export namespace Prisma {
     url?: true
     type?: true
     lessonId?: true
+    courseId?: true
   }
 
   export type CourseTestCountAggregateInputType = {
     id?: true
     name?: true
     description?: true
-    courseId?: true
     createdAt?: true
     updatedAt?: true
     icon?: true
@@ -9669,6 +9668,7 @@ export namespace Prisma {
     url?: true
     type?: true
     lessonId?: true
+    courseId?: true
     _all?: true
   }
 
@@ -9762,7 +9762,6 @@ export namespace Prisma {
     id: number
     name: string
     description: string | null
-    courseId: number
     createdAt: Date
     updatedAt: Date
     icon: string | null
@@ -9777,6 +9776,7 @@ export namespace Prisma {
     url: string | null
     type: string | null
     lessonId: string | null
+    courseId: number | null
     _count: CourseTestCountAggregateOutputType | null
     _avg: CourseTestAvgAggregateOutputType | null
     _sum: CourseTestSumAggregateOutputType | null
@@ -9802,7 +9802,6 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     description?: boolean
-    courseId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     icon?: boolean
@@ -9817,7 +9816,8 @@ export namespace Prisma {
     url?: boolean
     type?: boolean
     lessonId?: boolean
-    course?: boolean | CourseDefaultArgs<ExtArgs>
+    courseId?: boolean
+    course?: boolean | CourseTest$courseArgs<ExtArgs>
     lesson?: boolean | CourseTest$lessonArgs<ExtArgs>
     attempts?: boolean | CourseTest$attemptsArgs<ExtArgs>
     questions?: boolean | CourseTest$questionsArgs<ExtArgs>
@@ -9828,7 +9828,6 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     description?: boolean
-    courseId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     icon?: boolean
@@ -9843,7 +9842,8 @@ export namespace Prisma {
     url?: boolean
     type?: boolean
     lessonId?: boolean
-    course?: boolean | CourseDefaultArgs<ExtArgs>
+    courseId?: boolean
+    course?: boolean | CourseTest$courseArgs<ExtArgs>
     lesson?: boolean | CourseTest$lessonArgs<ExtArgs>
   }, ExtArgs["result"]["courseTest"]>
 
@@ -9851,7 +9851,6 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     description?: boolean
-    courseId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     icon?: boolean
@@ -9866,7 +9865,8 @@ export namespace Prisma {
     url?: boolean
     type?: boolean
     lessonId?: boolean
-    course?: boolean | CourseDefaultArgs<ExtArgs>
+    courseId?: boolean
+    course?: boolean | CourseTest$courseArgs<ExtArgs>
     lesson?: boolean | CourseTest$lessonArgs<ExtArgs>
   }, ExtArgs["result"]["courseTest"]>
 
@@ -9874,7 +9874,6 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     description?: boolean
-    courseId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     icon?: boolean
@@ -9889,29 +9888,30 @@ export namespace Prisma {
     url?: boolean
     type?: boolean
     lessonId?: boolean
+    courseId?: boolean
   }
 
-  export type CourseTestOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "courseId" | "createdAt" | "updatedAt" | "icon" | "materialType" | "passingPoints" | "picture" | "points" | "status" | "topic" | "trainer" | "trainerImage" | "url" | "type" | "lessonId", ExtArgs["result"]["courseTest"]>
+  export type CourseTestOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "createdAt" | "updatedAt" | "icon" | "materialType" | "passingPoints" | "picture" | "points" | "status" | "topic" | "trainer" | "trainerImage" | "url" | "type" | "lessonId" | "courseId", ExtArgs["result"]["courseTest"]>
   export type CourseTestInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    course?: boolean | CourseDefaultArgs<ExtArgs>
+    course?: boolean | CourseTest$courseArgs<ExtArgs>
     lesson?: boolean | CourseTest$lessonArgs<ExtArgs>
     attempts?: boolean | CourseTest$attemptsArgs<ExtArgs>
     questions?: boolean | CourseTest$questionsArgs<ExtArgs>
     _count?: boolean | CourseTestCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type CourseTestIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    course?: boolean | CourseDefaultArgs<ExtArgs>
+    course?: boolean | CourseTest$courseArgs<ExtArgs>
     lesson?: boolean | CourseTest$lessonArgs<ExtArgs>
   }
   export type CourseTestIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    course?: boolean | CourseDefaultArgs<ExtArgs>
+    course?: boolean | CourseTest$courseArgs<ExtArgs>
     lesson?: boolean | CourseTest$lessonArgs<ExtArgs>
   }
 
   export type $CourseTestPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "CourseTest"
     objects: {
-      course: Prisma.$CoursePayload<ExtArgs>
+      course: Prisma.$CoursePayload<ExtArgs> | null
       lesson: Prisma.$CourseLessonPayload<ExtArgs> | null
       attempts: Prisma.$TestAttemptPayload<ExtArgs>[]
       questions: Prisma.$TestQuestionPayload<ExtArgs>[]
@@ -9920,7 +9920,6 @@ export namespace Prisma {
       id: number
       name: string
       description: string | null
-      courseId: number
       createdAt: Date
       updatedAt: Date
       icon: string | null
@@ -9935,6 +9934,7 @@ export namespace Prisma {
       url: string | null
       type: string | null
       lessonId: string | null
+      courseId: number | null
     }, ExtArgs["result"]["courseTest"]>
     composites: {}
   }
@@ -10329,7 +10329,7 @@ export namespace Prisma {
    */
   export interface Prisma__CourseTestClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    course<T extends CourseDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CourseDefaultArgs<ExtArgs>>): Prisma__CourseClient<$Result.GetResult<Prisma.$CoursePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    course<T extends CourseTest$courseArgs<ExtArgs> = {}>(args?: Subset<T, CourseTest$courseArgs<ExtArgs>>): Prisma__CourseClient<$Result.GetResult<Prisma.$CoursePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     lesson<T extends CourseTest$lessonArgs<ExtArgs> = {}>(args?: Subset<T, CourseTest$lessonArgs<ExtArgs>>): Prisma__CourseLessonClient<$Result.GetResult<Prisma.$CourseLessonPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     attempts<T extends CourseTest$attemptsArgs<ExtArgs> = {}>(args?: Subset<T, CourseTest$attemptsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TestAttemptPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     questions<T extends CourseTest$questionsArgs<ExtArgs> = {}>(args?: Subset<T, CourseTest$questionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TestQuestionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -10365,7 +10365,6 @@ export namespace Prisma {
     readonly id: FieldRef<"CourseTest", 'Int'>
     readonly name: FieldRef<"CourseTest", 'String'>
     readonly description: FieldRef<"CourseTest", 'String'>
-    readonly courseId: FieldRef<"CourseTest", 'Int'>
     readonly createdAt: FieldRef<"CourseTest", 'DateTime'>
     readonly updatedAt: FieldRef<"CourseTest", 'DateTime'>
     readonly icon: FieldRef<"CourseTest", 'String'>
@@ -10380,6 +10379,7 @@ export namespace Prisma {
     readonly url: FieldRef<"CourseTest", 'String'>
     readonly type: FieldRef<"CourseTest", 'String'>
     readonly lessonId: FieldRef<"CourseTest", 'String'>
+    readonly courseId: FieldRef<"CourseTest", 'Int'>
   }
     
 
@@ -10773,6 +10773,25 @@ export namespace Prisma {
      * Limit how many CourseTests to delete.
      */
     limit?: number
+  }
+
+  /**
+   * CourseTest.course
+   */
+  export type CourseTest$courseArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Course
+     */
+    select?: CourseSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Course
+     */
+    omit?: CourseOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CourseInclude<ExtArgs> | null
+    where?: CourseWhereInput
   }
 
   /**
@@ -27040,7 +27059,6 @@ export namespace Prisma {
     id: 'id',
     name: 'name',
     description: 'description',
-    courseId: 'courseId',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
     icon: 'icon',
@@ -27054,7 +27072,8 @@ export namespace Prisma {
     trainerImage: 'trainerImage',
     url: 'url',
     type: 'type',
-    lessonId: 'lessonId'
+    lessonId: 'lessonId',
+    courseId: 'courseId'
   };
 
   export type CourseTestScalarFieldEnum = (typeof CourseTestScalarFieldEnum)[keyof typeof CourseTestScalarFieldEnum]
@@ -27887,7 +27906,6 @@ export namespace Prisma {
     id?: IntFilter<"CourseTest"> | number
     name?: StringFilter<"CourseTest"> | string
     description?: StringNullableFilter<"CourseTest"> | string | null
-    courseId?: IntFilter<"CourseTest"> | number
     createdAt?: DateTimeFilter<"CourseTest"> | Date | string
     updatedAt?: DateTimeFilter<"CourseTest"> | Date | string
     icon?: StringNullableFilter<"CourseTest"> | string | null
@@ -27902,7 +27920,8 @@ export namespace Prisma {
     url?: StringNullableFilter<"CourseTest"> | string | null
     type?: StringNullableFilter<"CourseTest"> | string | null
     lessonId?: StringNullableFilter<"CourseTest"> | string | null
-    course?: XOR<CourseScalarRelationFilter, CourseWhereInput>
+    courseId?: IntNullableFilter<"CourseTest"> | number | null
+    course?: XOR<CourseNullableScalarRelationFilter, CourseWhereInput> | null
     lesson?: XOR<CourseLessonNullableScalarRelationFilter, CourseLessonWhereInput> | null
     attempts?: TestAttemptListRelationFilter
     questions?: TestQuestionListRelationFilter
@@ -27912,7 +27931,6 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     description?: SortOrderInput | SortOrder
-    courseId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     icon?: SortOrderInput | SortOrder
@@ -27927,6 +27945,7 @@ export namespace Prisma {
     url?: SortOrderInput | SortOrder
     type?: SortOrderInput | SortOrder
     lessonId?: SortOrderInput | SortOrder
+    courseId?: SortOrderInput | SortOrder
     course?: CourseOrderByWithRelationInput
     lesson?: CourseLessonOrderByWithRelationInput
     attempts?: TestAttemptOrderByRelationAggregateInput
@@ -27941,7 +27960,6 @@ export namespace Prisma {
     NOT?: CourseTestWhereInput | CourseTestWhereInput[]
     name?: StringFilter<"CourseTest"> | string
     description?: StringNullableFilter<"CourseTest"> | string | null
-    courseId?: IntFilter<"CourseTest"> | number
     createdAt?: DateTimeFilter<"CourseTest"> | Date | string
     updatedAt?: DateTimeFilter<"CourseTest"> | Date | string
     icon?: StringNullableFilter<"CourseTest"> | string | null
@@ -27955,7 +27973,8 @@ export namespace Prisma {
     trainerImage?: StringNullableFilter<"CourseTest"> | string | null
     url?: StringNullableFilter<"CourseTest"> | string | null
     type?: StringNullableFilter<"CourseTest"> | string | null
-    course?: XOR<CourseScalarRelationFilter, CourseWhereInput>
+    courseId?: IntNullableFilter<"CourseTest"> | number | null
+    course?: XOR<CourseNullableScalarRelationFilter, CourseWhereInput> | null
     lesson?: XOR<CourseLessonNullableScalarRelationFilter, CourseLessonWhereInput> | null
     attempts?: TestAttemptListRelationFilter
     questions?: TestQuestionListRelationFilter
@@ -27965,7 +27984,6 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     description?: SortOrderInput | SortOrder
-    courseId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     icon?: SortOrderInput | SortOrder
@@ -27980,6 +27998,7 @@ export namespace Prisma {
     url?: SortOrderInput | SortOrder
     type?: SortOrderInput | SortOrder
     lessonId?: SortOrderInput | SortOrder
+    courseId?: SortOrderInput | SortOrder
     _count?: CourseTestCountOrderByAggregateInput
     _avg?: CourseTestAvgOrderByAggregateInput
     _max?: CourseTestMaxOrderByAggregateInput
@@ -27994,7 +28013,6 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"CourseTest"> | number
     name?: StringWithAggregatesFilter<"CourseTest"> | string
     description?: StringNullableWithAggregatesFilter<"CourseTest"> | string | null
-    courseId?: IntWithAggregatesFilter<"CourseTest"> | number
     createdAt?: DateTimeWithAggregatesFilter<"CourseTest"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"CourseTest"> | Date | string
     icon?: StringNullableWithAggregatesFilter<"CourseTest"> | string | null
@@ -28009,6 +28027,7 @@ export namespace Prisma {
     url?: StringNullableWithAggregatesFilter<"CourseTest"> | string | null
     type?: StringNullableWithAggregatesFilter<"CourseTest"> | string | null
     lessonId?: StringNullableWithAggregatesFilter<"CourseTest"> | string | null
+    courseId?: IntNullableWithAggregatesFilter<"CourseTest"> | number | null
   }
 
   export type TestQuestionWhereInput = {
@@ -29632,7 +29651,7 @@ export namespace Prisma {
     trainerImage?: string | null
     url?: string | null
     type?: string | null
-    course: CourseCreateNestedOneWithoutTestsInput
+    course?: CourseCreateNestedOneWithoutTestsInput
     lesson?: CourseLessonCreateNestedOneWithoutTestInput
     attempts?: TestAttemptCreateNestedManyWithoutTestInput
     questions?: TestQuestionCreateNestedManyWithoutTestInput
@@ -29642,7 +29661,6 @@ export namespace Prisma {
     id?: number
     name: string
     description?: string | null
-    courseId: number
     createdAt?: Date | string
     updatedAt?: Date | string
     icon?: string | null
@@ -29657,6 +29675,7 @@ export namespace Prisma {
     url?: string | null
     type?: string | null
     lessonId?: string | null
+    courseId?: number | null
     attempts?: TestAttemptUncheckedCreateNestedManyWithoutTestInput
     questions?: TestQuestionUncheckedCreateNestedManyWithoutTestInput
   }
@@ -29677,7 +29696,7 @@ export namespace Prisma {
     trainerImage?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
     type?: NullableStringFieldUpdateOperationsInput | string | null
-    course?: CourseUpdateOneRequiredWithoutTestsNestedInput
+    course?: CourseUpdateOneWithoutTestsNestedInput
     lesson?: CourseLessonUpdateOneWithoutTestNestedInput
     attempts?: TestAttemptUpdateManyWithoutTestNestedInput
     questions?: TestQuestionUpdateManyWithoutTestNestedInput
@@ -29687,7 +29706,6 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    courseId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     icon?: NullableStringFieldUpdateOperationsInput | string | null
@@ -29702,6 +29720,7 @@ export namespace Prisma {
     url?: NullableStringFieldUpdateOperationsInput | string | null
     type?: NullableStringFieldUpdateOperationsInput | string | null
     lessonId?: NullableStringFieldUpdateOperationsInput | string | null
+    courseId?: NullableIntFieldUpdateOperationsInput | number | null
     attempts?: TestAttemptUncheckedUpdateManyWithoutTestNestedInput
     questions?: TestQuestionUncheckedUpdateManyWithoutTestNestedInput
   }
@@ -29710,7 +29729,6 @@ export namespace Prisma {
     id?: number
     name: string
     description?: string | null
-    courseId: number
     createdAt?: Date | string
     updatedAt?: Date | string
     icon?: string | null
@@ -29725,6 +29743,7 @@ export namespace Prisma {
     url?: string | null
     type?: string | null
     lessonId?: string | null
+    courseId?: number | null
   }
 
   export type CourseTestUpdateManyMutationInput = {
@@ -29749,7 +29768,6 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    courseId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     icon?: NullableStringFieldUpdateOperationsInput | string | null
@@ -29764,6 +29782,7 @@ export namespace Prisma {
     url?: NullableStringFieldUpdateOperationsInput | string | null
     type?: NullableStringFieldUpdateOperationsInput | string | null
     lessonId?: NullableStringFieldUpdateOperationsInput | string | null
+    courseId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type TestQuestionCreateInput = {
@@ -31375,6 +31394,11 @@ export namespace Prisma {
     courseId?: SortOrder
   }
 
+  export type CourseNullableScalarRelationFilter = {
+    is?: CourseWhereInput | null
+    isNot?: CourseWhereInput | null
+  }
+
   export type CourseLessonNullableScalarRelationFilter = {
     is?: CourseLessonWhereInput | null
     isNot?: CourseLessonWhereInput | null
@@ -31394,7 +31418,6 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     description?: SortOrder
-    courseId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     icon?: SortOrder
@@ -31409,20 +31432,20 @@ export namespace Prisma {
     url?: SortOrder
     type?: SortOrder
     lessonId?: SortOrder
+    courseId?: SortOrder
   }
 
   export type CourseTestAvgOrderByAggregateInput = {
     id?: SortOrder
-    courseId?: SortOrder
     passingPoints?: SortOrder
     points?: SortOrder
+    courseId?: SortOrder
   }
 
   export type CourseTestMaxOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
     description?: SortOrder
-    courseId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     icon?: SortOrder
@@ -31437,13 +31460,13 @@ export namespace Prisma {
     url?: SortOrder
     type?: SortOrder
     lessonId?: SortOrder
+    courseId?: SortOrder
   }
 
   export type CourseTestMinOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
     description?: SortOrder
-    courseId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     icon?: SortOrder
@@ -31458,13 +31481,14 @@ export namespace Prisma {
     url?: SortOrder
     type?: SortOrder
     lessonId?: SortOrder
+    courseId?: SortOrder
   }
 
   export type CourseTestSumOrderByAggregateInput = {
     id?: SortOrder
-    courseId?: SortOrder
     passingPoints?: SortOrder
     points?: SortOrder
+    courseId?: SortOrder
   }
 
   export type TestAnswerListRelationFilter = {
@@ -33063,10 +33087,12 @@ export namespace Prisma {
     connect?: TestQuestionWhereUniqueInput | TestQuestionWhereUniqueInput[]
   }
 
-  export type CourseUpdateOneRequiredWithoutTestsNestedInput = {
+  export type CourseUpdateOneWithoutTestsNestedInput = {
     create?: XOR<CourseCreateWithoutTestsInput, CourseUncheckedCreateWithoutTestsInput>
     connectOrCreate?: CourseCreateOrConnectWithoutTestsInput
     upsert?: CourseUpsertWithoutTestsInput
+    disconnect?: CourseWhereInput | boolean
+    delete?: CourseWhereInput | boolean
     connect?: CourseWhereUniqueInput
     update?: XOR<XOR<CourseUpdateToOneWithWhereWithoutTestsInput, CourseUpdateWithoutTestsInput>, CourseUncheckedUpdateWithoutTestsInput>
   }
@@ -34746,7 +34772,6 @@ export namespace Prisma {
     id?: IntFilter<"CourseTest"> | number
     name?: StringFilter<"CourseTest"> | string
     description?: StringNullableFilter<"CourseTest"> | string | null
-    courseId?: IntFilter<"CourseTest"> | number
     createdAt?: DateTimeFilter<"CourseTest"> | Date | string
     updatedAt?: DateTimeFilter<"CourseTest"> | Date | string
     icon?: StringNullableFilter<"CourseTest"> | string | null
@@ -34761,6 +34786,7 @@ export namespace Prisma {
     url?: StringNullableFilter<"CourseTest"> | string | null
     type?: StringNullableFilter<"CourseTest"> | string | null
     lessonId?: StringNullableFilter<"CourseTest"> | string | null
+    courseId?: IntNullableFilter<"CourseTest"> | number | null
   }
 
   export type CourseCreateWithoutLessonsInput = {
@@ -34910,7 +34936,7 @@ export namespace Prisma {
     trainerImage?: string | null
     url?: string | null
     type?: string | null
-    course: CourseCreateNestedOneWithoutTestsInput
+    course?: CourseCreateNestedOneWithoutTestsInput
     attempts?: TestAttemptCreateNestedManyWithoutTestInput
     questions?: TestQuestionCreateNestedManyWithoutTestInput
   }
@@ -34919,7 +34945,6 @@ export namespace Prisma {
     id?: number
     name: string
     description?: string | null
-    courseId: number
     createdAt?: Date | string
     updatedAt?: Date | string
     icon?: string | null
@@ -34933,6 +34958,7 @@ export namespace Prisma {
     trainerImage?: string | null
     url?: string | null
     type?: string | null
+    courseId?: number | null
     attempts?: TestAttemptUncheckedCreateNestedManyWithoutTestInput
     questions?: TestQuestionUncheckedCreateNestedManyWithoutTestInput
   }
@@ -35128,7 +35154,7 @@ export namespace Prisma {
     trainerImage?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
     type?: NullableStringFieldUpdateOperationsInput | string | null
-    course?: CourseUpdateOneRequiredWithoutTestsNestedInput
+    course?: CourseUpdateOneWithoutTestsNestedInput
     attempts?: TestAttemptUpdateManyWithoutTestNestedInput
     questions?: TestQuestionUpdateManyWithoutTestNestedInput
   }
@@ -35137,7 +35163,6 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    courseId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     icon?: NullableStringFieldUpdateOperationsInput | string | null
@@ -35151,6 +35176,7 @@ export namespace Prisma {
     trainerImage?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
     type?: NullableStringFieldUpdateOperationsInput | string | null
+    courseId?: NullableIntFieldUpdateOperationsInput | number | null
     attempts?: TestAttemptUncheckedUpdateManyWithoutTestNestedInput
     questions?: TestQuestionUncheckedUpdateManyWithoutTestNestedInput
   }
@@ -36020,7 +36046,7 @@ export namespace Prisma {
     trainerImage?: string | null
     url?: string | null
     type?: string | null
-    course: CourseCreateNestedOneWithoutTestsInput
+    course?: CourseCreateNestedOneWithoutTestsInput
     lesson?: CourseLessonCreateNestedOneWithoutTestInput
     attempts?: TestAttemptCreateNestedManyWithoutTestInput
   }
@@ -36029,7 +36055,6 @@ export namespace Prisma {
     id?: number
     name: string
     description?: string | null
-    courseId: number
     createdAt?: Date | string
     updatedAt?: Date | string
     icon?: string | null
@@ -36044,6 +36069,7 @@ export namespace Prisma {
     url?: string | null
     type?: string | null
     lessonId?: string | null
+    courseId?: number | null
     attempts?: TestAttemptUncheckedCreateNestedManyWithoutTestInput
   }
 
@@ -36107,7 +36133,7 @@ export namespace Prisma {
     trainerImage?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
     type?: NullableStringFieldUpdateOperationsInput | string | null
-    course?: CourseUpdateOneRequiredWithoutTestsNestedInput
+    course?: CourseUpdateOneWithoutTestsNestedInput
     lesson?: CourseLessonUpdateOneWithoutTestNestedInput
     attempts?: TestAttemptUpdateManyWithoutTestNestedInput
   }
@@ -36116,7 +36142,6 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    courseId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     icon?: NullableStringFieldUpdateOperationsInput | string | null
@@ -36131,6 +36156,7 @@ export namespace Prisma {
     url?: NullableStringFieldUpdateOperationsInput | string | null
     type?: NullableStringFieldUpdateOperationsInput | string | null
     lessonId?: NullableStringFieldUpdateOperationsInput | string | null
+    courseId?: NullableIntFieldUpdateOperationsInput | number | null
     attempts?: TestAttemptUncheckedUpdateManyWithoutTestNestedInput
   }
 
@@ -36200,7 +36226,7 @@ export namespace Prisma {
     trainerImage?: string | null
     url?: string | null
     type?: string | null
-    course: CourseCreateNestedOneWithoutTestsInput
+    course?: CourseCreateNestedOneWithoutTestsInput
     lesson?: CourseLessonCreateNestedOneWithoutTestInput
     questions?: TestQuestionCreateNestedManyWithoutTestInput
   }
@@ -36209,7 +36235,6 @@ export namespace Prisma {
     id?: number
     name: string
     description?: string | null
-    courseId: number
     createdAt?: Date | string
     updatedAt?: Date | string
     icon?: string | null
@@ -36224,6 +36249,7 @@ export namespace Prisma {
     url?: string | null
     type?: string | null
     lessonId?: string | null
+    courseId?: number | null
     questions?: TestQuestionUncheckedCreateNestedManyWithoutTestInput
   }
 
@@ -36311,7 +36337,7 @@ export namespace Prisma {
     trainerImage?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
     type?: NullableStringFieldUpdateOperationsInput | string | null
-    course?: CourseUpdateOneRequiredWithoutTestsNestedInput
+    course?: CourseUpdateOneWithoutTestsNestedInput
     lesson?: CourseLessonUpdateOneWithoutTestNestedInput
     questions?: TestQuestionUpdateManyWithoutTestNestedInput
   }
@@ -36320,7 +36346,6 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    courseId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     icon?: NullableStringFieldUpdateOperationsInput | string | null
@@ -36335,6 +36360,7 @@ export namespace Prisma {
     url?: NullableStringFieldUpdateOperationsInput | string | null
     type?: NullableStringFieldUpdateOperationsInput | string | null
     lessonId?: NullableStringFieldUpdateOperationsInput | string | null
+    courseId?: NullableIntFieldUpdateOperationsInput | number | null
     questions?: TestQuestionUncheckedUpdateManyWithoutTestNestedInput
   }
 

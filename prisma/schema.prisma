@@ -108,7 +108,7 @@ model CourseHistory {
   courseId  Int
   viewedAt  DateTime @default(now())
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  updatedAt DateTime     @updatedAt
   course    Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -121,7 +121,6 @@ model CourseTest {
   id            Int            @id @default(autoincrement())
   name          String
   description   String?
-  courseId      Int
   createdAt     DateTime       @default(now())
   updatedAt     DateTime       @updatedAt
   icon          String?
@@ -136,7 +135,8 @@ model CourseTest {
   url           String?
   type          String?
   lessonId      String?        @unique
-  course        Course         @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  courseId      Int?
+  course        Course?        @relation(fields: [courseId], references: [id], onDelete: Cascade)
   lesson        CourseLesson?  @relation(fields: [lessonId], references: [id], onDelete: Cascade)
   attempts      TestAttempt[]
   questions     TestQuestion[]

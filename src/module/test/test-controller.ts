@@ -18,10 +18,18 @@ export class TestController {
         lessonId
       } = req.body;
 
-      if (!courseId || !name) {
+      if (!name) {
         return res.status(400).json({
           success: false,
-          message: "Course ID and test name are required",
+          message: "نام آزمون الزامی است",
+        });
+      }
+
+      const numericCourseId = courseId ? Number(courseId) : undefined;
+      if (courseId && isNaN(numericCourseId as number)) {
+        return res.status(400).json({
+          success: false,
+          message: "شناسه دوره باید عدد باشد",
         });
       }
 
@@ -58,11 +66,32 @@ export class TestController {
         }
       }
 
+      const numericPoints = points ? Number(points) : undefined;
+      const numericPassingPoints = passingPoints ? Number(passingPoints) : undefined;
+
+      if ((points && isNaN(numericPoints as number)) || (passingPoints && isNaN(numericPassingPoints as number))) {
+        return res.status(400).json({
+          success: false,
+          message: "امتیازات (points/passingPoints) باید به صورت عدد معتبر باشند",
+        });
+      }
+
       const test = await TestService.createTest(
-        Number(courseId), name, description,
-        trainer, trainerImageUrl, icon, pictureUrl, testFileUrl,
-        topic, materialType, status, type, Number(points), Number(passingPoints),
-        lessonId
+        name,
+        numericCourseId,
+        description,
+        trainer,
+        trainerImageUrl,
+        icon,
+        pictureUrl,
+        testFileUrl,
+        topic,
+        materialType,
+        status,
+        type,
+        numericPoints,
+        numericPassingPoints,
+        lessonId || null
       );
 
       return res.status(201).json({

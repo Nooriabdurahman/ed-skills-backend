@@ -25,7 +25,6 @@ const upload = multer({ dest: 'tmp/' });
  *           schema:
  *             type: object
  *             required:
- *               - courseId
  *               - name
  *             properties:
  *               courseId:

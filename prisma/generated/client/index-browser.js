@@ -204,7 +204,6 @@ exports.Prisma.CourseTestScalarFieldEnum = {
   id: 'id',
   name: 'name',
   description: 'description',
-  courseId: 'courseId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   icon: 'icon',
@@ -218,7 +217,8 @@ exports.Prisma.CourseTestScalarFieldEnum = {
   trainerImage: 'trainerImage',
   url: 'url',
   type: 'type',
-  lessonId: 'lessonId'
+  lessonId: 'lessonId',
+  courseId: 'courseId'
 };
 
 exports.Prisma.TestQuestionScalarFieldEnum = {

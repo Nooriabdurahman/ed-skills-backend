@@ -8,8 +8,8 @@ export class TestService {
    * Create a test for a course
    */
   static async createTest(
-    courseId: number,
     name: string,
+    courseId?: number,
     description?: string,
     trainer?: string,
     trainerImage?: string,
@@ -26,8 +26,8 @@ export class TestService {
   ) {
     return prisma.courseTest.create({
       data: {
-        courseId,
         name,
+        courseId: courseId ?? null,
         description: description ?? null,
         trainer: trainer ?? null,
         trainerImage: trainerImage ?? null,

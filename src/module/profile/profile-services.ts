@@ -8,8 +8,8 @@ import { AuthRequest } from '../../common/midlewere/authMiddlewere';
 
 // آپلود عکس پروفایل به Vercel Blob
 export const uploadProfilePicture = async (req: AuthRequest, res: Response) => {
-  if (!req.file) return res.status(400).json({ error: 'No file uploaded' });
-  if (!req.user) return res.status(401).json({ error: 'Unauthorized' });
+  if (!req.file) return res.status(400).json({ error: 'هیچ فایلی آپلود نشده است. لطفا فایل را با کلید "file" ارسال کنید.' });
+  if (!req.user) return res.status(401).json({ error: 'کاربر احراز هویت نشده است. لطفا توکن معتبر ارسال کنید.' });
 
   const fileName = crypto.randomBytes(16).toString('hex') + path.extname(req.file.originalname);
 
